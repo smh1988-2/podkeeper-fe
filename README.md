@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# Podkeeper
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The social podcast app - listen, review, and share the podcasts you're listening to. And see what friends are listening to and recommending. 
 
-## Available Scripts
+The backend repo is [here](http://github.com/).
 
-In the project directory, you can run:
+## User Stories
 
-### `npm start`
+As a user,
+* I want to be able to create an account, so I can log in and use the app.
+* I want to be able to search for podcasts and subscribe to them.
+* I want to be able to listen to an episode of a podcast, with the expected features of a podcast player (play/pauise, mute , skip).
+* I want to be able to give a x/5 star rating to each episode and leave a review.
+* I want to see a timeline of all the podcast episodes I've listened to or reviewed.
+* I want to search for other users and see their timelines.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Models and Relationships
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![My Data Relationships](public/podkeep-db-diagram.png)
 
-### `npm test`
+### User
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+A user has many subscriptions.
+A user has many episodes.
+A user has many relationships.
+A user has many activities.
 
-### `npm run build`
+### Podcasts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A podcast has many episodes.
+An episode belongs to a podcast.
+A podcast and an episode belong to a user_activity.
+A podcast and an episode belong to a user_subscription.
+A podcast and an episode belong to a user_episode.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## API
 
-### `npm run eject`
+Aside from my API, I am using iTunes Search to find podcasts and episodes. Each table will have multiple endpoints. Here are a few of the important ones:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### POST /users
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Creates a new user. Response JSON looks like this:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```json
+{ 
+  id: 111,
+  username: "johndoe",
+  firstname: "John",
+  lastname: "Doe",
+}
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### POST /user_subscriptions
 
-## Learn More
+Creates a new podcast subscription for the user. The data being sent:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```json
+{ user_id: 1,
+podcast_id: 1,
+podcast_rating: null }
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+There is also a DELETE and PATCH endpoint for this table.
 
-### Code Splitting
+### POST /user_activity
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Creates a new activity record for the user. The data being sent:
 
-### Analyzing the Bundle Size
+```json
+{ user_id: 1,
+podcast_id: 1,
+episode_id: 1,
+rating: 4,
+review: "my review is...",
+activity_type: "review" }
+```
+A user can only create new activites and see existing activites. They can't DELETE activities.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Wireframe / Mockup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Wireframe](https://i2.wp.com/d1dlalugb0z2hd.cloudfront.net/handbooks/agile-handbook/wireframe/01-youtube-wireframe-example.png?resize=800%2C528&ssl=1)
