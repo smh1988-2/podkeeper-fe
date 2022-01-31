@@ -2,14 +2,14 @@
 
 The social podcast app - listen, review, and share the podcasts you're listening to. And see what friends are listening to and recommending. 
 
-The backend repo is [here](http://github.com/).
+The backend repo is [here](https://github.com/smh1988-2/podkeeper-be).
 
 ## User Stories
 
 As a user,
 * I want to be able to create an account, so I can log in and use the app.
 * I want to be able to search for podcasts and subscribe to them.
-* I want to be able to listen to an episode of a podcast, with the expected features of a podcast player (play/pauise, mute , skip).
+* I want to be able to listen to an episode of a podcast, with the expected features of a podcast player (play/pause, mute , skip).
 * I want to be able to give a x/5 star rating to each episode and leave a review.
 * I want to see a timeline of all the podcast episodes I've listened to or reviewed.
 * I want to search for other users and see their timelines.
