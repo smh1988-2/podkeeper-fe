@@ -36,7 +36,7 @@ A podcast and an episode belong to a user_episode.
 
 ## API
 
-Aside from my API, I am using iTunes Search to find podcasts and episodes. Each table will have multiple endpoints. Here are a few of the important ones:
+Each table will have multiple endpoints. Here are a few of the important ones:
 
 ### POST /users
 
@@ -77,7 +77,9 @@ activity_type: "review" }
 ```
 A user can only create new activites and see existing activites. They can't DELETE activities.
 
+Aside from my API, I am using iTunes Search to find podcasts and episodes. 
+
 
 ## Wireframe / Mockup
 
-![Wireframe](https://i2.wp.com/d1dlalugb0z2hd.cloudfront.net/handbooks/agile-handbook/wireframe/01-youtube-wireframe-example.png?resize=800%2C528&ssl=1)
+![My Data Relationships](public/Homepage-1.jpeg)
