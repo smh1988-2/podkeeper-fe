@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import "./Podcasts.css"
 import EpisodeDetail from "./EpisodeDetail";
 import Row from "react-bootstrap/Row";
@@ -32,6 +33,8 @@ function PodcastDetail({ currentUser }) {
       });
   }, []);
 
+  
+
   function handleSubscribeClick() {
     fetch("http://127.0.0.1:3000/user_subscriptions", {
       method: "POST",
@@ -57,7 +60,14 @@ function PodcastDetail({ currentUser }) {
               width="90%"
               id="podcast-main-image"
             />
-            <Button onClick={handleSubscribeClick}>Subscribe</Button>
+            <Row>&nbsp;</Row>
+            <Row>
+                <Col></Col>
+                <Col>
+             <Button onClick={handleSubscribeClick}>Subscribe</Button>
+             </Col>
+             <Col></Col>
+            </Row>
           </Col>
 
           <Col xs={8} id="podcast-main-episode-list">
@@ -65,7 +75,14 @@ function PodcastDetail({ currentUser }) {
             {podcastEpisodes.results
               ? podcastEpisodes.results.slice(1).map((episode) => {
                   
-                return <EpisodeDetail episode={episode} />
+                return( 
+                <>
+                <Link to={`/episodes/${episode.trackId}`}>
+
+                <EpisodeDetail episode={episode} />
+
+                </Link>
+                </>)
                 })
               : null}
           </Col>
