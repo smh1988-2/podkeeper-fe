@@ -56,11 +56,11 @@ function Login({ setCurrentUser, currentUser }) {
           <Col></Col>
           <Col xs={10}>
             <Form onSubmit={handleLoginSubmit}>
-              <Form.Group className="mb-3" controlId="username">
+              <Form.Group className="mb-3" controlId="login-username">
               <Form.Control type="text" placeholder="Username" value={username} onChange={handleUsername} />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="password">
+              <Form.Group className="mb-3" controlId="login-password">
                 <Form.Control type="password" placeholder="Password" value={password} onChange={handlePassword} />
               </Form.Group>
 

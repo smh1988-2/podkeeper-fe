@@ -66,7 +66,7 @@ function Signup({ setCurrentUser, currentUser }) {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="username">
+        <Form.Group className="mb-3" controlId="signup-username">
           <Form.Control
             type="text"
             placeholder="Username"
@@ -75,7 +75,7 @@ function Signup({ setCurrentUser, currentUser }) {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3" controlId="signup-password">
           <Form.Control
             type="password"
             placeholder="Password"
@@ -84,7 +84,7 @@ function Signup({ setCurrentUser, currentUser }) {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" id="login-button">
+        <Button variant="primary" type="submit" id="signup-button">
           Sign up
         </Button>
       </Form>

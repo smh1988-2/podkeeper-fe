@@ -1,0 +1,21 @@
+#podcast-main-image {
+    padding-left: 75px!important;
+}
+
+#podcast-detail-top-row {
+    padding-top: 50px
+}
+
+#episode-detail-card {
+    border:0;
+    padding-bottom: 30px!important;
+}
+
+#podcast-main-episode-list {
+    padding-right: 200px!important;
+}
+
+.card-body {
+    padding-top: 0px!important;
+    padding-left: 50px!important;
+}
