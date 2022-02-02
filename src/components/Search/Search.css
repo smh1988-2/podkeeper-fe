@@ -14,3 +14,8 @@ a:hover {
     text-decoration: none!important;
     background-color: #e4e6e4
 }
+
+#button-addon2 {
+    background-color: #636f65;
+    color: #fff;
+}

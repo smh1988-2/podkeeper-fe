@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -8,12 +10,24 @@ import Container from "react-bootstrap/Container";
 
 function Login({ setCurrentUser, currentUser }) {
 
+  let navigate = useNavigate();
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [success, setSuccess] = useState("")
     const [error, setError] = useState("")
+    const [validated, setValidated] = useState(false);
+
 
     function handleLoginSubmit(e) {
+      const form = e.currentTarget;
+      //setCurrentUser({})
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      setValidated(true);
+
         e.preventDefault();
         fetch("http://127.0.0.1:3000/login", {
             method: "POST",
@@ -33,20 +47,14 @@ function Login({ setCurrentUser, currentUser }) {
                 setError("")
                 setSuccess(user)
                 setCurrentUser(user)
+                navigate("/")
               });
             } else {
-              r.json().then(err => setError(err));
+              r.json().then(err => {
+                setError(err)
+              });
             }
           });
-    }
-
-    //MOVE TO INLINE!
-    function handleUsername(e) {
-        setUsername(e.target.value)
-    }
-
-    function handlePassword(e) {
-        setPassword(e.target.value)
     }
 
   return (
@@ -55,16 +63,22 @@ function Login({ setCurrentUser, currentUser }) {
         <Row>
           <Col></Col>
           <Col xs={10}>
-            <Form onSubmit={handleLoginSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleLoginSubmit} id="login-form">
               <Form.Group className="mb-3" controlId="login-username">
-              <Form.Control type="text" placeholder="Username" value={username} onChange={handleUsername} />
+              <Form.Control required type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+              <Form.Control.Feedback type="invalid">
+              Please enter a username.
+            </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="login-password">
-                <Form.Control type="password" placeholder="Password" value={password} onChange={handlePassword} />
+                <Form.Control required type="password" placeholder="Password" value={password} onChange={e=> setPassword(e.target.value)} />
+                <Form.Control.Feedback type="invalid">
+              Please enter your password.
+            </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" type="submit" id="login-button">
+              <Button variant="primary" type="submit" id="forms-button">
                 Log in
               </Button>
             </Form>

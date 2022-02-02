@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchResults from "./SearchResults";
-import "./Search.css"
+import "./Search.css";
 
 // bootstrap
 import Form from "react-bootstrap/Form";
@@ -10,20 +10,25 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-function Search({currentUser}) {
-  const [searchTerm, setSearchTerm] = useState("");
+function Search({ currentUser }) {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchClicked, setSearchClicked] = useState(false)
-  
+  const [searchError, setSearchError] = useState("")
+
   function handleSearchFormSubmit(e) {
     e.preventDefault();
-    setSearchClicked(true)
+    setSearchError("");
+    setSearchResults([]);
     fetch(
-      `https://itunes.apple.com/search?term=${searchTerm}&entity=podcast&attributeType=titleTerm.`
+      `https://itunes.apple.com/search?term=${e.target[0].value}&entity=podcast&attributeType=titleTerm.`
     )
       .then((r) => r.json())
       .then((r) => {
-        setSearchResults(r.results);
+        console.log(r.results)
+        if (r.results.length > 0) {
+          setSearchResults(r.results);
+        } else {
+          setSearchError("no results")
+        }
       });
   }
 
@@ -40,7 +45,6 @@ function Search({currentUser}) {
                 placeholder="Search for a podcast..."
                 aria-label="Search for a podcast..."
                 aria-describedby="basic-addon2"
-                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Button
                 type="submit"
@@ -55,7 +59,24 @@ function Search({currentUser}) {
         <Col></Col>
       </Row>
 
-      <SearchResults searchResults={searchResults} currentUser={currentUser} searchClicked={searchClicked} />
+      
+        <SearchResults
+          searchResults={searchResults}
+          currentUser={currentUser}
+        />
+
+{searchError.length > 0  ? 
+     
+        <>
+          <Row style={{paddingTop:"30px"}}>
+            <Col></Col>
+            <Col className="text-center">
+              <p>Sorry, we couldn't find that 😢</p>
+              <p>Try searching for another podcast.</p>
+            </Col>
+            <Col></Col>
+          </Row>
+        </> : null }
 
     </div>
   );

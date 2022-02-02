@@ -4,13 +4,15 @@ import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
+import { MdPodcasts } from "react-icons/md"
 
 function Header({ currentUser }) {
   return (
     <div>
       <Row id="header-row">
         <Col xs={5} id="header-wordmark">
-          <h1>Podkeeper</h1>
+
+    <MdPodcasts />          
         </Col>
         <Col xs={5}>
           <Nav fill activeKey="/home">
@@ -41,7 +43,7 @@ function Header({ currentUser }) {
             <>
               <Row>
                 <div className="user-parent">
-                  <p className="user-child">{currentUser.user.first_name}</p>
+                  <p className="user-child">{currentUser.user.username}</p>
                   <img
                     className="user-child"
                     src="test-profile.png"

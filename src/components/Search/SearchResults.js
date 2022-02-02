@@ -28,7 +28,7 @@ function SearchResults({ searchResults, currentUser, searchClicked }) {
                   </>
                 );
               })
-            : <p>Try searching by the podcast name.</p>
+            : null
             }
            
         </Row>
