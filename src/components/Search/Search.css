@@ -1,0 +1,16 @@
+a {
+    color: #636f65!important;
+    text-decoration: none!important;
+}
+
+a:hover {
+    color: #485049!important;
+    text-decoration: none!important;
+    background-color: #e4e6e4
+}
+
+.card:hover {
+    color: #485049!important;
+    text-decoration: none!important;
+    background-color: #e4e6e4
+}

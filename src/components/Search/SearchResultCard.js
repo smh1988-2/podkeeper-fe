@@ -39,7 +39,7 @@ function SearchResultCard({
         onClick={handleSearchResultCardClick}
       >
         <Card.Img variant="top" src={result.artworkUrl600} />
-        <Card.Title style={{ height: "50px", margin: "12px" }}>
+        <Card.Title id="podcast-result-title" style={{ height: "50px", marginTop: "10px" }}>
           {result.collectionName}
         </Card.Title>
       </Card>

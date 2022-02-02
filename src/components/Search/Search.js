@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SearchResults from "./SearchResults";
+import "./Search.css"
 
 // bootstrap
 import Form from "react-bootstrap/Form";
@@ -12,10 +13,11 @@ import Button from "react-bootstrap/Button";
 function Search({currentUser}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [searchClicked, setSearchClicked] = useState(false)
   
   function handleSearchFormSubmit(e) {
     e.preventDefault();
-
+    setSearchClicked(true)
     fetch(
       `https://itunes.apple.com/search?term=${searchTerm}&entity=podcast&attributeType=titleTerm.`
     )
@@ -31,6 +33,7 @@ function Search({currentUser}) {
         <Col></Col>
         <Col>
           <h2 className="subheading">Search</h2>
+          <br />
           <Form onSubmit={(e) => handleSearchFormSubmit(e)}>
             <InputGroup className="mb-3">
               <FormControl
@@ -52,7 +55,7 @@ function Search({currentUser}) {
         <Col></Col>
       </Row>
 
-      <SearchResults searchResults={searchResults} currentUser={currentUser} />
+      <SearchResults searchResults={searchResults} currentUser={currentUser} searchClicked={searchClicked} />
 
     </div>
   );

@@ -64,7 +64,8 @@ function PodcastDetail({ currentUser }) {
             <Row>
                 <Col></Col>
                 <Col>
-             <Button onClick={handleSubscribeClick}>Subscribe</Button>
+                <Button onClick={handleSubscribeClick}>Subscribe</Button>
+             
              </Col>
              <Col></Col>
             </Row>
@@ -87,7 +88,7 @@ function PodcastDetail({ currentUser }) {
               : null}
           </Col>
         </Row>
-      ) : null}
+      ) : <p>Something went wrong.</p>}
     </div>
   );
 }

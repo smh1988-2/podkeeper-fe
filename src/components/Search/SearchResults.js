@@ -3,8 +3,10 @@ import SearchResultCard from "./SearchResultCard";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
+import "./Search.css"
 
-function SearchResults({ searchResults, currentUser }) {
+function SearchResults({ searchResults, currentUser, searchClicked }) {
+  console.log(searchResults)
   return (
     <div>
       <Container>
@@ -14,7 +16,7 @@ function SearchResults({ searchResults, currentUser }) {
           className="g-4"
           className="d-flex justify-content-center"
         >
-          {searchResults
+          {searchResults.length > 0
             ? searchResults.map((result) => {
                 return (
                   <>
@@ -26,7 +28,9 @@ function SearchResults({ searchResults, currentUser }) {
                   </>
                 );
               })
-            : null}
+            : <p>Try searching by the podcast name.</p>
+            }
+           
         </Row>
       </Container>
     </div>
