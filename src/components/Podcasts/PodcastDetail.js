@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Podcasts.css"
 import EpisodeDetail from "./EpisodeDetail";
 import Row from "react-bootstrap/Row";
@@ -12,6 +13,8 @@ function PodcastDetail({ currentUser }) {
   const [podcastEpisodes, setPodcastEpisodes] = useState([]);
   const [currentPodcast, setCurrentPodcast] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetch(`http://localhost:3000/podcasts/${id}`)
@@ -54,6 +57,15 @@ function PodcastDetail({ currentUser }) {
       {currentPodcast ? (
         <Row id="podcast-detail-top-row">
           <Col xs={4} id="podcast-main-image">
+
+
+
+
+            <Button onClick={() => navigate(-1)}>&#60; Go Back</Button>
+
+
+
+
             <img
               src={currentPodcast.artworkUrl600}
               alt={currentPodcast.collectionName}
@@ -64,7 +76,9 @@ function PodcastDetail({ currentUser }) {
             <Row>
                 <Col></Col>
                 <Col>
-                <Button onClick={handleSubscribeClick}>Subscribe</Button>
+
+                { currentUser.length > 0 ? <Button onClick={handleSubscribeClick}>Subscribe</Button> : null }
+                
              
              </Col>
              <Col></Col>

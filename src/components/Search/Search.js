@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import SearchResults from "./SearchResults";
+import RandomPodcasts from "./RandomPodcasts";
 import "./Search.css";
+import { AiOutlineSearch } from "react-icons/ai"
 
 // bootstrap
 import Form from "react-bootstrap/Form";
@@ -34,10 +36,10 @@ function Search({ currentUser }) {
 
   return (
     <div>
-      <Row>
+      <Row id="search-row">
         <Col></Col>
         <Col>
-          <h2 className="subheading">Search</h2>
+          <h2 className="subheading-white">Search</h2>
           <br />
           <Form onSubmit={(e) => handleSearchFormSubmit(e)}>
             <InputGroup className="mb-3">
@@ -51,15 +53,21 @@ function Search({ currentUser }) {
                 variant="outline-secondary"
                 id="button-addon2"
               >
-                Search
+                <span id="search-icon">
+                <AiOutlineSearch />
+                </span>
               </Button>
+              
             </InputGroup>
           </Form>
+          <Row className="text-center">
+          <p id="search-subtext">Doughboys, Why Won't You Date Me?, Sloppy Seconds, Comedy Bang Bang...</p>
+          </Row>
         </Col>
         <Col></Col>
       </Row>
 
-      
+      <RandomPodcasts />
         <SearchResults
           searchResults={searchResults}
           currentUser={currentUser}
