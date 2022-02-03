@@ -2,15 +2,19 @@ import React from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import { MdPodcasts } from "react-icons/md"
+
 function Splash() {
   return(
       <>
-          <Row style={{ height: "100vh" }} className="text-center align-middle">
-          <Row className="g-0 align-middle" id="full-row">&nbsp;</Row>
+          <Row style={{ height: "75%" }} className="text-center align-middle">
+          <Row className="g-0 align-middle">&nbsp;</Row>
               <Col></Col>
               <Col xs={10} className="text-center align-middle">
-                  <h1 className="white-text">Podkeeper</h1>
-                  <h4 className="white-text">Social podcasts</h4>
+                  <MdPodcasts className="white-text"/>
+                  <br /><br />
+                  <h1 className="white-text">Hello, listener!</h1>
+                  <h4 className="white-text-subheading">Log in or sign up to start listening to podcasts, rating episodes and sharing your favorites with friends.</h4>
               </Col>
               <Col></Col>
           </Row>

@@ -6,13 +6,13 @@ function SearchResultCard({
 }) {
   function handleSearchResultCardClick(e) {
 
-
+    const token = localStorage.getItem("token");
     // create the podcast in the backend
     fetch("http://127.0.0.1:3000/podcasts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-       // Authorization: "Bearer" + currentUser.token,
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({
         collectionName: result.collectionName,
@@ -39,7 +39,7 @@ function SearchResultCard({
         onClick={handleSearchResultCardClick}
       >
         <Card.Img variant="top" src={result.artworkUrl600} />
-        <Card.Title style={{ height: "50px", margin: "12px" }}>
+        <Card.Title id="podcast-result-title" style={{ height: "50px", marginTop: "10px" }}>
           {result.collectionName}
         </Card.Title>
       </Card>

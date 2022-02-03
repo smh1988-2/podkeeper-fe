@@ -22,7 +22,9 @@
 
 #header-wordmark {
     padding-left: 65px;
+    padding-bottom: 5px;
     color: #636f65;
+    font-size: 30px;
 }
 
 .user-parent {
