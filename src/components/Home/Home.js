@@ -59,7 +59,7 @@ function Home({ currentUser }) {
 
         {userActivity.filter(act => act.activity_type === "subscription").map(act => {
           return (
-            <p>You subscribed to {act.podcast.collectionName} on {handleDate(act.created_at)}.</p>
+            <p>You subscribed to <strong>{act.podcast.collectionName}</strong> on {handleDate(act.created_at)}.</p>
           )
         })
         }

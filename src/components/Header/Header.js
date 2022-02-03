@@ -43,13 +43,14 @@ function Header({ currentUser }) {
             <>
               <Row>
                 <div className="user-parent">
-                  <p className="user-child">{currentUser.user.username}</p>
+                <Link to="/profile" id="header-nav-link"> <p className="user-child">{currentUser.user.username}</p>
                   <img
                     className="user-child"
                     src="test-profile.png"
                     alt="profile pic"
                     height="35px"
                   />
+                  </Link>
                 </div>
               </Row>
             </>

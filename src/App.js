@@ -7,6 +7,7 @@ import Home from "./components/Home/Home";
 import MyPodcasts from "./components/MyPodcasts/MyPodcasts";
 import PodcastDetail from "./components/Podcasts/PodcastDetail";
 import Search from "./components/Search/Search";
+import Profile from "./components/User/Profile";
 
 import { Routes, Route, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -35,6 +36,8 @@ function App() {
 
       <Routes>
         <Route path="/home" element={<Home currentUser={currentUser} />} />
+
+        <Route path="/profile" element={<Profile currentUser={currentUser} />} />
 
         <Route path="/my-podcasts" element={<MyPodcasts currentUser={currentUser} />} />
 
