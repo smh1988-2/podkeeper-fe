@@ -55,8 +55,10 @@ function PodcastDetail({ currentUser }) {
     <div>
       {currentPodcast ? (
         <Row id="podcast-detail-top-row">
+
           <Col xs={4} id="podcast-main-image">
-            <Button onClick={() => navigate(-1)}>&#60; Go Back</Button>
+
+          <Button id="podcast-main-image" className="standard-button" onClick={() => navigate(-1)}>&#60; Back</Button>
 
             <img
               src={currentPodcast.artworkUrl600}

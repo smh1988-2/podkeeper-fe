@@ -27,3 +27,8 @@
 .progress-bar {
     background-color: #6f626c!important;
 }
+
+#back-button {
+    margin-bottom: 20px;
+    padding-right: 550px;
+}
