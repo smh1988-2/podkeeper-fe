@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchResults from "./SearchResults";
 import RandomPodcasts from "./RandomPodcasts";
 import "./Search.css";
-import { AiOutlineSearch } from "react-icons/ai"
+import { AiOutlineSearch } from "react-icons/ai";
 
 // bootstrap
 import Form from "react-bootstrap/Form";
@@ -14,7 +14,7 @@ import Button from "react-bootstrap/Button";
 
 function Search({ currentUser }) {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchError, setSearchError] = useState("")
+  const [searchError, setSearchError] = useState("");
 
   function handleSearchFormSubmit(e) {
     e.preventDefault();
@@ -25,11 +25,10 @@ function Search({ currentUser }) {
     )
       .then((r) => r.json())
       .then((r) => {
-        console.log(r.results)
         if (r.results.length > 0) {
           setSearchResults(r.results);
         } else {
-          setSearchError("no results")
+          setSearchError("no results");
         }
       });
   }
@@ -54,29 +53,29 @@ function Search({ currentUser }) {
                 id="button-addon2"
               >
                 <span id="search-icon">
-                <AiOutlineSearch />
+                  <AiOutlineSearch />
                 </span>
               </Button>
-              
             </InputGroup>
           </Form>
           <Row className="text-center">
-          <p id="search-subtext">Doughboys, Why Won't You Date Me?, Sloppy Seconds, Comedy Bang Bang...</p>
+            <p id="search-subtext">
+              Doughboys, Why Won't You Date Me?, Sloppy Seconds, Comedy Bang
+              Bang...
+            </p>
           </Row>
         </Col>
         <Col></Col>
       </Row>
 
-      <RandomPodcasts />
-        <SearchResults
-          searchResults={searchResults}
-          currentUser={currentUser}
-        />
+      {/* FIX THIS */}
+      {searchResults ? <RandomPodcasts /> : null}
 
-{searchError.length > 0  ? 
-     
+      <SearchResults searchResults={searchResults} currentUser={currentUser} />
+
+      {searchError.length > 0 ? (
         <>
-          <Row style={{paddingTop:"30px"}}>
+          <Row style={{ paddingTop: "30px" }}>
             <Col></Col>
             <Col className="text-center">
               <p>Sorry, we couldn't find that 😢</p>
@@ -84,8 +83,8 @@ function Search({ currentUser }) {
             </Col>
             <Col></Col>
           </Row>
-        </> : null }
-
+        </>
+      ) : null}
     </div>
   );
 }

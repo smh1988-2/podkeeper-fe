@@ -66,7 +66,7 @@ function Signup({ setCurrentUser, currentUser }) {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" id="forms-button">
+        <Button variant="primary" type="submit" className="standard-button">
           Sign up
         </Button>
       </Form>

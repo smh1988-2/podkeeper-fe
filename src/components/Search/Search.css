@@ -40,7 +40,8 @@ a:hover {
 #search-subtext {
     color:#fff;
     font-weight: 500;
-    padding-top: 10px
+    padding-top: 10px;
+    font-size: 16px;
 }
 
 #search-icon {
@@ -48,7 +49,7 @@ a:hover {
     font-size: 25px;
 }
 
-#random-podcast-header {
+.page-subheading {
     color: #2E5B4F;
     padding-top: 70px;
     padding-bottom: 10px;
