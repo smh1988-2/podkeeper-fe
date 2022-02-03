@@ -6,13 +6,13 @@ function SearchResultCard({
 }) {
   function handleSearchResultCardClick(e) {
 
-
+    const token = localStorage.getItem("token");
     // create the podcast in the backend
     fetch("http://127.0.0.1:3000/podcasts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-       // Authorization: "Bearer" + currentUser.token,
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({
         collectionName: result.collectionName,

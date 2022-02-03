@@ -68,10 +68,12 @@ function Search({ currentUser }) {
         <Col></Col>
       </Row>
 
-      {/* FIX THIS */}
-      {searchResults ? <RandomPodcasts /> : null}
+      
 
       <SearchResults searchResults={searchResults} currentUser={currentUser} />
+
+      {/* FIX THIS */}
+      {searchResults ? <RandomPodcasts /> : null}
 
       {searchError.length > 0 ? (
         <>

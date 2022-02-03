@@ -6,9 +6,7 @@ import "./Podcasts.css";
 import ReactPlayer from "react-player";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import Form from "react-bootstrap/Form";
 
 import {
   RiArrowGoForwardFill,
@@ -19,7 +17,7 @@ import {
   RiSubtractFill,
 } from "react-icons/ri";
 
-function EpisodeMainPage() {
+function EpisodeMainPage({ currentUser }) {
   useEffect(() => {
     fetch(`http://127.0.0.1:3000/episodes/${id}`)
       .then((r) => r.json())
@@ -53,7 +51,7 @@ function EpisodeMainPage() {
   }
 
   function handleSpeedChange(e) {
-    console.log(e);
+    //console.log(e);
   }
 
   function handleDuration(duration) {
@@ -62,7 +60,7 @@ function EpisodeMainPage() {
 
   function onProgress(e) {
     //console.log(played)
-    console.log(progress);
+    //console.log(progress);
     setProgress(e.playedSeconds);
     setPlayed(e.playedSeconds / 6000);
   }
@@ -75,21 +73,21 @@ function EpisodeMainPage() {
     setPlaybackRate((playbackRate -= 0.25));
   }
 
-  function handleSeekMouseDown() {
-    setSeeking(true);
-  }
+  // function handleSeekMouseDown() {
+  //   setSeeking(true);
+  // }
 
-  function handleSeekChange(e) {
-    console.log(e.target.value);
-    setPlayed(parseFloat(e.target.value));
-  }
+  // function handleSeekChange(e) {
+  //   //console.log(e.target.value);
+  //   setPlayed(parseFloat(e.target.value));
+  // }
 
-  function handleSeekMouseUp(e) {
-    setSeeking(false);
-    console.log(e.target.value);
-    player.current.seekTo(parseFloat(e.target.value));
-    //setPlayed(e.target.value)
-  }
+  // function handleSeekMouseUp(e) {
+  //   setSeeking(false);
+  //   //console.log(e.target.value);
+  //   player.current.seekTo(parseFloat(e.target.value));
+  //   //setPlayed(e.target.value)
+  // }
 
   function handleBackward() {
     player.current.seekTo(played - 0.002);
@@ -107,6 +105,22 @@ function EpisodeMainPage() {
 
   function handleEnded() {
     console.log("ended");
+    const token = localStorage.getItem("token");
+    fetch("http://127.0.0.1:3000/listened", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: currentUser.user.id,
+        podcast_id: currentEpisode.podcast_id,
+        episode_id: currentEpisode.id,
+        activity_type: "listened"
+      }),
+    })
+      .then((r) => r.json())
+      .then((r) => console.log(r));
   }
 
   return (
@@ -145,19 +159,10 @@ function EpisodeMainPage() {
                     min={0}
                     step="any"
                     max={0.999999}
-                    onMouseDown={handleSeekMouseDown}
-                    onChange={handleSeekChange}
-                    onMouseUp={handleSeekMouseUp}
+                    // onMouseDown={handleSeekMouseDown}
+                    // onChange={handleSeekChange}
+                    // onMouseUp={handleSeekMouseUp}
                   />
-                  {/* <input
-                    type="range"
-                    min={0}
-                    max={0.999999}
-                    
-                    value={played}
-                    style={{ width: 300 }}
-                    
-                  /> */}
                 </Col>
                 <Col></Col>
               </Row>
@@ -179,7 +184,7 @@ function EpisodeMainPage() {
                   onDuration={handleDuration}
                   onProgress={onProgress}
                   playbackRate={playbackRate}
-                  onSeek={(e) => console.log("onSeek", e)}
+                  //onSeek={(e) => console.log("onSeek", e)}
                   onEnded={handleEnded}
                 />
               </Row>

@@ -35,7 +35,6 @@ function PodcastDetail({ currentUser }) {
 
   function handleSubscribeClick() {
     const token = localStorage.getItem("token");
-    console.log(token)
     fetch("http://127.0.0.1:3000/user_subscriptions", {
       method: "POST",
       headers: {
@@ -45,6 +44,7 @@ function PodcastDetail({ currentUser }) {
       body: JSON.stringify({
         user_id: currentUser.user.id,
         podcast_id: currentPodcast.id,
+        activity_type: "subscription"
       }),
     })
       .then((r) => r.json())
