@@ -1,8 +1,7 @@
 import React from "react";
 
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
+import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 
 function UsersYouFollow({ userIsFollowing }) {
@@ -10,31 +9,41 @@ function UsersYouFollow({ userIsFollowing }) {
 
   return (
     <div>
+      
       {userIsFollowing.length > 0 ? (
         <>
           <h3 className="page-subheading">Following</h3>
 
+          <Container>
+        <Row
+          xs={1}
+          md={4}
+          className="g-4"
+          className="d-flex justify-content-left"
+        >
           {userIsFollowing.map((user) => {
             return (
               <>
-              {/* user is following does not have the info for user 2. need a custom serializer? Or a new fetch :( */}
-                <Card style={{ width: "5rem", border: "0px" }}>
+                <Card style={{ width: "7rem", border: "0px" }} key={user.id} >
                   <Card.Img
                     variant="top"
-                    src={user.user.profile_pic}
-                    alt={user.user.profile_pic}
+                    src={user.profile_pic}
+                    alt={user.profile_pic}
                   />
                   <Card.Body id="profile-card">
-                    <Card.Title>{user.user.username}</Card.Title>
+                    <Card.Title style={{fontSize: "15px"}}>{user.username}</Card.Title>
                   </Card.Body>
                 </Card>
               </>
             );
           })}
+          </Row>
+      </Container>
         </>
       ) : (
-        <p>You're not following anyone. Add some above!</p>
+        null
       )}
+      
     </div>
   );
 }

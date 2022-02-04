@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-function ProfileUserDetail({ currentUser, userIsFollowing }) {
+function ProfileUserDetail({ currentUser, userIsFollowing, usersFollowingYou }) {
   return (
     <div>
       <img
@@ -13,7 +13,7 @@ function ProfileUserDetail({ currentUser, userIsFollowing }) {
       <p>
         Following: {userIsFollowing.length}
         <br />
-        Followed by: Y
+        Followed by: {usersFollowingYou.length}
       </p>
       <Button>Logout</Button>
     </div>
