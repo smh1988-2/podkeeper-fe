@@ -5,6 +5,7 @@ import ProfileUserDetail from "./ProfileUserDetail";
 import FindUserForm from "./FindUserForm";
 import UserSearchReturnedUser from "./UserSearchReturnedUser";
 import UsersYouFollow from "./UsersYouFollow";
+import UserFollowers from "./UserFollowers";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -15,14 +16,22 @@ function Profile({ currentUser }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [returnedUser, setReturnedUser] = useState(false);
   const [error, setError] = useState("");
-  const [userIsFollowing, setUserIsFollowing] =useState([])
+  const [userIsFollowing, setUserIsFollowing] = useState([]) //rename to usersYouFollow
+  const [usersFollowingYou, setUsersFollowingYou] = useState([])
 
   useEffect(() => {
     fetch(`http://127.0.0.1:3000/following/${currentUser.user.id}`)
       .then((res) => res.json())
       .then((res) => {
           setUserIsFollowing(res)
-        console.log(res);
+      });
+  }, [returnedUser]);
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:3000/followers/${currentUser.user.id}`)
+      .then((res) => res.json())
+      .then((res) => {
+          setUsersFollowingYou(res)
       });
   }, [returnedUser]);
 
@@ -67,7 +76,7 @@ function Profile({ currentUser }) {
           <Container>
             <Row>
               <Col>
-                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing}/>
+                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing} usersFollowingYou={usersFollowingYou} />
               </Col>
 
               <Col xs={8}>
@@ -97,6 +106,7 @@ function Profile({ currentUser }) {
                 ) : null}
 
                 <UsersYouFollow userIsFollowing={userIsFollowing} />
+                <UserFollowers usersFollowingYou={usersFollowingYou} />
 
               </Col>
               <Col></Col>
