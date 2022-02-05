@@ -19,7 +19,7 @@ import {
 
 function EpisodeMainPage({ currentUser }) {
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/${id}`)
+    fetch(`https://podkeeper-be.herokuapp.com/episodes/${id}`)
       .then((r) => r.json())
       .then((r) => {
         setCurrentEpisode(r);
