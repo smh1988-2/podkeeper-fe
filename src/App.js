@@ -35,6 +35,7 @@ function App() {
       <Header currentUser={currentUser} />
 
       <Routes>
+      <Route path="/" element={<Forms setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/home" element={<Home currentUser={currentUser} />} />
 
         <Route path="/profile" element={<Profile currentUser={currentUser} />} />
