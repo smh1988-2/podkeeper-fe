@@ -6,7 +6,7 @@ function EpisodeDetail({ episode }) {
 
 
         // create the podcast in the backend
-        fetch("http://127.0.0.1:3000/episodes", {
+        fetch("https://podkeeper-be.herokuapp.com/episodes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

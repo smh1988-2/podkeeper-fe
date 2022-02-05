@@ -17,7 +17,7 @@ function UserSearchReturnedUser({
   function handleFollowClick() {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://127.0.0.1:3000/follow", {
+      fetch("https://podkeeper-be.herokuapp.com/follow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

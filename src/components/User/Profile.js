@@ -20,7 +20,7 @@ function Profile({ currentUser }) {
   const [usersFollowingYou, setUsersFollowingYou] = useState([])
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000/following/${currentUser.user.id}`)
+    fetch(`https://podkeeper-be.herokuapp.com/following/${currentUser.user.id}`)
       .then((res) => res.json())
       .then((res) => {
           setUserIsFollowing(res)
@@ -28,7 +28,7 @@ function Profile({ currentUser }) {
   }, [returnedUser]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000/followers/${currentUser.user.id}`)
+    fetch(`https://podkeeper-be.herokuapp.com/followers/${currentUser.user.id}`)
       .then((res) => res.json())
       .then((res) => {
           setUsersFollowingYou(res)
@@ -47,7 +47,7 @@ function Profile({ currentUser }) {
     setValidated(true);
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/user-search/${searchTerm}`, {
+      fetch(`https://podkeeper-be.herokuapp.com/${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

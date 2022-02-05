@@ -19,7 +19,7 @@ import {
 
 function EpisodeMainPage({ currentUser }) {
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000/episodes/${id}`)
+    fetch(`https://podkeeper-be.herokuapp.com/${id}`)
       .then((r) => r.json())
       .then((r) => {
         setCurrentEpisode(r);
@@ -106,7 +106,7 @@ function EpisodeMainPage({ currentUser }) {
   function handleEnded() {
     console.log("ended");
     const token = localStorage.getItem("token");
-    fetch("http://127.0.0.1:3000/listened", {
+    fetch("https://podkeeper-be.herokuapp.com/listened", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

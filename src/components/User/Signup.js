@@ -16,7 +16,7 @@ function Signup({ setCurrentUser, currentUser }) {
 
   function handleSignupSubmit(e) {
     e.preventDefault();
-    fetch("http://127.0.0.1:3000/signup", {
+    fetch("https://podkeeper-be.herokuapp.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -8,7 +8,7 @@ function SearchResultCard({
 
     const token = localStorage.getItem("token");
     // create the podcast in the backend
-    fetch("http://127.0.0.1:3000/podcasts", {
+    fetch("https://podkeeper-be.herokuapp.com/podcasts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
