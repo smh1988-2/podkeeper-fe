@@ -37,7 +37,8 @@ function Signup({ setCurrentUser, currentUser }) {
         });
       } else {
         r.json().then((err) => {
-            setCurrentUser({})
+          console.log(err)  
+          setCurrentUser({})
             setError(err);
         });
       }
