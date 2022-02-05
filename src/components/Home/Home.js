@@ -9,7 +9,7 @@ function Home({ currentUser }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`https://podkeeper-be.herokuapp.com/${currentUser.user.id}`, {
+      fetch(`https://podkeeper-be.herokuapp.com/my-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
