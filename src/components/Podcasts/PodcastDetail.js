@@ -16,7 +16,7 @@ function PodcastDetail({ currentUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/${id}`)
+    fetch(`https://podkeeper-be.herokuapp.com/podcasts/${id}`)
       .then((r) => r.json())
       .then((podcast) => {
         setCurrentPodcast(podcast);
@@ -35,7 +35,7 @@ function PodcastDetail({ currentUser }) {
 
   function handleSubscribeClick() {
     const token = localStorage.getItem("token");
-    fetch("https://podkeeper-be.herokuapp.com/user_subscriptions", {
+    fetch("http://127.0.0.1:3000/user_subscriptions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
