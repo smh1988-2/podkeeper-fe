@@ -10,7 +10,7 @@ function RandomPodcasts() {
   const [randomPodcasts, setRandomPodcasts] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:3000/random")
+    fetch("https://podkeeper-be.herokuapp.com/random")
       .then((r) => r.json())
       .then((r) => setRandomPodcasts(r));
   }, []);

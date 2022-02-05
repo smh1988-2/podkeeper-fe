@@ -12,7 +12,7 @@ function MyPodcasts({ currentUser }) {
   const [myPodcasts, setmyPodcasts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000/my-podcasts/${id}`, {
+    fetch(`https://podkeeper-be.herokuapp.com/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
