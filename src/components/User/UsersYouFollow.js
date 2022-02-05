@@ -9,7 +9,6 @@ function UsersYouFollow({ userIsFollowing }) {
 
   return (
     <div>
-      
       {userIsFollowing.length > 0 ? (
         <>
           <h3 className="page-subheading">Following</h3>
