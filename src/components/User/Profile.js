@@ -12,7 +12,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-function Profile({ currentUser }) {
+function Profile({ currentUser, setCurrentUser }) {
   const [validated, setValidated] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [returnedUser, setReturnedUser] = useState(false);
@@ -77,7 +77,7 @@ function Profile({ currentUser }) {
           <Container>
             <Row>
               <Col>
-                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing} usersFollowingYou={usersFollowingYou} />
+                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing} usersFollowingYou={usersFollowingYou} setCurrentUser={setCurrentUser} />
               </Col>
 
               <Col xs={8}>

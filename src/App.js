@@ -43,7 +43,7 @@ function App() {
       <Route path="/" element={<Forms setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/home" element={<Home currentUser={currentUser} />} />
 
-        <Route path="/profile" element={<Profile currentUser={currentUser} />} />
+        <Route path="/profile" element={<Profile currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
 
         <Route path="/my-podcasts" element={<MyPodcasts currentUser={currentUser} />} />
 

@@ -12,6 +12,7 @@ function MyPodcasts({ currentUser }) {
   const token = localStorage.getItem("token");
   const id = currentUser.user.id;
   const [myPodcasts, setmyPodcasts] = useState([]);
+  const [stars, setStars] = useState(true)
 
   useEffect(() => {
     fetch(`${env.API_URL}/my-podcasts/${id}`, {
@@ -57,6 +58,7 @@ function MyPodcasts({ currentUser }) {
                         key={podcast.podcast.collectionId}
                         result={podcast.podcast}
                         currentUser={currentUser}
+                        stars={stars}
                       />
                     </Link>
                   </>

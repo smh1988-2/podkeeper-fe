@@ -50,6 +50,7 @@ function Home({ currentUser }) {
         </Row>
       </Container>
 
+{/* MOVE TO NEW COMPONENT */}
       <Container>
         <Row
           xs={10}
@@ -78,6 +79,8 @@ function Home({ currentUser }) {
           </h3>
         </Row>
       </Container>
+
+      {/* MOVE TO NEW COMPONENT */}
 
       <Container>
         <Row

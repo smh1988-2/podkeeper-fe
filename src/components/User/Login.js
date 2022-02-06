@@ -20,7 +20,9 @@ function Login({ setCurrentUser, currentUser }) {
 
   function handleLoginSubmit(e) {
     const form = e.currentTarget;
+
     //setCurrentUser({})
+
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -42,12 +44,11 @@ function Login({ setCurrentUser, currentUser }) {
         r.json().then((user) => {
           localStorage.setItem("token", user.token);
           setSuccess(user);
-          console.log(user)
           setCurrentUser(user);
           setError("");
           setUsername("");
           setPassword("");
-          navigate("/"); //why is this not working?? Doesn't move to the page...
+          navigate("/home");
         });
       } else {
         r.json().then((err) => {
@@ -108,12 +109,12 @@ function Login({ setCurrentUser, currentUser }) {
         <p>Incorrect username or password. Please try again or sign up.</p>
       ) : null}
 
-      {currentUser.user ? (
+      {/* {currentUser.user ? (
         <p>
           You are logged in as {currentUser.user.first_name}{" "}
           {currentUser.user.last_name}
         </p>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }

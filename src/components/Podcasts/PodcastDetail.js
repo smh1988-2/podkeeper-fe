@@ -13,6 +13,8 @@ import Button from "react-bootstrap/Button";
 function PodcastDetail({ currentUser }) {
   const [podcastEpisodes, setPodcastEpisodes] = useState([]);
   const [currentPodcast, setCurrentPodcast] = useState({});
+  const [loading, setLoading] = useState(true);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -22,15 +24,16 @@ function PodcastDetail({ currentUser }) {
       .then((podcast) => {
         setCurrentPodcast(podcast);
       });
-  }, []);
+  }, [loading]);
 
   useEffect(() => {
     fetch(
-      `https://itunes.apple.com/lookup?id=${id}&country=US&media=podcast&entity=podcastEpisode&limit=5`
+      `https://itunes.apple.com/lookup?id=${id}&country=US&media=podcast&entity=podcastEpisode`
     )
       .then((r) => r.json())
       .then((r) => {
         setPodcastEpisodes(r);
+        setLoading(false);
       });
   });
 
@@ -45,21 +48,25 @@ function PodcastDetail({ currentUser }) {
       body: JSON.stringify({
         user_id: currentUser.user.id,
         podcast_id: currentPodcast.id,
-        activity_type: "subscription"
+        activity_type: "subscription",
       }),
     })
       .then((r) => r.json())
-      .then((r) => console.log(r));
+      //.then((r) => console.log(r));
   }
 
   return (
     <div>
       {currentPodcast ? (
         <Row id="podcast-detail-top-row">
-
           <Col xs={4} id="podcast-main-image">
-
-          <Button id="podcast-main-image" className="standard-button" onClick={() => navigate(-1)}>&#60; Back</Button>
+            <Button
+              id="podcast-main-image"
+              className="standard-button"
+              onClick={() => navigate(-1)}
+            >
+              &#60; Back
+            </Button>
 
             <img
               src={currentPodcast.artworkUrl600}
@@ -71,13 +78,14 @@ function PodcastDetail({ currentUser }) {
             <Row>
               <Col></Col>
               <Col>
-
-
                 {currentUser.user ? (
-                  <Button className="standard-button" onClick={handleSubscribeClick}>Subscribe</Button>
-                ) : null }
-
-
+                  <Button
+                    className="standard-button"
+                    onClick={handleSubscribeClick}
+                  >
+                    Subscribe
+                  </Button>
+                ) : null}
               </Col>
               <Col></Col>
             </Row>
@@ -98,9 +106,7 @@ function PodcastDetail({ currentUser }) {
               : null}
           </Col>
         </Row>
-      ) : (
-        <p>Something went wrong.</p>
-      )}
+      ) : null}
     </div>
   );
 }
