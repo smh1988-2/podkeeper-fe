@@ -1,15 +1,21 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
+import HomePageWelcomeMessage from "./HomePageWelcomeMessage";
+import UserSubscriptionActivity from "./UserSubscriptionActivity";
+import UserEpisodeActivity from "./UserEpisodeActivity";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
 import env from "react-dotenv";
+import { Container } from "react-bootstrap";
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    if (token && currentUser.user) {
       fetch(`${env.API_URL}/my-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -18,95 +24,72 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          console.log(data)
+          console.log(data);
         });
     }
-  }, []);
+  }, [loading]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  });
 
   function handleDate(date) {
     if (date === null) {
-      return date
+      return date;
     } else {
-    const year = date.slice(0, 4);
-    const month = date.slice(5, 7);
-    const day = date.slice(8, 10);
-    const formattedDate = `${month}/${day}/${year}`;
-    return formattedDate;
+      const year = date.slice(0, 4);
+      const month = date.slice(5, 7);
+      const day = date.slice(8, 10);
+      const formattedDate = `${month}/${day}/${year}`;
+      return formattedDate;
     }
   }
 
-  return <div>
-      { currentUser.user ? <h1>Welcome Home, {currentUser.user.username}.</h1> : <h1>Welcome Home.</h1> }
+  return (
+    <div>
+      {/* {currentUser.user && !loading ? (
+        <h1>Welcome Home, {currentUser.user.username}.</h1>
+      ) : null} */}
 
-     
-      { userActivity.length > 0 ? 
-
+      {!loading && userActivity.length > 0 ? (
         <>
-       <Container>
-        <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">
-            Recent subscriptions
-          </h3>
-        </Row>
-      </Container>
+          <UserSubscriptionActivity
+            userActivity={userActivity}
+            handleDate={handleDate}
+          />
 
-{/* MOVE TO NEW COMPONENT */}
-      <Container>
-        <Row
-          xs={10}
-          
-          className="g-4"
-          className="d-flex justify-content-center"
-        >
-
-        {userActivity.filter(act => act.activity_type === "subscription").map(act => {
-          return (
-            <p>You subscribed to <strong>{act.podcast.collectionName}</strong> on {handleDate(act.created_at)}.</p>
-          )
-        })
-        }
-
-</Row>
-      </Container>
-
-
-
-
-      <Container>
-        <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">
-            Recent episodes
-          </h3>
-        </Row>
-      </Container>
-
-      {/* MOVE TO NEW COMPONENT */}
-
-      <Container>
-        <Row
-          xs={10}
-          
-          className="g-4"
-          className="d-flex justify-content-center"
-        >
-
-        {userActivity.filter(act => act.activity_type === "listened").map(act => {
-          return (
-            <p>You finished <strong>{act.episode.trackName}</strong> from {act.podcast.collectionName} on {handleDate(act.created_at)}.</p>
-          )
-        })
-        }
-
-</Row>
-      </Container>
+          <UserEpisodeActivity
+            userActivity={userActivity}
+            handleDate={handleDate}
+          />
         </>
-      
-      : <p>No activity.</p> }
-      
+      ) : null}
 
+      {currentUser.user ? (
+        <>
+          {/* MOVE TO NEW COMPONENT */}
+          <Container>
+            <Col></Col>
+            <Col className="text-center loading-animation">
+              <ScaleLoader
+                color={"#485049"}
+                loading={loading}
+                height={50}
+                size={250}
+              />{" "}
+            </Col>
+            <Col></Col>
+          </Container>
+        </>
+      ) : null}
 
-
-  </div>;
+      {currentUser.user ? null : (
+        <HomePageWelcomeMessage currentUser={currentUser} />
+      )}
+    </div>
+  );
 }
 
 export default Home;

@@ -7,12 +7,19 @@ import Search from "../Search/Search";
 import "../Search/Search.css";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import LoginButton from "../User/LoginButton";
 
 function MyPodcasts({ currentUser }) {
-  const token = localStorage.getItem("token");
-  const id = currentUser.user.id;
+  
   const [myPodcasts, setmyPodcasts] = useState([]);
-  const [stars, setStars] = useState(true)
+  const [stars, setStars] = useState(true);
+
+  const token = localStorage.getItem("token");
+  let id;
+
+  if (currentUser.user) {
+    id = currentUser.user.id;
+  }
 
   useEffect(() => {
     fetch(`${env.API_URL}/my-podcasts/${id}`, {
@@ -66,15 +73,24 @@ function MyPodcasts({ currentUser }) {
               })}
             </>
           ) : (
-            <p>
-              You're not subscribed to any podcasts! Search for some podcasts.
-            </p>
+            <p>You're not subscribed to any podcasts!</p>
           )}
+
+          
         </Row>
+
+        {currentUser.user ?
+         null :
+         <LoginButton currentUser={currentUser} /> }
+
       </Container>
 
-      <Container style={{width:"150%"}}>
-        <Row style={{width:"100%"}} xs={12} className="d-flex justify-content-center">
+      <Container style={{ width: "150%" }}>
+        <Row
+          style={{ width: "100%" }}
+          xs={12}
+          className="d-flex justify-content-center"
+        >
           <h3 className="page-subheading">
             Add more podcasts
             <br />

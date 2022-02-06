@@ -1,9 +1,20 @@
-#podcast-main-image {
-    padding-left: 75px!important;
+.back-button {
+    background-color: #ffffff;
+    border: none;
+    color: #2E5B4F;
+    font-size: 20px;
+}
+
+.back-button:hover {
+    background-color: #ffffff;
+    border: none;
+    color: #2E5B4F;
+    font-size: 20px;
 }
 
 #podcast-detail-top-row {
-    padding-top: 50px
+    padding-top: 50px;
+    --bs-gutter-x: 0rem;
 }
 
 #episode-detail-card {
@@ -32,6 +43,11 @@
     margin-bottom: 20px;
     padding-right: 550px;
 }
+
+.back-button:focus {
+    box-shadow: none!important;
+}
+
 
 .loading-animation {
     margin-top:100px;
