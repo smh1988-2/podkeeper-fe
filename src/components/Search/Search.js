@@ -3,6 +3,7 @@ import SearchResults from "./SearchResults";
 import RandomPodcasts from "./RandomPodcasts";
 import "./Search.css";
 import { AiOutlineSearch } from "react-icons/ai";
+import env from "react-dotenv";
 
 // bootstrap
 import Form from "react-bootstrap/Form";
@@ -21,7 +22,7 @@ function Search({ currentUser }) {
     setSearchError("");
     setSearchResults([]);
     fetch(
-      `https://itunes.apple.com/search?term=${e.target[0].value}&entity=podcast&attributeType=titleTerm.`
+      `https://itunes.apple.com/search?term=${e.target[0].value}&entity=podcast&attributeType=titleTerm&limit=12.`
     )
       .then((r) => r.json())
       .then((r) => {
@@ -68,14 +69,11 @@ function Search({ currentUser }) {
         <Col></Col>
       </Row>
 
-      
-
       <SearchResults searchResults={searchResults} currentUser={currentUser} />
 
       {/* FIX THIS */}
-      {searchResults ? <RandomPodcasts /> : null}
 
-      {searchError.length > 0 ? (
+      {searchError === "no results" ? (
         <>
           <Row style={{ paddingTop: "30px" }}>
             <Col></Col>
@@ -87,6 +85,8 @@ function Search({ currentUser }) {
           </Row>
         </>
       ) : null}
+
+      {searchResults ? <RandomPodcasts /> : null}
     </div>
   );
 }

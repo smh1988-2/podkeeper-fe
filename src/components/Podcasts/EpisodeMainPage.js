@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
+import env from "react-dotenv";
 import Duration from "./Duration";
 import "./Podcasts.css";
 
 import ReactPlayer from "react-player";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -18,18 +20,10 @@ import {
 } from "react-icons/ri";
 
 function EpisodeMainPage({ currentUser }) {
-  useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/episodes/${id}`)
-      .then((r) => r.json())
-      .then((r) => {
-        setCurrentEpisode(r);
-        setAudioUrl(r.episodeUrl);
-      });
-  }, []);
-
+  const { id } = useParams();
   const [currentEpisode, setCurrentEpisode] = useState({});
   const [audioUrl, setAudioUrl] = useState("");
-  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
 
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -39,8 +33,21 @@ function EpisodeMainPage({ currentUser }) {
   let [playbackRate, setPlaybackRate] = useState(1);
   let [volume, setVolume] = useState(0.5);
   let [seeking, setSeeking] = useState(false);
-
   const player = useRef();
+
+  useEffect(() => {
+    fetch(`${env.API_URL}/episodes/${id}`)
+      .then((r) => r.json())
+      .then((r) => {
+        setCurrentEpisode(r);
+        console.log(r);
+        setAudioUrl(r.episodeUrl);
+      });
+  }, [loading]);
+
+  useEffect(() => {
+    setTimeout(() => {setLoading(false)}, 2500);
+  })
 
   function handlePlayPause() {
     setPlaying(!playing);
@@ -116,7 +123,7 @@ function EpisodeMainPage({ currentUser }) {
         user_id: currentUser.user.id,
         podcast_id: currentEpisode.podcast_id,
         episode_id: currentEpisode.id,
-        activity_type: "listened"
+        activity_type: "listened",
       }),
     })
       .then((r) => r.json())
@@ -125,6 +132,18 @@ function EpisodeMainPage({ currentUser }) {
 
   return (
     <div>
+      {!currentEpisode && loading ? (
+        <>
+          <Row>
+            <Col></Col>
+            <Col className="text-center loading-animation">
+              <ScaleLoader color={"#485049"} loading={loading} height={50} size={250} />{" "}
+            </Col>
+            <Col></Col>
+          </Row>
+        </>
+      ) : null}
+
       {currentEpisode ? (
         <>
           <Row>
@@ -225,7 +244,7 @@ function EpisodeMainPage({ currentUser }) {
                   <span style={{ fontSize: "1em", color: "#2E5B4F" }}>
                     <RiSubtractFill onClick={handleSlower} />
                   </span>
-                        &nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;
                   <span>{playbackRate}x</span>
                   &nbsp;&nbsp;&nbsp;
                   <span style={{ fontSize: "1em", color: "#2E5B4F" }}>
@@ -239,9 +258,7 @@ function EpisodeMainPage({ currentUser }) {
             <Col></Col>
           </Row>
         </>
-      ) : (
-        <p>Something went wrong!</p>
-      )}
+      ) : null}
     </div>
   );
 }

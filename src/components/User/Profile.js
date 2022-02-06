@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import env from "react-dotenv";
 
 import ProfileUserDetail from "./ProfileUserDetail";
 import FindUserForm from "./FindUserForm";
@@ -11,7 +12,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-function Profile({ currentUser }) {
+function Profile({ currentUser, setCurrentUser }) {
   const [validated, setValidated] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [returnedUser, setReturnedUser] = useState(false);
@@ -20,7 +21,7 @@ function Profile({ currentUser }) {
   const [usersFollowingYou, setUsersFollowingYou] = useState([])
 
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/following/${currentUser.user.id}`)
+    fetch(`${env.API_URL}/following/${currentUser.user.id}`)
       .then((res) => res.json())
       .then((res) => {
           setUserIsFollowing(res)
@@ -28,7 +29,7 @@ function Profile({ currentUser }) {
   }, [returnedUser]);
 
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/followers/${currentUser.user.id}`)
+    fetch(`${env.API_URL}/followers/${currentUser.user.id}`)
       .then((res) => res.json())
       .then((res) => {
           setUsersFollowingYou(res)
@@ -47,7 +48,7 @@ function Profile({ currentUser }) {
     setValidated(true);
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`https://podkeeper-be.herokuapp.com/${searchTerm}`, {
+      fetch(`${env.API_URL}/user-search/${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -76,7 +77,7 @@ function Profile({ currentUser }) {
           <Container>
             <Row>
               <Col>
-                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing} usersFollowingYou={usersFollowingYou} />
+                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing} usersFollowingYou={usersFollowingYou} setCurrentUser={setCurrentUser} />
               </Col>
 
               <Col xs={8}>

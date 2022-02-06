@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import env from "react-dotenv";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,11 +18,11 @@ function UserSearchReturnedUser({
   function handleFollowClick() {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("https://podkeeper-be.herokuapp.com/follow", {
+      fetch(`${env.API_URL}/follow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          //NEED TO INCLUDE TOKEN LOL
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           user_id: currentUser.user.id,
@@ -31,11 +32,11 @@ function UserSearchReturnedUser({
       }).then((r) => {
         if (r.ok) {
           r.json().then((res) => {
-            console.log(res);
+            //console.log(res);
           });
         } else {
           r.json().then((err) => {
-            console.log(err);
+            //console.log(err);
           });
         }
       });

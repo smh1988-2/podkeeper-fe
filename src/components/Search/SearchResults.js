@@ -5,8 +5,7 @@ import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import "./Search.css"
 
-function SearchResults({ searchResults, currentUser, searchClicked }) {
-  console.log(searchResults)
+function SearchResults({ searchResults, currentUser }) {
   return (
     <div>
       <Container>

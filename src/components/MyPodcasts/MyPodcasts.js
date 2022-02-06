@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import env from "react-dotenv";
+
 import SearchResultCard from "../Search/SearchResultCard";
 import Search from "../Search/Search";
 import "../Search/Search.css";
@@ -10,9 +12,10 @@ function MyPodcasts({ currentUser }) {
   const token = localStorage.getItem("token");
   const id = currentUser.user.id;
   const [myPodcasts, setmyPodcasts] = useState([]);
+  const [stars, setStars] = useState(true)
 
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/${id}`, {
+    fetch(`${env.API_URL}/my-podcasts/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -55,6 +58,7 @@ function MyPodcasts({ currentUser }) {
                         key={podcast.podcast.collectionId}
                         result={podcast.podcast}
                         currentUser={currentUser}
+                        stars={stars}
                       />
                     </Link>
                   </>

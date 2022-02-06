@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchResultCard from "./SearchResultCard";
 import "./Search.css";
+import env from "react-dotenv";
 
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
@@ -10,7 +11,7 @@ function RandomPodcasts() {
   const [randomPodcasts, setRandomPodcasts] = useState([]);
 
   useEffect(() => {
-    fetch("https://podkeeper-be.herokuapp.com/random")
+    fetch(`${env.API_URL}/random`)
       .then((r) => r.json())
       .then((r) => setRandomPodcasts(r));
   }, []);

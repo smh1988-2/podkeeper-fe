@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import env from "react-dotenv";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -19,7 +20,9 @@ function Login({ setCurrentUser, currentUser }) {
 
   function handleLoginSubmit(e) {
     const form = e.currentTarget;
+
     //setCurrentUser({})
+
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
@@ -27,7 +30,7 @@ function Login({ setCurrentUser, currentUser }) {
     setValidated(true);
 
     e.preventDefault();
-    fetch("https://podkeeper-be.herokuapp.com/login", {
+    fetch(`${env.API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +48,7 @@ function Login({ setCurrentUser, currentUser }) {
           setError("");
           setUsername("");
           setPassword("");
-          navigate("/");
+          navigate("/home");
         });
       } else {
         r.json().then((err) => {
@@ -106,12 +109,12 @@ function Login({ setCurrentUser, currentUser }) {
         <p>Incorrect username or password. Please try again or sign up.</p>
       ) : null}
 
-      {currentUser.user ? (
+      {/* {currentUser.user ? (
         <p>
           You are logged in as {currentUser.user.first_name}{" "}
           {currentUser.user.last_name}
         </p>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
