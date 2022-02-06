@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import env from "react-dotenv";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -27,7 +28,7 @@ function Login({ setCurrentUser, currentUser }) {
     setValidated(true);
 
     e.preventDefault();
-    fetch("https://podkeeper-be.herokuapp.com/login", {
+    fetch(`${env.API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,11 +42,12 @@ function Login({ setCurrentUser, currentUser }) {
         r.json().then((user) => {
           localStorage.setItem("token", user.token);
           setSuccess(user);
+          console.log(user)
           setCurrentUser(user);
           setError("");
           setUsername("");
           setPassword("");
-          navigate("/");
+          navigate("/"); //why is this not working?? Doesn't move to the page...
         });
       } else {
         r.json().then((err) => {

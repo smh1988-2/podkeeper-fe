@@ -1,36 +1,63 @@
-#header-nav-link {
-    background-color: #ffffff!important;
-    border: 0!important;
-    color: black!important;
-    font-size: 14px!important;
-    margin-top: 8px;
+#header-nav-link:hover {
+  background-color: #ffffff !important;
 }
 
 #header-row {
-    --bs-gutter-x: 0rem !important;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    /* margin-left: 60px; */
+  --bs-gutter-x: 0rem !important;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #header-user {
-    text-align: center;
-    padding-right: 35px;
-    font-size: 14px!important;
+  text-align: center;
+  padding-right: 35px;
+  font-size: 14px !important;
 }
 
-
 #header-wordmark {
-    padding-left: 65px;
-    padding-bottom: 5px;
-    color: #636f65;
-    font-size: 30px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  color: #636f65;
+  font-size: 30px;
+  vertical-align: top;
 }
 
 .user-parent {
-    text-align: center;
-  }
-  .user-child {
-    display: inline-block;
-    padding: 2px;
-  }
+  text-align: center;
+  margin-top: 12px;
+}
+
+.user-child:hover {
+  background-color: white;
+}
+
+.user-parent:hover {
+  background-color: white;
+}
+
+.user-child {
+  display: inline-block;
+  padding: 2px;
+}
+
+.header-link-item {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 20px;
+  padding-left: 70px;
+  color: black !important;
+  font-size: 15px;
+}
+
+.header-link-item:hover {
+  background-color: #ffffff;
+}
+
+.nav {
+  margin-top: 16px;
+}
+
+.brand-name {
+  margin-top: 6.5px;
+  margin-left: -12px;
+}

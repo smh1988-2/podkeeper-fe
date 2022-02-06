@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import env from "react-dotenv";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from 'react-router-dom';
@@ -16,12 +17,13 @@ function Signup({ setCurrentUser, currentUser }) {
 
   function handleSignupSubmit(e) {
     e.preventDefault();
-    fetch("https://podkeeper-be.herokuapp.com/signup", {
+    fetch(`${env.API_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        // remove first name and last name
         first_name: firstName,
         last_name: lastName,
         username: username,

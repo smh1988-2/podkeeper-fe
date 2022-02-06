@@ -1,16 +1,17 @@
 import React from "react";
+import env from "react-dotenv";
 
 function EpisodeDetail({ episode }) {
 
+  const token = localStorage.getItem("token");
+
     function handleSearchResultCardClick(e) {
-
-
-        // create the podcast in the backend
-        fetch("https://podkeeper-be.herokuapp.com/episodes", {
+        // create the episode in the backend
+        fetch(`${env.API_URL}/episodes`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-           // Authorization: "Bearer" + currentUser.token,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             collectionName: episode.collectionName,
@@ -24,7 +25,8 @@ function EpisodeDetail({ episode }) {
             trackTimeMillis: episode.trackTimeMillis,
             trackId: episode.trackId
           }),
-        }).then(r => r.json()).then(r => console.log(r));
+        }).then(r => r.json())
+        // .then(r => console.log(r));
       }
 
 

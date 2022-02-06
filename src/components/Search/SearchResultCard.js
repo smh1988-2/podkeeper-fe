@@ -1,14 +1,17 @@
 import React from "react";
+import env from "react-dotenv";
+
 import Card from "react-bootstrap/Card";
 
 function SearchResultCard({
   result
 }) {
-  function handleSearchResultCardClick(e) {
 
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+
+  function handleSearchResultCardClick(e) {  
     // create the podcast in the backend
-    fetch("https://podkeeper-be.herokuapp.com/podcasts", {
+    fetch(`${env.API_URL}/podcasts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,16 +26,17 @@ function SearchResultCard({
         artistId: result.artistId,
         collectionId: result.collectionId,
       }),
-    }).then(r => r.json()).then(r => console.log(r));
+    }).then(r => r.json())
+    //.then(r => console.log(r));
   }
 
   return (
     <div>
       <Card
+      className="result-card"
         data-podcast-id={result.collectionId}
         style={{
-          width: "14rem",
-          margin: "12px",
+          margin: "30px",
           marginBottom: "25px",
           border: "0",
         }}

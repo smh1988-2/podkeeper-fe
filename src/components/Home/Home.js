@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import env from "react-dotenv";
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -9,7 +10,7 @@ function Home({ currentUser }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`https://podkeeper-be.herokuapp.com/my-activity/${currentUser.user.id}`, {
+      fetch(`${env.API_URL}/my-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

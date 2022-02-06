@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
+import env from "react-dotenv";
 import Duration from "./Duration";
 import "./Podcasts.css";
 
@@ -18,14 +19,6 @@ import {
 } from "react-icons/ri";
 
 function EpisodeMainPage({ currentUser }) {
-  useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/episodes/${id}`)
-      .then((r) => r.json())
-      .then((r) => {
-        setCurrentEpisode(r);
-        setAudioUrl(r.episodeUrl);
-      });
-  }, []);
 
   const [currentEpisode, setCurrentEpisode] = useState({});
   const [audioUrl, setAudioUrl] = useState("");
@@ -39,8 +32,18 @@ function EpisodeMainPage({ currentUser }) {
   let [playbackRate, setPlaybackRate] = useState(1);
   let [volume, setVolume] = useState(0.5);
   let [seeking, setSeeking] = useState(false);
-
   const player = useRef();
+
+  useEffect(() => {
+    fetch(`${env.API_URL}/episodes/${id}`)
+      .then((r) => r.json())
+      .then((r) => {
+        setCurrentEpisode(r);
+        console.log(r)
+        setAudioUrl(r.episodeUrl);
+      });
+  }, []);
+
 
   function handlePlayPause() {
     setPlaying(!playing);

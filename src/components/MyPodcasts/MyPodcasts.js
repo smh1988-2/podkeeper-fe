@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import env from "react-dotenv";
+
 import SearchResultCard from "../Search/SearchResultCard";
 import Search from "../Search/Search";
 import "../Search/Search.css";
@@ -12,7 +14,7 @@ function MyPodcasts({ currentUser }) {
   const [myPodcasts, setmyPodcasts] = useState([]);
 
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/${id}`, {
+    fetch(`${env.API_URL}/my-podcasts/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

@@ -1,3 +1,8 @@
+//import 'dotenv/config' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+//import express from 'express'
+
+import env from "react-dotenv";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EpisodeMainPage from "./components/Podcasts/EpisodeMainPage";
@@ -9,7 +14,7 @@ import PodcastDetail from "./components/Podcasts/PodcastDetail";
 import Search from "./components/Search/Search";
 import Profile from "./components/User/Profile";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -18,7 +23,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/auto_login`, {
+      fetch(`${env.API_URL}/auto_login`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import env from "react-dotenv";
 import "./Podcasts.css";
 import EpisodeDetail from "./EpisodeDetail";
 import Row from "react-bootstrap/Row";
@@ -16,7 +17,7 @@ function PodcastDetail({ currentUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://podkeeper-be.herokuapp.com/podcasts/${id}`)
+    fetch(`${env.API_URL}/podcasts/${id}`)
       .then((r) => r.json())
       .then((podcast) => {
         setCurrentPodcast(podcast);
@@ -31,11 +32,11 @@ function PodcastDetail({ currentUser }) {
       .then((r) => {
         setPodcastEpisodes(r);
       });
-  }, []);
+  });
 
   function handleSubscribeClick() {
     const token = localStorage.getItem("token");
-    fetch("http://127.0.0.1:3000/user_subscriptions", {
+    fetch(`${env.API_URL}/user_subscriptions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
