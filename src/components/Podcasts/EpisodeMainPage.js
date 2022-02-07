@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
 import Duration from "./Duration";
 import "./Podcasts.css";
@@ -7,9 +8,11 @@ import "./Podcasts.css";
 import ReactPlayer from "react-player";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { Rating } from "react-simple-star-rating";
+import { RiArrowLeftLine } from "react-icons/ri";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 import {
@@ -23,9 +26,13 @@ import {
 
 function EpisodeMainPage({ currentUser }) {
   const { id } = useParams();
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const [currentEpisode, setCurrentEpisode] = useState({});
   const [audioUrl, setAudioUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [starRating, setStarRating] = useState();
+
 
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -35,8 +42,7 @@ function EpisodeMainPage({ currentUser }) {
   let [playbackRate, setPlaybackRate] = useState(1);
   let [volume, setVolume] = useState(0.5);
   let [seeking, setSeeking] = useState(false);
-  const [starRating, setStarRating] = useState();
-  const token = localStorage.getItem("token");
+
 
 
   const player = useRef();
@@ -187,6 +193,16 @@ function EpisodeMainPage({ currentUser }) {
 
             <Col className="text-center">
               <Row>
+
+
+
+              <Button className="back-button-episode-main-page" onClick={() => navigate(-1)}>
+              <RiArrowLeftLine /> Back
+              </Button>
+
+
+
+
                 <h4 className="subheading">{currentEpisode.collectionName}</h4>
               </Row>
               <Row>
@@ -244,6 +260,7 @@ function EpisodeMainPage({ currentUser }) {
                 />
               </Row>
 
+          {/* Move to new component */}
               <Row id="play-pause-row" className="align-middle">
                 <Col></Col>
                 <Col>
@@ -274,6 +291,7 @@ function EpisodeMainPage({ currentUser }) {
                 <Col></Col>
               </Row>
 
+              {/* Move to new component */}
               <Row>
                 <Col></Col>
                 <Col>

@@ -58,7 +58,7 @@ function PodcastDetail({ currentUser }) {
           podcasts.map((p) => {
             arr.push(p.podcast_id);
           });
-          const found = arr.includes(currentPodcast.id);
+          const found = arr.includes(currentPodcast.id); // this broken???
           setSubscribedToThisPodcast(found);
         });
       } else {

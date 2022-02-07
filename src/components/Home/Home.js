@@ -4,10 +4,11 @@ import HomePageWelcomeMessage from "./HomePageWelcomeMessage";
 import UserSubscriptionActivity from "./UserSubscriptionActivity";
 import UserEpisodeActivity from "./UserEpisodeActivity";
 import UserRatingActivity from "./UserRatingActivity";
+import UserEpisodeRatingActivity from "./UserEpisodeRatingActivity";
 import Loading from "./Loading";
-import Col from "react-bootstrap/Col";
+
 import env from "react-dotenv";
-import Container from "react-bootstrap/Container";
+
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -70,11 +71,10 @@ function Home({ currentUser }) {
             handleDate={handleDate}
           />
 
-          {/* in case I want to put this into it's own section  */}
-          {/* <UserEpisodeRatingActivity
+\          <UserEpisodeRatingActivity
             userActivity={userActivity}
             handleDate={handleDate}
-          /> */}
+          />
         </>
       ) : null}
 
