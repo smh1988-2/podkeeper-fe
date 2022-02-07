@@ -3,7 +3,7 @@ import SearchResults from "./SearchResults";
 import RandomPodcasts from "./RandomPodcasts";
 import "./Search.css";
 import { AiOutlineSearch } from "react-icons/ai";
-import env from "react-dotenv";
+// import env from "react-dotenv";
 
 // bootstrap
 import Form from "react-bootstrap/Form";

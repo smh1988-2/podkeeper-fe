@@ -6,17 +6,20 @@ import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
 import "./Podcasts.css";
 import EpisodeDetail from "./EpisodeDetail";
+import SubscriptionButtons from "./SubscriptionButtons";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { RiArrowLeftLine } from "react-icons/ri";
+import { Rating } from "react-simple-star-rating";
 
 function PodcastDetail({ currentUser }) {
   const [podcastEpisodes, setPodcastEpisodes] = useState([]);
   const [currentPodcast, setCurrentPodcast] = useState({});
   const [loading, setLoading] = useState(true);
-  const [subscribeButtonEnabled, setSubscribedButtonEnabled] = useState(true);
-  const [subscribedToThisPodcast, setSubscribedToThisPodcast] = useState(false);
+  const [subscribeButtonEnabled, setSubscribedButtonEnabled] = useState(true); //move to sub button component?
+  const [subscribedToThisPodcast, setSubscribedToThisPodcast] = useState(false); //move to sub button component?
+  const [starRating, setStarRating] = useState();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,6 +30,7 @@ function PodcastDetail({ currentUser }) {
       .then((r) => r.json())
       .then((podcast) => {
         setCurrentPodcast(podcast);
+        //console.log(podcast)
       });
   }, [loading]);
 
@@ -65,9 +69,27 @@ function PodcastDetail({ currentUser }) {
     });
   }, [currentPodcast]);
 
-  function handleSubscribeClick() {
-    const token = localStorage.getItem("token");
-    fetch(`${env.API_URL}/user_subscriptions`, {
+  // Getting the users rating of this podcast (if a rating exists). merge with useEffect above??
+  useEffect(() => {
+    fetch(
+      `${env.API_URL}/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
+    ).then((res) => {
+      if (res.ok) {
+        res.json().then((res) => {
+          setStarRating(res[0].rating); //doesn't work for new podcasts...
+        });
+      } else {
+        res.json().then((err) => {
+          console.log(err);
+        });
+      }
+    });
+  }, [currentPodcast]);
+
+  function handleStarRatingClick(e) {
+    setStarRating(e);
+
+    fetch(`${env.API_URL}/rating`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,13 +98,20 @@ function PodcastDetail({ currentUser }) {
       body: JSON.stringify({
         user_id: currentUser.user.id,
         podcast_id: currentPodcast.id,
-        activity_type: "subscription",
+        activity_type: "podcast-rating",
+        rating: e,
       }),
-    })
-      .then((r) => r.json())
-      .then(() => {
-        setSubscribedButtonEnabled(false);
-      });
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((rating) => {
+          console.log(rating);
+        });
+      } else {
+        r.json().then((err) => {
+          console.log(err);
+        });
+      }
+    });
   }
 
   return (
@@ -103,35 +132,22 @@ function PodcastDetail({ currentUser }) {
               width="60%"
               id="podcast-main-image"
             />
-            <Row>&nbsp;</Row>
-            <Row>
-              <Col></Col>
-              <Col>
-                {currentUser.user &&
-                subscribeButtonEnabled &&
-                !subscribedToThisPodcast ? (
-                  <Button
-                    className="global-button"
-                    onClick={handleSubscribeClick}
-                  >
-                    Subscribe
-                  </Button>
-                ) : (
-                  <Button
-                    disabled
-                    className="global-button"
-                    // change this to handleUnsubscribeClick and enable the button????
-                    onClick={handleSubscribeClick}
-                  >
-                    Subscribed
-                  </Button>
-                )}
-              </Col>
-              <Col></Col>
-            </Row>
+            <br />
+            <br />
+            <Rating onClick={handleStarRatingClick} ratingValue={starRating} />
+            <br />
+            <br />
+            <SubscriptionButtons
+              currentUser={currentUser}
+              subscribeButtonEnabled={subscribeButtonEnabled}
+              subscribedToThisPodcast={subscribedToThisPodcast}
+              currentPodcast={currentPodcast}
+              setSubscribedButtonEnabled={setSubscribedButtonEnabled}
+            />
           </Col>
           <Col></Col>
 
+          {/* Move to new component lol */}
           <Col xs={8} id="podcast-main-episode-list">
             {podcastEpisodes.results
               ? podcastEpisodes.results.slice(1).map((episode) => {

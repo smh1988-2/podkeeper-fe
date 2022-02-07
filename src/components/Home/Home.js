@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import HomePageWelcomeMessage from "./HomePageWelcomeMessage";
 import UserSubscriptionActivity from "./UserSubscriptionActivity";
 import UserEpisodeActivity from "./UserEpisodeActivity";
-import ScaleLoader from "react-spinners/ScaleLoader";
-import Row from "react-bootstrap/Row";
+import UserRatingActivity from "./UserRatingActivity";
+import Loading from "./Loading";
 import Col from "react-bootstrap/Col";
 import env from "react-dotenv";
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -64,26 +64,21 @@ function Home({ currentUser }) {
             userActivity={userActivity}
             handleDate={handleDate}
           />
+
+          <UserRatingActivity
+            userActivity={userActivity}
+            handleDate={handleDate}
+          />
+
+          {/* in case I want to put this into it's own section  */}
+          {/* <UserEpisodeRatingActivity
+            userActivity={userActivity}
+            handleDate={handleDate}
+          /> */}
         </>
       ) : null}
 
-      {currentUser.user ? (
-        <>
-          {/* MOVE TO NEW COMPONENT */}
-          <Container>
-            <Col></Col>
-            <Col className="text-center loading-animation">
-              <ScaleLoader
-                color={"#485049"}
-                loading={loading}
-                height={50}
-                size={250}
-              />{" "}
-            </Col>
-            <Col></Col>
-          </Container>
-        </>
-      ) : null}
+      {currentUser.user ? <Loading loading={loading} /> : null}
 
       {currentUser.user ? null : (
         <HomePageWelcomeMessage currentUser={currentUser} />

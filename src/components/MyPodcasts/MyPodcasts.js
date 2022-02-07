@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import env from "react-dotenv";
 
+import LoginButton from "../User/LoginButton";
 import SearchResultCard from "../Search/SearchResultCard";
 import Search from "../Search/Search";
+import Loading from "../Home/Loading";
 import "../Search/Search.css";
+
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-import LoginButton from "../User/LoginButton";
+
 
 function MyPodcasts({ currentUser }) {
   
   const [myPodcasts, setmyPodcasts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [stars, setStars] = useState(true);
 
   const token = localStorage.getItem("token");
@@ -38,7 +42,11 @@ function MyPodcasts({ currentUser }) {
         });
       }
     });
-  }, []);
+  }, [loading]);
+
+  useEffect(() => {
+    setTimeout(() => {setLoading(false)}, 2500);
+  })
 
   return (
     <div>
@@ -51,11 +59,11 @@ function MyPodcasts({ currentUser }) {
       <Container>
         <Row
           xs={1}
-          md={4}
+          md={6}
           className="g-4"
           className="d-flex justify-content-center"
         >
-          {myPodcasts.length > 0 ? (
+          {myPodcasts.length > 0 && !loading ? (
             <>
               {myPodcasts.map((podcast) => {
                 return (
@@ -73,7 +81,10 @@ function MyPodcasts({ currentUser }) {
               })}
             </>
           ) : (
-            <p>You're not subscribed to any podcasts!</p>
+            <>
+          {/* hide if logged out? */}
+          <Loading loading={loading} />
+        </>
           )}
 
           

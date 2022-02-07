@@ -1,8 +1,6 @@
 import React from "react";
 import env from "react-dotenv";
-
 import Rating from "react-rating";
-
 import Card from "react-bootstrap/Card";
 
 import { RiHeart3Line, RiHeart3Fill} from "react-icons/ri";
@@ -60,14 +58,11 @@ function SearchResultCard({ result, stars }) {
         <>
         <br /><br />
         <span style={{ fontSize: "20px", color: "#FFBA01" }}>
-          <Rating
-            emptySymbol={<RiHeart3Line />}
-            fullSymbol={<RiHeart3Fill />}
-            onClick={handleStarRatingClick}
-          />
+          {/* rating */}
           </span>
         </>
       ) : null}
+
         </Card.Title>
       </Card>
       
