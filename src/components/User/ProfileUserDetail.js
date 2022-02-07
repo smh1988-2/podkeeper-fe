@@ -24,7 +24,7 @@ function ProfileUserDetail({ currentUser, userIsFollowing, usersFollowingYou, se
         <br />
         Followed by: {usersFollowingYou.length}
       </p>
-      <Button onClick={handleLogout}>Logout</Button>
+      <Button onClick={handleLogout} className="global-button">Logout</Button>
     </div>
   );
 }

@@ -52,3 +52,23 @@
 .loading-animation {
     margin-top:100px;
 }
+
+.back-button-episode-main-page {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    color: #2E5B4F;
+    font-size: 17px;
+    border: none;
+}
+
+.back-button-episode-main-page:hover {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    color: #2E5B4F;
+    font-size: 17px;
+    border: none;
+}
+
+.back-button-episode-main-page:focus {
+    box-shadow: none!important;
+}

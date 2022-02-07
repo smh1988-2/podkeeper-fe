@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
 import Duration from "./Duration";
 import "./Podcasts.css";
 
 import ReactPlayer from "react-player";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { Rating } from "react-simple-star-rating";
+import { RiArrowLeftLine } from "react-icons/ri";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 import {
@@ -21,9 +26,13 @@ import {
 
 function EpisodeMainPage({ currentUser }) {
   const { id } = useParams();
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const [currentEpisode, setCurrentEpisode] = useState({});
   const [audioUrl, setAudioUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [starRating, setStarRating] = useState();
+
 
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -33,6 +42,9 @@ function EpisodeMainPage({ currentUser }) {
   let [playbackRate, setPlaybackRate] = useState(1);
   let [volume, setVolume] = useState(0.5);
   let [seeking, setSeeking] = useState(false);
+
+
+
   const player = useRef();
 
   useEffect(() => {
@@ -40,7 +52,7 @@ function EpisodeMainPage({ currentUser }) {
       .then((r) => r.json())
       .then((r) => {
         setCurrentEpisode(r);
-        console.log(r);
+        // console.log(r.id);
         setAudioUrl(r.episodeUrl);
       });
   }, [loading]);
@@ -48,6 +60,36 @@ function EpisodeMainPage({ currentUser }) {
   useEffect(() => {
     setTimeout(() => {setLoading(false)}, 2500);
   })
+
+  function handleStarRatingClick(e) {
+    setStarRating(e);
+
+    fetch(`${env.API_URL}/rating`, {
+      
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: currentUser.user.id,
+        podcast_id: currentEpisode.podcast_id,
+        episode_id: currentEpisode.id,
+        activity_type: "episode-rating",
+        rating: e,
+      }),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((rating) => {
+          console.log(rating);
+        });
+      } else {
+        r.json().then((err) => {
+          console.log(err);
+        });
+      }
+    });
+  }
 
   function handlePlayPause() {
     setPlaying(!playing);
@@ -113,7 +155,7 @@ function EpisodeMainPage({ currentUser }) {
   function handleEnded() {
     console.log("ended");
     const token = localStorage.getItem("token");
-    fetch("https://podkeeper-be.herokuapp.com/listened", {
+    fetch(`${env.API_URL}/listened`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -151,6 +193,16 @@ function EpisodeMainPage({ currentUser }) {
 
             <Col className="text-center">
               <Row>
+
+
+
+              <Button className="back-button-episode-main-page" onClick={() => navigate(-1)}>
+              <RiArrowLeftLine /> Back
+              </Button>
+
+
+
+
                 <h4 className="subheading">{currentEpisode.collectionName}</h4>
               </Row>
               <Row>
@@ -208,6 +260,7 @@ function EpisodeMainPage({ currentUser }) {
                 />
               </Row>
 
+          {/* Move to new component */}
               <Row id="play-pause-row" className="align-middle">
                 <Col></Col>
                 <Col>
@@ -238,6 +291,7 @@ function EpisodeMainPage({ currentUser }) {
                 <Col></Col>
               </Row>
 
+              {/* Move to new component */}
               <Row>
                 <Col></Col>
                 <Col>
@@ -252,6 +306,8 @@ function EpisodeMainPage({ currentUser }) {
                   </span>
                 </Col>
                 <Col></Col>
+                <Rating onClick={handleStarRatingClick} ratingValue={starRating} />
+
               </Row>
             </Col>
 

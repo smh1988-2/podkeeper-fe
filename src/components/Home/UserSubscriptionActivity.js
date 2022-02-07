@@ -19,7 +19,10 @@ function UserSubscriptionActivity({ userActivity, handleDate }) {
               return (
                 <p key={act.podcast.id}>
                   You subscribed to{" "}
-                  <strong>{act.podcast.collectionName}</strong> on{" "}
+                  {/* fix the link - correct link but page doesn't render correctly. set loading........ */}
+                  <a href={`/podcasts/${act.podcast.collectionId}`}> 
+                  <strong>{act.podcast.collectionName}</strong>
+                  </a> on{" "}
                   {handleDate(act.created_at)}.
                 </p>
               );

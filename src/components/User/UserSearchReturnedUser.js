@@ -66,7 +66,7 @@ function UserSearchReturnedUser({
                   {userIsFollowing.some(checkUserId) ? (
                     <Button
                       disabled
-                      className="standard-button"
+                      className="global-button"
                       variant="primary"
                       onClick={handleFollowClick}
                     >
@@ -74,7 +74,7 @@ function UserSearchReturnedUser({
                     </Button>
                   ) : (
                     <Button
-                      className="standard-button"
+                    className="global-button"
                       variant="primary"
                       onClick={handleFollowClick}
                     >
