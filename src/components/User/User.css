@@ -6,6 +6,9 @@
     rgba(174, 182, 175, 1) 100%
   );
   border-radius: 60px;
+  margin-left: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 #full-row {

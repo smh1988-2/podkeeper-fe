@@ -76,7 +76,9 @@ function Home({ currentUser }) {
             handleDate={handleDate}
           />
         </>
-      ) : null}
+      ) : null } 
+
+      {!loading && userActivity.length === 0 && currentUser.user ? <p>You don't have any activity yet. Add some podcasts, add some friends, start listening and rating.</p> : null }
 
       {currentUser.user ? <Loading loading={loading} /> : null}
 

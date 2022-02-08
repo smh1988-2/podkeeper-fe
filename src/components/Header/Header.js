@@ -11,27 +11,24 @@ function Header({ currentUser }) {
   return (
     <div>
       <Row id="header-row">
+        <Col xs={1}></Col>
+        <Col>
+          <Container>
+            <Row className="d-flex">
+              <Col xs={12} id="header-wordmark">
+                <Row id="wordmark-row">
+                  <Col className="col-auto">
+                    <MdPodcasts />
+                  </Col>
 
-<Col xs={1}></Col>
-<Col>
-      <Container>
-        <Row className="d-flex">
-        <Col xs={12} id="header-wordmark">
-          <Row id="wordmark-row">
-
-            <Col className="col-auto">
-            <MdPodcasts />
-            </Col>
-
-            <Col>
-            <h2 className="brand-name">Podkeeper</h2>
-            </Col>
-
-          </Row>
+                  <Col>
+                    <h2 className="brand-name">Podkeeper</h2>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Container>
         </Col>
-        </Row>
-      </Container>
-</Col>
         <Col xs={2}></Col>
 
         <Col xs={5}>
@@ -45,15 +42,20 @@ function Header({ currentUser }) {
                 Home
               </Link>
             </Nav.Item>
-            <Nav.Item>
-              <Link
-                to="/my-podcasts"
-                id="header-nav-link"
-                className="header-link-item"
-              >
-                My Podcasts
-              </Link>
-            </Nav.Item>
+
+            {currentUser.user ? (
+              <>
+                <Nav.Item>
+                  <Link
+                    to="/my-podcasts"
+                    id="header-nav-link"
+                    className="header-link-item"
+                  >
+                    My Podcasts
+                  </Link>
+                </Nav.Item>
+              
+
             <Nav.Item>
               <Link
                 to="/search"
@@ -63,12 +65,16 @@ function Header({ currentUser }) {
                 Search
               </Link>
             </Nav.Item>
+            </>
+            ) : null}
           </Nav>
         </Col>
 
+{/* Move to new component */}
         <Col xs={2} id="header-user">
           {currentUser.user ? (
             <>
+            <br /><br />
               <Row>
                 <div className="user-parent">
                   <Link to="/profile" id="header-nav-link">
@@ -76,7 +82,7 @@ function Header({ currentUser }) {
                     <p className="user-child">{currentUser.user.username}</p>
                     <img
                       className="user-child"
-                      src="test-profile.png"
+                      src={currentUser.user.profile_pic}
                       alt="profile pic"
                       height="35px"
                     />
@@ -86,7 +92,8 @@ function Header({ currentUser }) {
             </>
           ) : (
             <>
-              <Link to="/login" id="header-nav-link">
+             <br />
+              <Link to="/login" id="header-nav-link" className="header-link-item">
                 Login
               </Link>
             </>

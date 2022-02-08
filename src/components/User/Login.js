@@ -21,7 +21,7 @@ function Login({ setCurrentUser, currentUser }) {
   function handleLoginSubmit(e) {
     const form = e.currentTarget;
 
-    //setCurrentUser({})
+    setCurrentUser({})
 
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -97,7 +97,7 @@ function Login({ setCurrentUser, currentUser }) {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="standard-button">
+              <Button variant="primary" type="submit" className="global-button">
                 Log in
               </Button>
             </Form>
@@ -109,13 +109,13 @@ function Login({ setCurrentUser, currentUser }) {
       {error ? (
         <p>Incorrect username or password. Please try again or sign up.</p>
       ) : null}
-
-      {/* {currentUser.user ? (
+{/* 
+      {currentUser.user ? (
         <p>
-          You are logged in as {currentUser.user.first_name}{" "}
-          {currentUser.user.last_name}
+          You are logged in as {currentUser.user.username}.
         </p>
       ) : null} */}
+
     </div>
   );
 }

@@ -26,6 +26,12 @@ function PodcastDetail({ currentUser }) {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  });
+
+  useEffect(() => {
     fetch(`${env.API_URL}/podcasts/${id}`)
       .then((r) => r.json())
       .then((podcast) => {
@@ -47,6 +53,7 @@ function PodcastDetail({ currentUser }) {
 
   const arr = [];
   useEffect(() => {
+    if(currentPodcast.user) {
     fetch(`${env.API_URL}/my-podcasts/${currentUser.user.id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -66,8 +73,8 @@ function PodcastDetail({ currentUser }) {
           console.log(err);
         });
       }
-    });
-  }, [currentPodcast]);
+    }); }
+  }, [currentPodcast, loading]);
 
   // Getting the users rating of this podcast (if a rating exists). merge with useEffect above??
   useEffect(() => {
@@ -84,7 +91,7 @@ function PodcastDetail({ currentUser }) {
         });
       }
     });
-  }, [currentPodcast]);
+  }, [currentPodcast, loading]);
 
   function handleStarRatingClick(e) {
     setStarRating(e);
