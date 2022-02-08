@@ -18,3 +18,7 @@
 .global-button:focus {
     box-shadow: none!important;
 }
+
+.episode-player-img-top {
+    border-radius: 20px!important;
+}

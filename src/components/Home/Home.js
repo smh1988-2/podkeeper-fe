@@ -25,7 +25,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          console.log(data);
+          // console.log("data is: ",data);
         });
     }
   }, [loading]);

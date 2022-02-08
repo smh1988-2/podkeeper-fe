@@ -22,6 +22,8 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("my token is: ", token)
+    console.log("api endpoint url: ", env.API_URL)
     if (token) {
       fetch(`${env.API_URL}/auto_login`, {
         headers: {
@@ -31,6 +33,7 @@ function App() {
         .then((resp) => resp.json())
         .then((data) => {
           setCurrentUser(data);
+          console.log("data returned from auto_login: ",data)
         });
     }
   }, []);

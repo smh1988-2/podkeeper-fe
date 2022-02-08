@@ -17,34 +17,44 @@ function Signup({ setCurrentUser, currentUser }) {
 
   function handleSignupSubmit(e) {
     e.preventDefault();
-    fetch(`${env.API_URL}/signup`, {
+    fetch(`${env.API_URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Accept": "application/json"
       },
       body: JSON.stringify({
-        // remove first name and last name
-        first_name: firstName,
-        last_name: lastName,
         username: username,
         password: password,
       })
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => {
-          console.log(user);
-          setError("");
-          setCurrentUser(user);
-          navigate("/")
-        });
-      } else {
-        r.json().then((err) => {
-          console.log(err)  
-          setCurrentUser({})
-            setError(err);
-        });
-      }
-    });
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      console.log("data.jwt is: ", data.jwt)
+      console.log("data.user is: ", data.user)
+      console.log("data from signup is: ", data)
+      localStorage.setItem("token", data.jwt)
+      setCurrentUser(data.user)
+    })
+    
+    
+    // .then((r) => {
+    //   if (r.ok) {
+    //     r.json().then((user) => {
+    //       localStorage.setItem("token", user.jwt) //or user.token??
+    //       console.log(user);
+    //       setError("");
+    //       setCurrentUser(user);
+    //       navigate("/")
+    //     });
+    //   } else {
+    //     r.json().then((err) => {
+    //       console.log(err)  
+    //       setCurrentUser({})
+    //         setError(err);
+    //     });
+    //   }
+    // });
   }
 
   return (

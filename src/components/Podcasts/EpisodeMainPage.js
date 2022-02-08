@@ -81,7 +81,7 @@ function EpisodeMainPage({ currentUser }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((rating) => {
-          console.log(rating);
+          //console.log(rating);
         });
       } else {
         r.json().then((err) => {
@@ -242,6 +242,7 @@ function EpisodeMainPage({ currentUser }) {
                 src={currentEpisode.artworkUrl600}
                 alt={currentEpisode.trackName}
                 height="400px"
+                className="episode-player-img-top"
               />
               <Row>
                 <ReactPlayer

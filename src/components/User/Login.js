@@ -43,6 +43,7 @@ function Login({ setCurrentUser, currentUser }) {
       if (r.ok) {
         r.json().then((user) => {
           localStorage.setItem("token", user.token);
+          console.log("user.token is: ", user.token)
           setSuccess(user);
           setCurrentUser(user);
           setError("");
