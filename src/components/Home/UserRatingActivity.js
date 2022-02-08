@@ -17,7 +17,7 @@ function UserRatingActivity({ userActivity, handleDate }) {
           {userActivity
             .filter((act) => act.activity_type === "podcast-rating")
             .map((act) => {
-              console.log(act);
+              //console.log(act);
               return (
                 <p key={act.podcast.id}>
                   You rated {" "}

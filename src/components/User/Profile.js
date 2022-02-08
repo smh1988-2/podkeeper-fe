@@ -51,7 +51,7 @@ function Profile({ currentUser, setCurrentUser }) {
       fetch(`${env.API_URL}/user-search/${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        },
+        }
       }).then((res) => {
         if (res.ok) {
           res.json().then((data) => {

@@ -21,7 +21,7 @@ function MyPodcasts({ currentUser }) {
   const token = localStorage.getItem("token");
   let id;
 
-  if (currentUser.user) {
+  if (currentUser.user.id) {
     id = currentUser.user.id;
   }
 

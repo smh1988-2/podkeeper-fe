@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LoginButton from "../User/LoginButton";
 import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import { MdPodcasts } from "react-icons/md";
 
 function HomePageWelcomeMessage({ currentUser }) {
   return (
     <div>
-      <Row className="text-center" id="search-row">
+      <Row className="text-center" id="welcome-row">
         <Col></Col>
         <Col xs={6}><MdPodcasts className="white-text" style={{fontSize:"60px"}} />
         <h3 className="white-text">Podkeeper</h3>
@@ -27,10 +28,22 @@ function HomePageWelcomeMessage({ currentUser }) {
           tracked in Podkeeper.
         </p>
         </span>
-        <Row>&nbsp;</Row>
-        <Link to="/login" id="header-nav-link">
-        <LoginButton currentUser={currentUser} />
-        </Link>
+
+        <Row className="text-center">
+        {/* <Row>&nbsp;</Row> */}
+        <Col></Col>
+        
+          <Col>
+          <Link to="/login">
+            <Button className="global-button">Login to Podkeeper</Button>
+            </Link>
+          </Col>
+ 
+        <Col></Col>
+      </Row>
+
+        
+                
         </Col>
         <Col></Col>
       </Row>

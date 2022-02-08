@@ -21,7 +21,7 @@ function SearchResults({ searchResults, currentUser }) {
                   <>
                     <Link to={`/podcasts/${result.collectionId}`}>
 
-                    <SearchResultCard key={result.collectionId} result={result} currentUser={currentUser} />
+                    <SearchResultCard key={result.collectionId} result={result} />
 
                     </Link>
                   </>

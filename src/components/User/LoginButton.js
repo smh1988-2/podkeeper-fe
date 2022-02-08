@@ -8,7 +8,7 @@ function LoginButton({ currentUser }) {
     <div>
       <Row className="text-center">
         <Col></Col>
-        {currentUser.user ? null : (
+        {currentUser ? null : (
           <Col>
             <Button className="global-button">Login to Podkeeper</Button>
           </Col>

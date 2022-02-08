@@ -25,7 +25,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          console.log(data);
+          // console.log("data is: ",data);
         });
     }
   }, [loading]);
@@ -76,7 +76,9 @@ function Home({ currentUser }) {
             handleDate={handleDate}
           />
         </>
-      ) : null}
+      ) : null } 
+
+      {!loading && userActivity.length === 0 && currentUser.user ? <p>You don't have any activity yet. Add some podcasts, add some friends, start listening and rating.</p> : null }
 
       {currentUser.user ? <Loading loading={loading} /> : null}
 

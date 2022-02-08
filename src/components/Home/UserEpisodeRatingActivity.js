@@ -17,10 +17,10 @@ function UserEpisodeRatingActivity({ userActivity, handleDate }) {
           {userActivity
             .filter((act) => act.activity_type === "episode-rating")
             .map((act) => {
-              console.log(act);
+              //console.log(act);
               return (
                 <p key={act.podcast.id}> 
-                  You rated{" "} {act.episode.trackName} from {""}
+                  You rated{" "} <strong>{act.episode.trackName}</strong> from {""}
                   <a href={`/podcasts/${act.podcast.collectionId}`}>
                     <strong>{act.podcast.collectionName}</strong>
                   </a>{" "}

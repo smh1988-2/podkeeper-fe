@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 
 function UsersYouFollow({ userIsFollowing }) {
-  console.log(userIsFollowing);
+  // console.log(userIsFollowing);
 
   return (
     <div>

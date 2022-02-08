@@ -3,8 +3,7 @@ import { useState } from "react";
 import env from "react-dotenv";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 function Signup({ setCurrentUser, currentUser }) {
   const [firstName, setFirstName] = useState("");
@@ -17,29 +16,30 @@ function Signup({ setCurrentUser, currentUser }) {
 
   function handleSignupSubmit(e) {
     e.preventDefault();
-    fetch(`${env.API_URL}/signup`, {
+    fetch(`${env.API_URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
-        // remove first name and last name
-        first_name: firstName,
-        last_name: lastName,
         username: username,
         password: password,
-      })
-    }).then((r) => {
+      }),
+    })
+    .then((r) => {
       if (r.ok) {
-        r.json().then((user) => {
-          console.log(user);
-          setError("");
-          setCurrentUser(user);
-          navigate("/")
+        r.json().then((data) => {
+    localStorage.setItem("token", data.include[0].jwt);
+    // console.log(token)
+    setError("");
+    //console.log(data)
+    setCurrentUser(data);
+    navigate("/");
         });
       } else {
         r.json().then((err) => {
-          console.log(err)  
+          console.log(err)
           setCurrentUser({})
             setError(err);
         });
@@ -50,7 +50,6 @@ function Signup({ setCurrentUser, currentUser }) {
   return (
     <div>
       <Form onSubmit={handleSignupSubmit} id="signup-form">
-
         <Form.Group className="mb-3" controlId="signup-username">
           <Form.Control
             type="text"
@@ -69,17 +68,33 @@ function Signup({ setCurrentUser, currentUser }) {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className="standard-button">
+        <Button variant="primary" type="submit" className="global-button">
           Sign up
         </Button>
       </Form>
 
-      { error ? <p>Incorrect username or password. Please try again or sign up.</p> : null }
+      {error ? (
+        <p>Incorrect username or password. Please try again or sign up.</p>
+      ) : null}
 
-      { currentUser.user ? <p>You are logged in as {currentUser.user.first_name} {currentUser.user.last_name}</p> : null }
-
+      {currentUser.user ? (
+        <p>
+          You are logged in as {currentUser.user.username}.</p>
+      ) : null}
     </div>
   );
 }
 
 export default Signup;
+
+
+  // .then((resp) => resp.json())
+      // .then((data) => {
+      //   // console.log("data.jwt is: ", data.jwt)
+      //   // console.log("data.user is: ", data.user)
+      //   // console.log("data from signup is: ", data)
+      //   localStorage.setItem("token", data.jwt);
+      //   setError("");
+      //   setCurrentUser(data.user);
+      //   navigate("/");
+      // });
