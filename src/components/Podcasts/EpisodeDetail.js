@@ -40,8 +40,8 @@ function EpisodeDetail({ episode }) {
             height="80%"
             onClick={handleSearchResultCardClick}
           />
-          <div className="col-lg-8 card-body" onClick={handleSearchResultCardClick}>
-            <h4 className="card-title">{episode.trackName}</h4>
+          <div className="col-lg-8 card-body" id="podcast-detail-episode-card" onClick={handleSearchResultCardClick}>
+            <h4 className="card-title podcast-detail-episode-title">{episode.trackName}</h4>
             <p className="card-text">{episode.description.substr(0, 300) + " " + "\u2026"}</p>
           </div>
         </div>

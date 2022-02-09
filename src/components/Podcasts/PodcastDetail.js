@@ -6,13 +6,9 @@ import { useNavigate } from "react-router-dom";
 import env from "react-dotenv";
 import "./Podcasts.css";
 import EpisodeDetail from "./EpisodeDetail";
-import SubscriptionButtons from "./SubscriptionButtons";
 import PodcastDetailInformation from "./PodcastDetailInformation";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import { RiArrowLeftLine } from "react-icons/ri";
-import { Rating } from "react-simple-star-rating";
 
 function PodcastDetail({ currentUser }) {
   const [podcastEpisodes, setPodcastEpisodes] = useState([]);
@@ -129,9 +125,9 @@ function PodcastDetail({ currentUser }) {
   return (
     <div>
       {currentPodcast ? (
-        <Row id="podcast-detail-top-row">
+        <Row id="podcast-detail-top-row" >
           <Col xs={1}></Col>
-        <Col xs={2}>
+        <Col xs={3}>
           <PodcastDetailInformation
             currentUser={currentUser}
             subscribeButtonEnabled={subscribeButtonEnabled}
@@ -143,8 +139,8 @@ function PodcastDetail({ currentUser }) {
           />
           </Col>
           
-      
-          <Col xs={4} id="podcast-main-episode-list">
+      <Col xs={1}></Col>
+          <Col xs={7} id="podcast-main-episode-list">
             {podcastEpisodes.results
               ? podcastEpisodes.results.slice(1).map((episode) => {
                   return (

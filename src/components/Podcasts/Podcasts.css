@@ -75,3 +75,13 @@
 .back-button-episode-main-page:focus {
   box-shadow: none !important;
 }
+
+#podcast-detail-episode-card {
+  padding-top:0px;
+  padding-left: 30px;
+  color: #000000;
+}
+
+.podcast-detail-episode-title {
+  color: #2e5b4f;
+}

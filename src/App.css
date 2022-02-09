@@ -45,3 +45,7 @@
   font-size: 14px;
   margin-top: -7px;
 }
+
+.card-img-top {
+  border-radius: 20px!important;
+}
