@@ -24,7 +24,7 @@
 
 .user-parent {
   text-align: center;
-  padding-top: 22px!important;
+  padding-top: 22px !important;
 }
 
 .user-child:hover {
@@ -61,7 +61,3 @@
   margin-top: 6.5px;
   margin-left: -12px;
 }
-
-/* .header-login {
-  margin-top: 200px!important;
-} */

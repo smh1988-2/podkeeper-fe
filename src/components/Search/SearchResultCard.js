@@ -34,18 +34,17 @@ function SearchResultCard({ result, stars }) {
   return (
     <div>
       <Card
-        className="result-card"
+        className="result-card-search-page"
         data-podcast-id={result.collectionId}
         style={{
-          margin: "30px",
-          marginBottom: "25px",
+          width: "15rem",
           border: "0",
         }}
         onClick={handleSearchResultCardClick}
       >
         <Card.Img variant="top" src={result.artworkUrl600} />
         <Card.Title
-          id="podcast-result-title"
+          className="podcast-result-title"
           style={{ height: "50px", marginTop: "10px" }}
         >
           {result.collectionName}

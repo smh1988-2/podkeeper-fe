@@ -9,12 +9,13 @@ import Loading from "./Loading";
 
 import env from "react-dotenv";
 
-
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
+  const [userFriendActivity, setUserFriendActivity] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
 
+  // get the activity for the current user
   useEffect(() => {
     if (token && currentUser.user) {
       fetch(`${env.API_URL}/my-activity/${currentUser.user.id}`, {
@@ -25,7 +26,23 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          // console.log("data is: ",data);
+          //console.log("data is: ", data);
+        });
+    }
+  }, [loading]);
+
+  // get the activity for the current user's friends. combine with above?
+  useEffect(() => {
+    if (token && currentUser.user) {
+      fetch(`${env.API_URL}/friend-activity/${currentUser.user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setUserFriendActivity(data);
+          console.log("data is: ", data);
         });
     }
   }, [loading]);
@@ -50,35 +67,53 @@ function Home({ currentUser }) {
 
   return (
     <div>
-      {/* {currentUser.user && !loading ? (
-        <h1>Welcome Home, {currentUser.user.username}.</h1>
-      ) : null} */}
+
+
+      {/* move to new component. take the useEffect with it?
+      {!loading && userActivity.length > 0 && userFriendActivity.length > 0 ? (
+        <>
+          {userFriendActivity.map((user) => {
+            return user.map((act) => {
+              return (
+                <p>
+                  {act.user.username} did something with{" "}
+                  {act.podcast.collectionName}
+                </p>
+              );
+            });
+          })}
+        </>
+      ) : (
+        null
+      )} */}
 
       {!loading && userActivity.length > 0 ? (
         <>
-          <UserSubscriptionActivity
-            userActivity={userActivity}
-            handleDate={handleDate}
-          />
-
           <UserEpisodeActivity
             userActivity={userActivity}
             handleDate={handleDate}
           />
-
+          <UserEpisodeRatingActivity
+            userActivity={userActivity}
+            handleDate={handleDate}
+          />
           <UserRatingActivity
             userActivity={userActivity}
             handleDate={handleDate}
           />
-
-\          <UserEpisodeRatingActivity
+          <UserSubscriptionActivity
             userActivity={userActivity}
             handleDate={handleDate}
           />
         </>
-      ) : null } 
+      ) : null}
 
-      {!loading && userActivity.length === 0 && currentUser.user ? <p>You don't have any activity yet. Add some podcasts, add some friends, start listening and rating.</p> : null }
+      {!loading && userActivity.length === 0 && currentUser.user ? (
+        <p>
+          You don't have any activity yet. Add some podcasts, add some friends,
+          start listening and rating.
+        </p>
+      ) : null}
 
       {currentUser.user ? <Loading loading={loading} /> : null}
 

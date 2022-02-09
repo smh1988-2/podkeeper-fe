@@ -13,7 +13,10 @@ function SearchResults({ searchResults, currentUser }) {
           xs={1}
           md={4}
           className="g-4"
-          className="d-flex justify-content-center"
+          className="d-flex justify-content-left"
+          style={{
+            marginTop: "70px"
+          }}
         >
           {searchResults.length > 0
             ? searchResults.map((result) => {
