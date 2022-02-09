@@ -11,9 +11,7 @@ import "../Search/Search.css";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-
 function MyPodcasts({ currentUser }) {
-  
   const [myPodcasts, setmyPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [stars, setStars] = useState(true);
@@ -45,26 +43,28 @@ function MyPodcasts({ currentUser }) {
   }, [loading]);
 
   useEffect(() => {
-    setTimeout(() => {setLoading(false)}, 2500);
-  })
+    setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+  });
 
   return (
     <div>
       <Container>
         <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">My Podcasts</h3>
+          <h3 className="page-subheading">My podcasts</h3>
         </Row>
       </Container>
 
-      <Container>
-        <Row
-          xs={1}
-          md={6}
-          className="g-4"
-          className="d-flex justify-content-center"
-        >
-          {myPodcasts.length > 0 && !loading ? (
-            <>
+      {myPodcasts.length > 0 && !loading ? (
+        <>
+          <Container>
+            <Row
+              xs={1}
+              md={4}
+              className="g-4"
+              className="d-flex justify-content-left"
+            >
               {myPodcasts.map((podcast) => {
                 return (
                   <>
@@ -79,22 +79,21 @@ function MyPodcasts({ currentUser }) {
                   </>
                 );
               })}
-            </>
-          ) : (
-            <>
-          {/* hide if logged out? */}
-          <Loading loading={loading} />
+            </Row>
+          </Container>
         </>
-          )}
+      ) : (
+        <>
+          <Container>
+            <Row className="d-flex justify-content-center">
+              {/* hide if logged out? */}
+              <Loading loading={loading} />
+            </Row>
+          </Container>
+        </>
+      )}
 
-          
-        </Row>
-
-        {currentUser.user ?
-         null :
-         <LoginButton currentUser={currentUser} /> }
-
-      </Container>
+      {currentUser.user ? null : <LoginButton currentUser={currentUser} />}
 
       <Container style={{ width: "150%" }}>
         <Row

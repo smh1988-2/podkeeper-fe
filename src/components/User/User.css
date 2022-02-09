@@ -108,14 +108,14 @@
 }
 
 #profile-page-pic {
-  margin-top:65px;
+  margin-top: 65px;
 }
 
 #profile-card :hover {
-  background-color:#dee2df;
+  background-color: #dee2df;
 }
 
 #profile-card {
-  padding-left:0px!important;
-  text-align:center;
+  padding-left: 0px !important;
+  text-align: center;
 }

@@ -7,6 +7,7 @@ import env from "react-dotenv";
 import "./Podcasts.css";
 import EpisodeDetail from "./EpisodeDetail";
 import SubscriptionButtons from "./SubscriptionButtons";
+import PodcastDetailInformation from "./PodcastDetailInformation";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -32,12 +33,13 @@ function PodcastDetail({ currentUser }) {
   });
 
   useEffect(() => {
-    fetch(`${env.API_URL}/podcasts/${id}`)
-      .then((r) => r.json())
-      .then((podcast) => {
-        setCurrentPodcast(podcast);
-        //console.log(podcast)
-      });
+    if (!loading) {
+      fetch(`${env.API_URL}/podcasts/${id}`)
+        .then((r) => r.json())
+        .then((podcast) => {
+          setCurrentPodcast(podcast);
+        });
+    }
   }, [loading]);
 
   useEffect(() => {
@@ -53,44 +55,47 @@ function PodcastDetail({ currentUser }) {
 
   const arr = [];
   useEffect(() => {
-    if(currentPodcast.user) {
-    fetch(`${env.API_URL}/my-podcasts/${currentUser.user.id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((podcasts) => {
-          podcasts.map((p) => {
-            arr.push(p.podcast_id);
+    if (currentPodcast.user) {
+      fetch(`${env.API_URL}/my-podcasts/${currentUser.user.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((r) => {
+        if (r.ok) {
+          r.json().then((podcasts) => {
+            podcasts.map((p) => {
+              arr.push(p.podcast_id);
+            });
+            const found = arr.includes(currentPodcast.id);
+            setSubscribedToThisPodcast(found);
           });
-          const found = arr.includes(currentPodcast.id); // this broken???
-          setSubscribedToThisPodcast(found);
-        });
-      } else {
-        r.json().then((err) => {
-          console.log(err);
-        });
-      }
-    }); }
+        } else {
+          r.json().then((err) => {
+            console.log(err);
+          });
+        }
+      });
+    }
   }, [currentPodcast, loading]);
 
   // Getting the users rating of this podcast (if a rating exists). merge with useEffect above??
   useEffect(() => {
-    fetch(
-      `${env.API_URL}/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
-    ).then((res) => {
-      if (res.ok) {
-        res.json().then((res) => {
-          setStarRating(res[0].rating); //doesn't work for new podcasts...
-        });
-      } else {
-        res.json().then((err) => {
-          console.log(err);
-        });
-      }
-    });
+    if (!loading) {
+      fetch(
+        `${env.API_URL}/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
+      ).then((res) => {
+        if (res.ok) {
+          res.json().then((res) => {
+            setStarRating(res[0].rating);
+          });
+        } else {
+          res.json().then((err) => {
+            console.log(err);
+          });
+        }
+      });
+    }
   }, [currentPodcast, loading]);
 
   function handleStarRatingClick(e) {
@@ -125,50 +130,35 @@ function PodcastDetail({ currentUser }) {
     <div>
       {currentPodcast ? (
         <Row id="podcast-detail-top-row">
-          <Col></Col>
-          <Col xs={4} id="podcast-main-image" className="text-center">
-            <Button className="back-button" onClick={() => navigate(-1)}>
-              <RiArrowLeftLine /> Back
-            </Button>
-            <br />
-            <br />
-
-            <img
-              src={currentPodcast.artworkUrl600}
-              alt={currentPodcast.collectionName}
-              width="60%"
-              id="podcast-main-image"
-            />
-            <br />
-            <br />
-            <Rating onClick={handleStarRatingClick} ratingValue={starRating} />
-            <br />
-            <br />
-            <SubscriptionButtons
-              currentUser={currentUser}
-              subscribeButtonEnabled={subscribeButtonEnabled}
-              subscribedToThisPodcast={subscribedToThisPodcast}
-              currentPodcast={currentPodcast}
-              setSubscribedButtonEnabled={setSubscribedButtonEnabled}
-            />
+          <Col xs={1}></Col>
+        <Col xs={2}>
+          <PodcastDetailInformation
+            currentUser={currentUser}
+            subscribeButtonEnabled={subscribeButtonEnabled}
+            subscribedToThisPodcast={subscribedToThisPodcast}
+            currentPodcast={currentPodcast}
+            setSubscribedButtonEnabled={setSubscribedButtonEnabled}
+            handleStarRatingClick={handleStarRatingClick}
+            starRating={starRating}
+          />
           </Col>
-          <Col></Col>
-
-          {/* Move to new component lol */}
-          <Col xs={8} id="podcast-main-episode-list">
+          
+      
+          <Col xs={4} id="podcast-main-episode-list">
             {podcastEpisodes.results
               ? podcastEpisodes.results.slice(1).map((episode) => {
                   return (
-                    <>
+                    <div key={episode.TrackId}>
                       <Link to={`/episodes/${episode.trackId}`}>
                         <EpisodeDetail episode={episode} />
                       </Link>
-                    </>
+                    </div>
                   );
                 })
               : null}
           </Col>
-          <Col></Col>
+
+          <Col xs={1}></Col>
         </Row>
       ) : null}
     </div>

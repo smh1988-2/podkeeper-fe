@@ -29,8 +29,10 @@ function Header({ currentUser }) {
             </Row>
           </Container>
         </Col>
-        <Col xs={2}></Col>
 
+
+        <Col xs={2}></Col>
+        
         <Col xs={5}>
           <Nav>
             <Nav.Item>
@@ -74,7 +76,6 @@ function Header({ currentUser }) {
         <Col xs={2} id="header-user">
           {currentUser.user ? (
             <>
-            <br /><br />
               <Row>
                 <div className="user-parent">
                   <Link to="/profile" id="header-nav-link">
