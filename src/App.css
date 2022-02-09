@@ -1,39 +1,51 @@
 .subheading {
-    font-size: 24px;
-    color: #2E5B4F;
+  font-size: 24px;
+  color: #2e5b4f;
 }
 
 .global-button {
-    border-color: #2E5B4F!important;
-    border-radius: 24px!important;
-    background-color: #37584D!important;
-    font-weight: 600!important;
-    padding-top: 10px!important;
-    padding-bottom: 10px!important;
-    padding-left: 20px!important;
-    padding-right: 20px!important;
-    transition: none!important;
+  border-color: #2e5b4f !important;
+  border-radius: 24px !important;
+  background-color: #37584d !important;
+  font-weight: 600 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  transition: none !important;
 }
 
 .global-button:focus {
-    box-shadow: none!important;
+  box-shadow: none !important;
 }
 
 .episode-player-img-top {
-    border-radius: 20px!important;
+  border-radius: 20px !important;
 }
 
 #welcome-row {
-    background: rgb(99, 111, 101);
-    background: linear-gradient(
-      245deg,
-      rgba(99, 111, 101, 0.8491771708683473) 0%,
-      rgba(174, 182, 175, 1) 100%
-    );
-  
-    padding-top: 50px;
-    padding-bottom: 80px;
-    --bs-gutter-x: 0rem !important;
-    height:91.5vh;
-  }
-  
+  background: rgb(99, 111, 101);
+  background: linear-gradient(
+    245deg,
+    rgba(99, 111, 101, 0.8491771708683473) 0%,
+    rgba(174, 182, 175, 1) 100%
+  );
+  padding-top: 50px;
+  padding-bottom: 80px;
+  --bs-gutter-x: 0rem !important;
+  height: 91.5vh;
+}
+
+.home-card-body {
+  padding-left: 0px !important;
+  padding: 0px !important;
+}
+
+.home-date-text {
+  font-size: 14px;
+  margin-top: -7px;
+}
+
+.card-img-top {
+  border-radius: 20px!important;
+}

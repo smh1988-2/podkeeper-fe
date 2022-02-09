@@ -2,30 +2,55 @@ import React from "react";
 
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
+
+import { Rating } from "react-simple-star-rating";
 
 function UserEpisodeRatingActivity({ userActivity, handleDate }) {
   return (
     <>
       <Container>
         <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">Recent Episode Ratings</h3>
+          <h3 className="page-subheading">Recent episode ratings</h3>
         </Row>
       </Container>
 
       <Container>
-        <Row xs={10} className="g-4">
+        <Row
+          xs={1}
+          md={4}
+          className="g-4"
+          className="d-flex justify-content-left"
+        >
           {userActivity
             .filter((act) => act.activity_type === "episode-rating")
-            .map((act) => {
+            .slice(0,10).map((act) => {
               //console.log(act);
               return (
-                <p key={act.podcast.id}> 
-                  You rated{" "} <strong>{act.episode.trackName}</strong> from {""}
-                  <a href={`/podcasts/${act.podcast.collectionId}`}>
-                    <strong>{act.podcast.collectionName}</strong>
-                  </a>{" "}
-                  {act.rating / 20} stars on {handleDate(act.created_at)}.
-                </p>
+              
+                  <Card
+                  key={act.id}
+                    className="result-card"
+                    style={{
+                      width: "15rem",
+                      border: "0",
+                    }}
+                  >
+                    <Card.Img variant="top" src={act.podcast.artworkUrl600} />
+                    <Card.Body className="home-card-body">
+                      <Card.Title
+                        style={{ marginTop: "5px", fontSize: "16px" }}
+                      >
+                        <a href={`/podcasts/${act.podcast.collectionId}`}>
+                          <strong>{act.episode.trackName}</strong>
+                        </a>
+                      </Card.Title>
+                      <Card.Text>
+                        <Rating ratingValue={act.rating} readonly size={20} />
+                       </Card.Text>
+                    </Card.Body>
+                  </Card>
+                
               );
             })}
         </Row>

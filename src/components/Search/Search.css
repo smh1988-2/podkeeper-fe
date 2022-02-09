@@ -1,7 +1,7 @@
 a {
   color: #636f65 !important;
   text-decoration: none !important;
-  background-color:transparent!important;
+  background-color: transparent !important;
 }
 
 a:hover {
@@ -57,10 +57,18 @@ a:hover {
 
 .page-subheading {
   color: #2e5b4f;
-  padding-top: 70px;
+  padding-top: 40px;
   padding-bottom: 10px;
 }
 
 .result-card:hover {
-    background-color: #ffffff;
+  background-color: #ffffff;
+}
+
+.result-card-search-page {
+  margin-bottom: 35px;
+}
+
+.podcast-result-title {
+  font-size: 17px
 }

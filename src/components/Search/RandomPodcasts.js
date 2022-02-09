@@ -36,14 +36,14 @@ function RandomPodcasts() {
           {randomPodcasts
             ? randomPodcasts.map((result) => {
                 return (
-                  <>
+                  <div key={result.collectionId}>
                     <Link to={`/podcasts/${result.collectionId}`}>
                       <SearchResultCard
                         key={result.collectionId}
                         result={result}
                       />
                     </Link>
-                  </>
+                  </div>
                 );
               })
             : null}

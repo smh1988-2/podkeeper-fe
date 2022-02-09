@@ -26,6 +26,7 @@ import {
 
 function EpisodeMainPage({ currentUser }) {
   const { id } = useParams();
+  const player = useRef();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [currentEpisode, setCurrentEpisode] = useState({});
@@ -33,19 +34,14 @@ function EpisodeMainPage({ currentUser }) {
   const [loading, setLoading] = useState(true);
   const [starRating, setStarRating] = useState();
 
-
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [duration, setDuration] = useState(0);
-  let [played, setPlayed] = useState(0);
-  let [progress, setProgress] = useState(0);
   let [playbackRate, setPlaybackRate] = useState(1);
   let [volume, setVolume] = useState(0.5);
-  let [seeking, setSeeking] = useState(false);
 
-
-
-  const player = useRef();
+  let [played, setPlayed] = useState();
+  let [progress, setProgress] = useState();
 
   useEffect(() => {
     fetch(`${env.API_URL}/episodes/${id}`)
@@ -81,7 +77,6 @@ function EpisodeMainPage({ currentUser }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((rating) => {
-          //console.log(rating);
         });
       } else {
         r.json().then((err) => {
@@ -95,23 +90,25 @@ function EpisodeMainPage({ currentUser }) {
     setPlaying(!playing);
   }
 
-  function handleMute() {
-    setMuted(!muted);
-  }
-
-  function handleSpeedChange(e) {
-    //console.log(e);
-  }
-
   function handleDuration(duration) {
     setDuration(duration);
   }
 
   function onProgress(e) {
-    //console.log(played)
-    //console.log(progress);
     setProgress(e.playedSeconds);
     setPlayed(e.playedSeconds / 6000);
+
+    localStorage.setItem(
+      `${currentEpisode.id}`,
+      JSON.stringify(
+        {
+        user_id: currentUser.user.id,
+        episode_id: currentEpisode.id,
+        progress: e.playedSeconds,
+        played: e.playedSeconds / 6000
+      }
+      )
+    );
   }
 
   function handleFaster() {
@@ -121,22 +118,6 @@ function EpisodeMainPage({ currentUser }) {
   function handleSlower() {
     setPlaybackRate((playbackRate -= 0.25));
   }
-
-  // function handleSeekMouseDown() {
-  //   setSeeking(true);
-  // }
-
-  // function handleSeekChange(e) {
-  //   //console.log(e.target.value);
-  //   setPlayed(parseFloat(e.target.value));
-  // }
-
-  // function handleSeekMouseUp(e) {
-  //   setSeeking(false);
-  //   //console.log(e.target.value);
-  //   player.current.seekTo(parseFloat(e.target.value));
-  //   //setPlayed(e.target.value)
-  // }
 
   function handleBackward() {
     player.current.seekTo(played - 0.002);
@@ -176,7 +157,7 @@ function EpisodeMainPage({ currentUser }) {
     <div>
       {!currentEpisode && loading ? (
         <>
-          <Row>
+          <Row className="episode-row"> 
             <Col></Col>
             <Col className="text-center loading-animation">
               <ScaleLoader color={"#485049"} loading={loading} height={50} size={250} />{" "}
@@ -188,7 +169,7 @@ function EpisodeMainPage({ currentUser }) {
 
       {currentEpisode ? (
         <>
-          <Row>
+          <Row className="episode-row">
             <Col></Col>
 
             <Col className="text-center">
