@@ -27,6 +27,7 @@ function UserEpisodeActivity({ userActivity, handleDate }) {
             .filter((act) => act.activity_type === "listened")
             .map((act) => {
                 return (
+                  <div key={act.activity.id}>
                   <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
                     key={act.id}
@@ -51,6 +52,7 @@ function UserEpisodeActivity({ userActivity, handleDate }) {
                     </Card.Body>
                   </Card>
                   </a>
+                </div>
                 );
             })}
         </Row>

@@ -9,6 +9,7 @@ import UserEpisodeRatingActivity from "./UserEpisodeRatingActivity";
 import Loading from "./Loading";
 
 import env from "react-dotenv";
+import FriendActivity from "./FriendActivity";
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -27,7 +28,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          console.log("user activity data is: ", data);
+          //console.log("user activity data is: ", data);
         });
     }
   }, [loading]);
@@ -43,7 +44,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserFriendActivity(data);
-          console.log("data is: ", data);
+          //console.log("friend data is: ", data);
         });
     }
   }, [loading]);
@@ -68,25 +69,12 @@ function Home({ currentUser }) {
 
   return (
     <div>
-
-
-      {/* move to new component. take the useEffect with it? */}
-      {/* {!loading && userActivity.length > 0 && userFriendActivity.length > 0 ? (
-        <>
-          {userFriendActivity.map((user) => {
-            return user.map((act) => {
-              return (
-                <p>
-                  {act.user.username} did something with{" "}
-                  {act.podcast.collectionName}
-                </p>
-              );
-            });
-          })}
-        </>
-      ) : (
-        null
-      )} */}
+      {/* take the useEffect with it? */}
+      <FriendActivity
+        userFriendActivity={userFriendActivity}
+        handleDate={handleDate}
+      />
+      
 
       {!loading && userActivity.length > 0 ? (
         <>
@@ -109,23 +97,12 @@ function Home({ currentUser }) {
         </>
       ) : null}
 
-      {!loading && userActivity.length === 0 && currentUser.user && userFriendActivity.length === 0 ? (
+      {!loading &&
+      userActivity.length === 0 &&
+      currentUser.user &&
+      userFriendActivity.length === 0 ? (
         <HomeNoActivityMessage currentUser={currentUser} />
-      ) : 
-      // needs to be hid behind a loading spinner too...
-      <>
-      {userFriendActivity.map((user) => {
-        return user.map((act) => {
-          return (
-            <p>
-              {act.user.username} did somefdgsdfgdfgthing with{" "}
-              {act.podcast.collectionName}
-            </p>
-          );
-        });
-      })}
-      </>
-      }
+      ) : null}
 
       {currentUser.user ? <Loading loading={loading} /> : null}
 
