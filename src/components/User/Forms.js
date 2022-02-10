@@ -3,6 +3,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Splash from "./Splash";
 import "./User.css";
+import Background from "./splash-background.png";
 
 // Bootstrap
 import Tab from "react-bootstrap/Tab";
@@ -13,13 +14,24 @@ import Container from "react-bootstrap/Container";
 
 function Forms({ setCurrentUser, currentUser }) {
   return (
-    <div style={{ height: "80vh" }}>
+    <div>
       <Row
         className="g-0 align-middle"
         id="full-row"
-        style={{ height: "92.79vh" }}
+        style={{ height: "90.79vh" }}
       >
-        <Col id="half-page">
+        <Col
+          id="half-page"
+          style={{
+            backgroundImage: `url(${Background}), linear-gradient(
+    245deg,
+    rgba(99, 111, 101, 0.8491771708683473) 0%,
+    rgba(174, 182, 175, 1) 100%
+  )`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"
+          }}
+        >
           <Splash />
         </Col>
 
@@ -32,15 +44,16 @@ function Forms({ setCurrentUser, currentUser }) {
                   defaultActiveKey="login"
                   id="uncontrolled-tab-example"
                   className="mb-3"
+                  fill justify
                 >
-                  <Tab eventKey="login" title="Log in">
+                  <Tab eventKey="login" title="LOG IN">
                     <Login
                       setCurrentUser={setCurrentUser}
                       currentUser={currentUser}
                     />
                   </Tab>
 
-                  <Tab eventKey="signup" title="Sign up">
+                  <Tab eventKey="signup" title="SIGN UP">
                     <Signup
                       setCurrentUser={setCurrentUser}
                       currentUser={currentUser}

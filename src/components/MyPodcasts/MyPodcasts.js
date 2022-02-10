@@ -19,7 +19,7 @@ function MyPodcasts({ currentUser }) {
   const token = localStorage.getItem("token");
   let id;
 
-  if (currentUser.user.id) {
+  if (currentUser.user) {
     id = currentUser.user.id;
   }
 
@@ -67,7 +67,7 @@ function MyPodcasts({ currentUser }) {
             >
               {myPodcasts.map((podcast) => {
                 return (
-                  <>
+                  <div key={podcast.podcast.id}>
                     <Link to={`/podcasts/${podcast.podcast.collectionId}`}>
                       <SearchResultCard
                         key={podcast.podcast.collectionId}
@@ -76,7 +76,7 @@ function MyPodcasts({ currentUser }) {
                         stars={stars}
                       />
                     </Link>
-                  </>
+                  </div>
                 );
               })}
             </Row>
@@ -97,7 +97,8 @@ function MyPodcasts({ currentUser }) {
 
       <Container style={{ width: "150%" }}>
         <Row
-          style={{ width: "100%" }}
+          style={{ width: "100%"
+        }}
           xs={12}
           className="d-flex justify-content-center"
         >

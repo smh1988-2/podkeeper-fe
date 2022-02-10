@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import HomePageWelcomeMessage from "./HomePageWelcomeMessage";
+import HomeNoActivityMessage from "./HomeNoActivityMessage";
 import UserSubscriptionActivity from "./UserSubscriptionActivity";
 import UserEpisodeActivity from "./UserEpisodeActivity";
 import UserRatingActivity from "./UserRatingActivity";
@@ -26,7 +27,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          //console.log("data is: ", data);
+          console.log("user activity data is: ", data);
         });
     }
   }, [loading]);
@@ -69,8 +70,8 @@ function Home({ currentUser }) {
     <div>
 
 
-      {/* move to new component. take the useEffect with it?
-      {!loading && userActivity.length > 0 && userFriendActivity.length > 0 ? (
+      {/* move to new component. take the useEffect with it? */}
+      {/* {!loading && userActivity.length > 0 && userFriendActivity.length > 0 ? (
         <>
           {userFriendActivity.map((user) => {
             return user.map((act) => {
@@ -108,12 +109,23 @@ function Home({ currentUser }) {
         </>
       ) : null}
 
-      {!loading && userActivity.length === 0 && currentUser.user ? (
-        <p>
-          You don't have any activity yet. Add some podcasts, add some friends,
-          start listening and rating.
-        </p>
-      ) : null}
+      {!loading && userActivity.length === 0 && currentUser.user && userFriendActivity.length === 0 ? (
+        <HomeNoActivityMessage currentUser={currentUser} />
+      ) : 
+      // needs to be hid behind a loading spinner too...
+      <>
+      {userFriendActivity.map((user) => {
+        return user.map((act) => {
+          return (
+            <p>
+              {act.user.username} did somefdgsdfgdfgthing with{" "}
+              {act.podcast.collectionName}
+            </p>
+          );
+        });
+      })}
+      </>
+      }
 
       {currentUser.user ? <Loading loading={loading} /> : null}
 

@@ -5,35 +5,20 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
-import { MdPodcasts } from "react-icons/md";
 
 function Header({ currentUser }) {
   return (
     <div>
       <Row id="header-row">
-        <Col xs={1}></Col>
+        <Col></Col>
         <Col>
-          <Container>
-            <Row className="d-flex">
-              <Col xs={12} id="header-wordmark">
-                <Row id="wordmark-row">
-                  <Col className="col-auto">
-                    <MdPodcasts />
-                  </Col>
-
-                  <Col>
-                    <h2 className="brand-name">Podkeeper</h2>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Container>
+          <Link to="/home">
+            <img src="podkeeper-wordmark.png" height="50%" />
+          </Link>
         </Col>
 
 
-        <Col xs={2}></Col>
-        
-        <Col xs={5}>
+        <Col xs={6} className="text-right">
           <Nav>
             <Nav.Item>
               <Link
@@ -56,50 +41,43 @@ function Header({ currentUser }) {
                     My Podcasts
                   </Link>
                 </Nav.Item>
-              
 
-            <Nav.Item>
-              <Link
-                to="/search"
-                id="header-nav-link"
-                className="header-link-item"
-              >
-                Search
-              </Link>
-            </Nav.Item>
-            </>
+                <Nav.Item>
+                  <Link
+                    to="/search"
+                    id="header-nav-link"
+                    className="header-link-item"
+                  >
+                    Search
+                  </Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Link
+                    to="/profile"
+                    id="header-nav-link"
+                    className="header-link-item"
+                  >
+                    Profile
+                  </Link>
+                </Nav.Item>
+              </>
             ) : null}
+            {currentUser.user ? null : (
+              <>
+                <br />
+                <Link
+                  to="/login"
+                  id="header-nav-link"
+                  className="header-link-item"
+                >
+                  Login
+                </Link>
+              </>
+            )}
           </Nav>
         </Col>
-
-{/* Move to new component */}
-        <Col xs={2} id="header-user">
-          {currentUser.user ? (
-            <>
-              <Row>
-                <div className="user-parent">
-                  <Link to="/profile" id="header-nav-link">
-                    {" "}
-                    <p className="user-child">{currentUser.user.username}</p>
-                    <img
-                      className="user-child"
-                      src={currentUser.user.profile_pic}
-                      alt="profile pic"
-                      height="35px"
-                    />
-                  </Link>
-                </div>
-              </Row>
-            </>
-          ) : (
-            <>
-             <br />
-              <Link to="/login" id="header-nav-link" className="header-link-item">
-                Login
-              </Link>
-            </>
-          )}
-        </Col>
+        <Col></Col>
       </Row>
     </div>
   );

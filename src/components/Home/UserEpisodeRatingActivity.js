@@ -11,7 +11,10 @@ function UserEpisodeRatingActivity({ userActivity, handleDate }) {
     <>
       <Container>
         <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">Recent episode ratings</h3>
+        {userActivity.filter((act) => act.activity_type === "episode-rating")
+            .length > 0 ? (
+            <h3 className="page-subheading">Recent episode ratings</h3>
+          ) : null}
         </Row>
       </Container>
 
@@ -25,9 +28,9 @@ function UserEpisodeRatingActivity({ userActivity, handleDate }) {
           {userActivity
             .filter((act) => act.activity_type === "episode-rating")
             .slice(0,10).map((act) => {
-              //console.log(act);
+
               return (
-              
+                <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
                   key={act.id}
                     className="result-card"
@@ -41,16 +44,16 @@ function UserEpisodeRatingActivity({ userActivity, handleDate }) {
                       <Card.Title
                         style={{ marginTop: "5px", fontSize: "16px" }}
                       >
-                        <a href={`/podcasts/${act.podcast.collectionId}`}>
+                        
                           <strong>{act.episode.trackName}</strong>
-                        </a>
+                    
                       </Card.Title>
                       <Card.Text>
                         <Rating ratingValue={act.rating} readonly size={20} />
                        </Card.Text>
                     </Card.Body>
                   </Card>
-                
+                </a>
               );
             })}
         </Row>

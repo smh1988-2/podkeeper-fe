@@ -10,8 +10,8 @@ function UsersYouFollow({ userIsFollowing }) {
   return (
     <div>
       {userIsFollowing.length > 0 ? (
-        <>
-          <h3 className="page-subheading">Following</h3>
+        <div className="following-row">
+          <h3 className="page-subheading-follow">Following</h3>
 
           <Container>
         <Row
@@ -22,23 +22,16 @@ function UsersYouFollow({ userIsFollowing }) {
         >
           {userIsFollowing.map((user) => {
             return (
-              <>
-                <Card style={{ width: "7rem", border: "0px" }} key={user.id} >
-                  <Card.Img
-                    variant="top"
-                    src={user.profile_pic}
-                    alt={user.profile_pic}
-                  />
-                  <Card.Body id="profile-card">
-                    <Card.Title style={{fontSize: "15px"}}>{user.username}</Card.Title>
-                  </Card.Body>
+              <div key={user.id}>
+                <Card style={{ width: "7rem", border: "0px" }} key={user.id} className="profile-page-card">
+                <div className="circle-follow">{user.username}</div>
                 </Card>
-              </>
+              </div>
             );
           })}
           </Row>
       </Container>
-        </>
+        </div>
       ) : (
         null
       )}

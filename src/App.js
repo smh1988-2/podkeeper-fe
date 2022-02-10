@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`${env.API_URL}/auto_login`, {
+      fetch(`http://localhost:3000/auto_login`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

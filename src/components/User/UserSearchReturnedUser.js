@@ -10,9 +10,12 @@ function UserSearchReturnedUser({
   returnedUser,
   currentUser,
   userIsFollowing,
+  setReturnedUser
 }) {
   //checks if the currentUser is already following the returnedUser, i.e. userIsFollowing.some(checkUserId)
-  const checkUserId = (obj) => obj.user2_id === returnedUser.id;
+
+  const checkUserId = (obj) => obj.id === returnedUser.id;
+
   const [clicked, setClicked] = useState(false);
 
   function handleFollowClick() {
@@ -32,7 +35,7 @@ function UserSearchReturnedUser({
       }).then((r) => {
         if (r.ok) {
           r.json().then((res) => {
-            //console.log(res);
+            console.log(res);
           });
         } else {
           r.json().then((err) => {
@@ -42,47 +45,44 @@ function UserSearchReturnedUser({
       });
     }
     setClicked(!clicked);
+    setReturnedUser(false)
   }
 
   return (
     <div>
-      <Row>&nbsp;</Row>
-      <Row>&nbsp;</Row>
       <Row>
-        <Col xs={12}>
-          <Row>
+        <Col>
+          <Row className="text-center">
             <Col></Col>
-            <Col id="profile-card">
-              <Card style={{ width: "18rem", border: "0px" }}>
-                <Card.Img
-                  variant="top"
-                  src={returnedUser.profile_pic}
-                  alt={returnedUser.profile_pic}
-                />
-                <Card.Body id="profile-card">
-                  <Card.Title>{returnedUser.username}</Card.Title>
-
-                {/* Button doesn't update on click. Need to fix this!!!!  */}
-                  {userIsFollowing.some(checkUserId) ? (
-                    <Button
-                      disabled
-                      className="global-button"
-                      variant="primary"
-                      onClick={handleFollowClick}
-                    >
-                      Following
-                    </Button>
-                  ) : (
-                    <Button
+            <Col>
+              <Card
+                style={{ padding: "20px", border: "0px" }}
+                key={returnedUser.id}
+                className="search-profile-page-card"
+              >
+                <div className="circle-follow">{returnedUser.username}</div>
+                <br />
+                {userIsFollowing.some(checkUserId) ? (
+                  <Button
+                    disabled
                     className="global-button"
-                      variant="primary"
-                      onClick={handleFollowClick}
-                    >
-                      Follow
-                    </Button>
-                  )}
-                </Card.Body>
+                    variant="primary"
+                    onClick={handleFollowClick}
+                  >
+                    Following
+                  </Button>
+                ) : (
+                  <Button
+                    className="global-button"
+                    variant="primary"
+                    onClick={handleFollowClick}
+                  >
+                    Follow
+                  </Button>
+                )}
               </Card>
+              <Row>&nbsp;</Row>
+              <Row>&nbsp;</Row>
             </Col>
             <Col></Col>
           </Row>

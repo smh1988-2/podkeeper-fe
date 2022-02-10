@@ -30,7 +30,7 @@ function PodcastDetail({ currentUser }) {
 
   useEffect(() => {
     if (!loading) {
-      fetch(`${env.API_URL}/podcasts/${id}`)
+      fetch(`http://localhost:3000/podcasts/${id}`)
         .then((r) => r.json())
         .then((podcast) => {
           setCurrentPodcast(podcast);
@@ -52,7 +52,7 @@ function PodcastDetail({ currentUser }) {
   const arr = [];
   useEffect(() => {
     if (currentPodcast.user) {
-      fetch(`${env.API_URL}/my-podcasts/${currentUser.user.id}`, {
+      fetch(`http://localhost:3000/my-podcasts/${currentUser.user.id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -77,9 +77,9 @@ function PodcastDetail({ currentUser }) {
 
   // Getting the users rating of this podcast (if a rating exists). merge with useEffect above??
   useEffect(() => {
-    if (!loading) {
+    if (!loading && currentPodcast.length > 0) {
       fetch(
-        `${env.API_URL}/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
+        `http://localhost:3000/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
       ).then((res) => {
         if (res.ok) {
           res.json().then((res) => {
@@ -97,7 +97,7 @@ function PodcastDetail({ currentUser }) {
   function handleStarRatingClick(e) {
     setStarRating(e);
 
-    fetch(`${env.API_URL}/rating`, {
+    fetch(`http://localhost:3000/rating`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -144,7 +144,7 @@ function PodcastDetail({ currentUser }) {
             {podcastEpisodes.results
               ? podcastEpisodes.results.slice(1).map((episode) => {
                   return (
-                    <div key={episode.TrackId}>
+                    <div key={episode.trackId}>
                       <Link to={`/episodes/${episode.trackId}`}>
                         <EpisodeDetail episode={episode} />
                       </Link>
