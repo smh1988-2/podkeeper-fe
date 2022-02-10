@@ -8,7 +8,10 @@ function UserSubscriptionActivity({ userActivity, handleDate }) {
     <>
       <Container>
         <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">Recent subscriptions</h3>
+        {userActivity.filter((act) => act.activity_type === "subscription")
+            .length > 0 ? (
+            <h3 className="page-subheading">Recent subscriptions</h3>
+          ) : null}
         </Row>
       </Container>
 
@@ -23,7 +26,7 @@ function UserSubscriptionActivity({ userActivity, handleDate }) {
             .filter((act) => act.activity_type === "subscription")
             .slice(0,5).map((act) => {
               return (
-                
+                <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
                   key={act.id}
                     className="result-card"
@@ -37,13 +40,14 @@ function UserSubscriptionActivity({ userActivity, handleDate }) {
                       <Card.Title
                         style={{ marginTop: "5px", fontSize: "16px" }}
                       >
-                        <a href={`/podcasts/${act.podcast.collectionId}`}>
+                        
                           <strong>{act.podcast.collectionName}</strong>
-                        </a>
+                        
                       </Card.Title>
                       <Card.Text className="home-date-text">{handleDate(act.created_at)}</Card.Text>
                     </Card.Body>
                   </Card>
+                  </a>
                
               );
             })}

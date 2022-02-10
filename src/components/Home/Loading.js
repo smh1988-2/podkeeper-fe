@@ -11,10 +11,13 @@ function Loading({ loading }) {
         <Col></Col>
         <Col className="text-center loading-animation">
           <ScaleLoader
-            color={"#485049"}
+            color={"#2e5b4f"}
             loading={loading}
             height={50}
             size={250}
+            width={10}
+            radius={20}
+            margin={9}
           />{" "}
         </Col>
         <Col></Col>

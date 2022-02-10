@@ -6,24 +6,31 @@ import Card from "react-bootstrap/Card";
 function UserEpisodeActivity({ userActivity, handleDate }) {
   return (
     <>
-      {" "}
+
       <Container>
         <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">Recent episodes</h3>
+          {userActivity.filter((act) => act.activity_type === "listened")
+            .length > 0 ? (
+            <h3 className="page-subheading">Recent episodes</h3>
+          ) : null}
         </Row>
       </Container>
       <Container>
-        <Row xs={1}
+        <Row
+          xs={1}
           md={4}
           className="g-4"
-          className="d-flex justify-content-left">
+          className="d-flex justify-content-left"
+        >
           {userActivity
-            .slice(0,10).filter((act) => act.activity_type === "listened")
+            .slice(10)
+            .filter((act) => act.activity_type === "listened")
             .map((act) => {
-              return (
-                
+                return (
+                  <div key={act.activity.id}>
+                  <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
-                  key={act.id}
+                    key={act.id}
                     className="result-card"
                     style={{
                       width: "15rem",
@@ -35,15 +42,18 @@ function UserEpisodeActivity({ userActivity, handleDate }) {
                       <Card.Title
                         style={{ marginTop: "5px", fontSize: "16px" }}
                       >
-                        <a href={`/podcasts/${act.podcast.collectionId}`}>
+                        
                           <strong>{act.episode.trackName}</strong>
-                        </a>
+                        
                       </Card.Title>
-                      <Card.Text className="home-date-text">{handleDate(act.created_at)}</Card.Text>
+                      <Card.Text className="home-date-text">
+                        {handleDate(act.created_at)}
+                      </Card.Text>
                     </Card.Body>
                   </Card>
-                
-              );
+                  </a>
+                </div>
+                );
             })}
         </Row>
       </Container>

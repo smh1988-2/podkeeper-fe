@@ -10,9 +10,20 @@
   font-weight: 600 !important;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
-  transition: none !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
+.global-button:hover {
+  border-color: #2e5b4f !important;
+  color: #2e5b4f!important;
+  border-radius: 24px !important;
+  background-color: #fff !important;
+  font-weight: 600 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
 }
 
 .global-button:focus {
@@ -34,6 +45,7 @@
   padding-bottom: 80px;
   --bs-gutter-x: 0rem !important;
   height: 91.5vh;
+  
 }
 
 .home-card-body {
@@ -48,4 +60,8 @@
 
 .card-img-top {
   border-radius: 20px!important;
+}
+
+.home-welcome-message-logo {
+  margin: 50px;
 }

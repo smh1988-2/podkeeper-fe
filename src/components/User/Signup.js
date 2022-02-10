@@ -74,11 +74,6 @@ function Signup({ setCurrentUser, currentUser }) {
       {error ? (
         <p>Incorrect username or password. Please try again or sign up.</p>
       ) : null}
-
-      {currentUser.user ? (
-        <p>
-          You are logged in as {currentUser.user.username}.</p>
-      ) : null}
     </div>
   );
 }

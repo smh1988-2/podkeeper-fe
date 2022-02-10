@@ -17,24 +17,29 @@ function Profile({ currentUser, setCurrentUser }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [returnedUser, setReturnedUser] = useState(false);
   const [error, setError] = useState("");
-  const [userIsFollowing, setUserIsFollowing] = useState([]) //rename to usersYouFollow
-  const [usersFollowingYou, setUsersFollowingYou] = useState([])
+  const [userIsFollowing, setUserIsFollowing] = useState([]); //rename to usersYouFollow
+  const [usersFollowingYou, setUsersFollowingYou] = useState([]);
 
   useEffect(() => {
-    fetch(`${env.API_URL}/following/${currentUser.user.id}`)
-      .then((res) => res.json())
-      .then((res) => {
-          setUserIsFollowing(res)
-      });
-  }, [returnedUser]);
+    if (currentUser.user) {
+      fetch(`${env.API_URL}/following/${currentUser.user.id}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setUserIsFollowing(res);
+          console.log("user is following: ", res)
+        });
+    }
+  }, [returnedUser, currentUser]);
 
   useEffect(() => {
-    fetch(`${env.API_URL}/followers/${currentUser.user.id}`)
-      .then((res) => res.json())
-      .then((res) => {
-          setUsersFollowingYou(res)
-      });
-  }, [returnedUser]);
+    if (currentUser.user) {
+      fetch(`${env.API_URL}/followers/${currentUser.user.id}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setUsersFollowingYou(res);
+        });
+    }
+  }, [returnedUser, currentUser]);
 
   function handleUserSearchSubmit(e) {
     e.preventDefault();
@@ -51,11 +56,12 @@ function Profile({ currentUser, setCurrentUser }) {
       fetch(`${env.API_URL}/user-search/${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       }).then((res) => {
         if (res.ok) {
           res.json().then((data) => {
             setReturnedUser(data);
+            console.log("returned user is: ",data)
             setError("");
             if (data.username === currentUser.user.username) {
               setError("me");
@@ -77,24 +83,31 @@ function Profile({ currentUser, setCurrentUser }) {
           <Container>
             <Row>
               <Col>
-                <ProfileUserDetail currentUser={currentUser} userIsFollowing={userIsFollowing} usersFollowingYou={usersFollowingYou} setCurrentUser={setCurrentUser} />
+                <ProfileUserDetail
+                  currentUser={currentUser}
+                  userIsFollowing={userIsFollowing}
+                  usersFollowingYou={usersFollowingYou}
+                  setCurrentUser={setCurrentUser}
+                />
               </Col>
 
               <Col xs={8}>
-                <h3 className="page-subheading">Find your friends</h3>
-
+                <Row>&nbsp;</Row>
+                <Row>&nbsp;</Row>
                 <FindUserForm
                   validated={validated}
                   handleUserSearchSubmit={handleUserSearchSubmit}
                   searchTerm={searchTerm}
                   setSearchTerm={setSearchTerm}
                 />
-
+                <Row>&nbsp;</Row>
+                <Row>&nbsp;</Row>
                 {returnedUser !== false && error !== "me" ? (
                   <UserSearchReturnedUser
                     returnedUser={returnedUser}
                     currentUser={currentUser}
                     userIsFollowing={userIsFollowing}
+                    setReturnedUser={setReturnedUser}
                   />
                 ) : null}
 
@@ -107,8 +120,9 @@ function Profile({ currentUser, setCurrentUser }) {
                 ) : null}
 
                 <UsersYouFollow userIsFollowing={userIsFollowing} />
+                <Row>&nbsp;</Row>
+                <Row>&nbsp;</Row>
                 <UserFollowers usersFollowingYou={usersFollowingYou} />
-
               </Col>
               <Col></Col>
             </Row>

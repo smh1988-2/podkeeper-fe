@@ -5,7 +5,7 @@
 #header-row {
   --bs-gutter-x: 0rem !important;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: -20px;
 }
 
 #header-user {
@@ -14,50 +14,23 @@
   font-size: 14px !important;
 }
 
-#header-wordmark {
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-  color: #636f65;
-  font-size: 30px;
-  vertical-align: top;
-}
-
-.user-parent {
-  text-align: center;
-  padding-top: 22px !important;
-}
-
-.user-child:hover {
-  background-color: white;
-}
-
-.user-parent:hover {
-  background-color: white;
-}
-
-.user-child {
-  display: inline-block;
-  padding: 2px;
-}
-
 .header-link-item {
-  margin-left: 20px;
+  margin-left: 0px;
   margin-right: 20px;
-  padding-top: 20px;
   padding-left: 70px;
-  color: black !important;
   font-size: 15px;
+  font-weight: 300;
+  /* text-decoration: solid underline #cecece 2px!important;
+  text-underline-offset: 7px!important; */
 }
 
 .header-link-item:hover {
   background-color: #ffffff;
+  text-decoration: solid underline #2e5b4f 1px!important;
+  text-underline-offset: 7px!important;
+
 }
 
 .nav {
   margin-top: 16px;
-}
-
-.brand-name {
-  margin-top: 6.5px;
-  margin-left: -12px;
 }

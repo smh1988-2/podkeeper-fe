@@ -44,7 +44,7 @@
 }
 
 #back-button {
-  margin-bottom: 20px;
+  /* margin-bottom: 0px; */
   padding-right: 550px;
 }
 
@@ -84,4 +84,24 @@
 
 .podcast-detail-episode-title {
   color: #2e5b4f;
+}
+
+#podcast-main-image {
+  border-radius: 20px;
+}
+
+.episode-detail-image {
+  border-radius: 20px;
+}
+
+.episode-time {
+  font-size: 13px;
+  padding-left: 15px;
+  color: #cecece
+}
+
+.header-link-item {
+  /* background-color:red!important; */
+  font-size: 20px!important;
+  color: #2e5b4f!important;
 }

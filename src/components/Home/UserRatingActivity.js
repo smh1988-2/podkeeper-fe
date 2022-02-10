@@ -10,7 +10,10 @@ function UserRatingActivity({ userActivity, handleDate }) {
     <>
       <Container>
         <Row xs={10} className="d-flex justify-content-center">
-          <h3 className="page-subheading">Recent podcast ratings</h3>
+        {userActivity.filter((act) => act.activity_type === "podcast-rating")
+            .length > 0 ? (
+            <h3 className="page-subheading">Recent podcast ratings</h3>
+          ) : null}
         </Row>
       </Container>
 
@@ -26,7 +29,7 @@ function UserRatingActivity({ userActivity, handleDate }) {
             .slice(0,5).map((act) => {
               //console.log(act);
               return (
-                
+                <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
                   key={act.id}
                     className="result-card"
@@ -40,14 +43,14 @@ function UserRatingActivity({ userActivity, handleDate }) {
                       <Card.Title
                         style={{ marginTop: "5px", fontSize: "16px" }}
                       >
-                        <a href={`/podcasts/${act.podcast.collectionId}`}>
+                        
                           <strong>{act.podcast.collectionName}</strong>
-                        </a>
+                        
                       </Card.Title>
                       <Card.Text><Rating ratingValue={act.rating} readonly size={20} /></Card.Text>
                     </Card.Body>
                   </Card>
-               
+               </a>
               );
             })}
         </Row>
