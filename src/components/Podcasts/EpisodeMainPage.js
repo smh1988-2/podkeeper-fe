@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
-import env from "react-dotenv";
 import Duration from "./Duration";
 import "./Podcasts.css";
 
@@ -44,7 +43,7 @@ function EpisodeMainPage({ currentUser }) {
   let [progress, setProgress] = useState();
 
   useEffect(() => {
-    fetch(`${env.API_URL}/episodes/${id}`)
+    fetch(`http://localhost:3000/episodes/${id}`)
       .then((r) => r.json())
       .then((r) => {
         setCurrentEpisode(r);
@@ -60,7 +59,7 @@ function EpisodeMainPage({ currentUser }) {
   function handleStarRatingClick(e) {
     setStarRating(e);
 
-    fetch(`${env.API_URL}/rating`, {
+    fetch(`http://localhost:3000/rating`, {
       
       method: "POST",
       headers: {
@@ -77,6 +76,7 @@ function EpisodeMainPage({ currentUser }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((rating) => {
+          console.log(rating)
         });
       } else {
         r.json().then((err) => {
@@ -136,7 +136,7 @@ function EpisodeMainPage({ currentUser }) {
   function handleEnded() {
     console.log("ended");
     const token = localStorage.getItem("token");
-    fetch(`${env.API_URL}/listened`, {
+    fetch(`http://localhost:3000/listened`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-function HomePageWelcomeMessage({ currentUser }) {
+function HomePageWelcomeMessage() {
   return (
     <div>
       <Row

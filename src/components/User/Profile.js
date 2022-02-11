@@ -22,7 +22,7 @@ function Profile({ currentUser, setCurrentUser }) {
 
   useEffect(() => {
     if (currentUser.user) {
-      fetch(`${env.API_URL}/following/${currentUser.user.id}`)
+      fetch(`http://localhost:3000/following/${currentUser.user.id}`)
         .then((res) => res.json())
         .then((res) => {
           setUserIsFollowing(res);
@@ -33,7 +33,7 @@ function Profile({ currentUser, setCurrentUser }) {
 
   useEffect(() => {
     if (currentUser.user) {
-      fetch(`${env.API_URL}/followers/${currentUser.user.id}`)
+      fetch(`http://localhost:3000/followers/${currentUser.user.id}`)
         .then((res) => res.json())
         .then((res) => {
           setUsersFollowingYou(res);
@@ -53,7 +53,7 @@ function Profile({ currentUser, setCurrentUser }) {
     setValidated(true);
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`${env.API_URL}/user-search/${searchTerm}`, {
+      fetch(`http://localhost:3000/user-search/${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

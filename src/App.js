@@ -1,5 +1,3 @@
-import env from "react-dotenv";
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import EpisodeMainPage from "./components/Podcasts/EpisodeMainPage";
@@ -37,12 +35,23 @@ function App() {
       <Header currentUser={currentUser} />
 
       <Routes>
-      <Route path="/" element={<Home currentUser={currentUser} />} />
+        <Route path="/" element={<Home currentUser={currentUser} />} />
         <Route path="/home" element={<Home currentUser={currentUser} />} />
 
-        <Route path="/profile" element={<Profile currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
+        />
 
-        <Route path="/my-podcasts" element={<MyPodcasts currentUser={currentUser} />} />
+        <Route
+          path="/my-podcasts"
+          element={<MyPodcasts currentUser={currentUser} />}
+        />
 
         <Route
           path="/login"

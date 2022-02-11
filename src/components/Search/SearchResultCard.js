@@ -7,7 +7,7 @@ function SearchResultCard({ result, stars }) {
 
   function handleSearchResultCardClick(e) {
     // create the podcast in the backend
-    fetch(`${env.API_URL}/podcasts`, {
+    fetch(`http://localhost:3000/podcasts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
