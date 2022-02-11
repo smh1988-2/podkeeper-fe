@@ -1,9 +1,9 @@
 import React from "react";
 import "./Header.css";
+import logo from "./podkeeper-wordmark.png"
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 
 function Header({ currentUser }) {
@@ -13,7 +13,7 @@ function Header({ currentUser }) {
         <Col></Col>
         <Col>
           <Link to="/home">
-            <img src="podkeeper-wordmark.png" height="50%" />
+            <img src={logo} height="50%" />
           </Link>
         </Col>
 

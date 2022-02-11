@@ -30,7 +30,7 @@ function Login({ setCurrentUser, currentUser }) {
     setValidated(true);
 
     e.preventDefault();
-    fetch(`${env.API_URL}/login`, {
+    fetch(`http://localhost:3000/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

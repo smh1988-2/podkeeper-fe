@@ -2,14 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import HomePageWelcomeMessage from "./HomePageWelcomeMessage";
 import HomeNoActivityMessage from "./HomeNoActivityMessage";
-import UserSubscriptionActivity from "./UserSubscriptionActivity";
-import UserEpisodeActivity from "./UserEpisodeActivity";
-import UserRatingActivity from "./UserRatingActivity";
-import UserEpisodeRatingActivity from "./UserEpisodeRatingActivity";
+import UserActivityContainer from "./UserActivityContainer";
 import Loading from "./Loading";
-
-import env from "react-dotenv";
-import FriendActivity from "./FriendActivity";
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -20,7 +14,7 @@ function Home({ currentUser }) {
   // get the activity for the current user
   useEffect(() => {
     if (token && currentUser.user) {
-      fetch(`${env.API_URL}/my-activity/${currentUser.user.id}`, {
+      fetch(`http://localhost:3000/my-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -36,7 +30,7 @@ function Home({ currentUser }) {
   // get the activity for the current user's friends. combine with above?
   useEffect(() => {
     if (token && currentUser.user) {
-      fetch(`${env.API_URL}/friend-activity/${currentUser.user.id}`, {
+      fetch(`http://localhost:3000/friend-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +38,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserFriendActivity(data);
-          //console.log("friend data is: ", data);
+          console.log("friend data is: ", data);
         });
     }
   }, [loading]);
@@ -66,33 +60,85 @@ function Home({ currentUser }) {
       return formattedDate;
     }
   }
+  const activityArray = [];
+  userFriendActivity.map((user) => {
+    if (user.length > 0) {
+      return user.map((user_activity) => {
+        activityArray.push(user_activity);
+      });
+    }
+  });
+
+  activityArray.sort(function (a, b) {
+    return a.id - b.id;
+  });
+  console.log(activityArray);
 
   return (
     <div>
       {/* take the useEffect with it? */}
-      <FriendActivity
+      {/* <FriendActivity
         userFriendActivity={userFriendActivity}
         handleDate={handleDate}
-      />
-      
+      /> */}
 
       {!loading && userActivity.length > 0 ? (
         <>
-          <UserEpisodeActivity
+        {/* Current user's activity */}
+          <UserActivityContainer
             userActivity={userActivity}
             handleDate={handleDate}
+            type={"subscription"}
+            headerText={"subscriptions"}
           />
-          <UserEpisodeRatingActivity
+          <UserActivityContainer
             userActivity={userActivity}
             handleDate={handleDate}
+            type={"listened"}
+            headerText={"episodes"}
           />
-          <UserRatingActivity
+          <UserActivityContainer
             userActivity={userActivity}
             handleDate={handleDate}
+            type={"episode-rating"}
+            headerText={"episode ratings"}
           />
-          <UserSubscriptionActivity
+          <UserActivityContainer
             userActivity={userActivity}
             handleDate={handleDate}
+            type={"podcast-rating"}
+            headerText={"podcast ratings"}
+          />
+
+
+          {/* Friend's activity */}
+
+          <UserActivityContainer
+            userActivity={activityArray}
+            handleDate={handleDate}
+            type={"subscription"}
+            headerText={"friend's subscriptions"}
+          />
+
+          <UserActivityContainer
+            userActivity={activityArray}
+            handleDate={handleDate}
+            type={"listened"}
+            headerText={"friend's episodes"}
+          />
+
+          <UserActivityContainer
+            userActivity={activityArray}
+            handleDate={handleDate}
+            type={"episode-rating"}
+            headerText={"friend's episode ratings"}
+          />
+
+          <UserActivityContainer
+            userActivity={activityArray}
+            handleDate={handleDate}
+            type={"podcast-rating"}
+            headerText={"friend's podcast ratings"}
           />
         </>
       ) : null}

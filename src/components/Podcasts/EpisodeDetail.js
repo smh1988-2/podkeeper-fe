@@ -7,7 +7,7 @@ function EpisodeDetail({ episode }) {
 
     function handleSearchResultCardClick(e) {
         // create the episode in the backend
-        fetch(`${env.API_URL}/episodes`, {
+        fetch(`http://localhost:3000/episodes`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
