@@ -26,7 +26,7 @@ function Profile({ currentUser, setCurrentUser }) {
         .then((res) => res.json())
         .then((res) => {
           setUserIsFollowing(res);
-          console.log("user is following: ", res)
+          console.log("user is following: ", res);
         });
     }
   }, [returnedUser, currentUser]);
@@ -61,7 +61,7 @@ function Profile({ currentUser, setCurrentUser }) {
         if (res.ok) {
           res.json().then((data) => {
             setReturnedUser(data);
-            console.log("returned user is: ",data)
+            //console.log("returned user is: ",data)
             setError("");
             if (data.username === currentUser.user.username) {
               setError("me");
@@ -82,7 +82,7 @@ function Profile({ currentUser, setCurrentUser }) {
         <>
           <Container>
             <Row>
-              <Col>
+              <Col xs={12} lg={2} flex>
                 <ProfileUserDetail
                   currentUser={currentUser}
                   userIsFollowing={userIsFollowing}
@@ -92,16 +92,17 @@ function Profile({ currentUser, setCurrentUser }) {
               </Col>
 
               <Col xs={8}>
+                <UsersYouFollow userIsFollowing={userIsFollowing} />
                 <Row>&nbsp;</Row>
-                <Row>&nbsp;</Row>
+                <UserFollowers usersFollowingYou={usersFollowingYou} />
+
                 <FindUserForm
                   validated={validated}
                   handleUserSearchSubmit={handleUserSearchSubmit}
                   searchTerm={searchTerm}
                   setSearchTerm={setSearchTerm}
                 />
-                <Row>&nbsp;</Row>
-                <Row>&nbsp;</Row>
+
                 {returnedUser !== false && error !== "me" ? (
                   <UserSearchReturnedUser
                     returnedUser={returnedUser}
@@ -111,18 +112,21 @@ function Profile({ currentUser, setCurrentUser }) {
                   />
                 ) : null}
 
-                {error.message ? <p>{error.message}</p> : null}
-                {error === "me" ? (
-                  <p>
-                    You can't follow yourself. Even if you have the best taste
-                    in podcasts.
-                  </p>
+                {error.message ? (
+                  <div className="following-row">
+                    <h3 className="page-subheading">
+                      {error.message} Try searching again.
+                    </h3>
+                  </div>
                 ) : null}
-
-                <UsersYouFollow userIsFollowing={userIsFollowing} />
-                <Row>&nbsp;</Row>
-                <Row>&nbsp;</Row>
-                <UserFollowers usersFollowingYou={usersFollowingYou} />
+                {error === "me" ? (
+                  <div className="following-row">
+                    <h3 className="page-subheading">
+                      You can't follow yourself. Even if you have the best taste
+                      in podcasts.
+                    </h3>
+                  </div>
+                ) : null}
               </Col>
               <Col></Col>
             </Row>

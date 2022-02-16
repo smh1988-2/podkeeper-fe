@@ -8,12 +8,12 @@ function UserFollowers({ usersFollowingYou }) {
   return <div>
       
   {usersFollowingYou.length > 0 ? (
-    <div className="followers-row">
-      <h3 className="page-subheading-follow">Followers</h3>
+    <div className="following-row">
+      <h3 className="page-subheading">Followers</h3>
 
       <Container>
     <Row
-      xs={1}
+      xs={2}
       md={4}
       className="g-4"
       className="d-flex justify-content-left"
@@ -22,7 +22,7 @@ function UserFollowers({ usersFollowingYou }) {
         return (
           <div key={user.id}>
             <Card style={{ width: "7rem", border: "0px" }} key={user.id} className="profile-page-card">
-            <div className="circle-followers">{user.username}</div>
+            <div className="circle-follow">{user.username}</div>
             
             </Card>
           </div>

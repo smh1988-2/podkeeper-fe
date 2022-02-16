@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Duration from "./Duration";
 import "./Podcasts.css";
 
+import SpeedControls from "./SpeedControls";
+import PlayAndSkipControls from "./PlayAndSkipControls";
+import Loading from "../Home/Loading";
+
 import ReactPlayer from "react-player";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { Rating } from "react-simple-star-rating";
@@ -14,53 +18,67 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
-import {
-  RiArrowGoForwardFill,
-  RiArrowGoBackLine,
-  RiPlayFill,
-  RiPauseFill,
-  RiAddFill,
-  RiSubtractFill,
-} from "react-icons/ri";
-
 function EpisodeMainPage({ currentUser }) {
   const { id } = useParams();
   const player = useRef();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [currentEpisode, setCurrentEpisode] = useState({});
-  const [audioUrl, setAudioUrl] = useState("");
   const [loading, setLoading] = useState(true);
-  const [starRating, setStarRating] = useState();
+  const [starRating, setStarRating] = useState(0);
 
+  const [audioUrl, setAudioUrl] = useState("");
   const [playing, setPlaying] = useState(false);
+
+  let [played, setPlayed] = useState();
+  let [progress, setProgress] = useState();
+
   const [muted, setMuted] = useState(false);
   const [duration, setDuration] = useState(0);
   let [playbackRate, setPlaybackRate] = useState(1);
   let [volume, setVolume] = useState(0.5);
 
-  let [played, setPlayed] = useState();
-  let [progress, setProgress] = useState();
-
   useEffect(() => {
-    fetch(`http://localhost:3000/episodes/${id}`)
-      .then((r) => r.json())
-      .then((r) => {
-        setCurrentEpisode(r);
-        // console.log(r.id);
-        setAudioUrl(r.episodeUrl);
-      });
+    if (!loading) {
+      fetch(`http://localhost:3000/episodes/${id}`)
+        .then((r) => r.json())
+        .then((r) => {
+          setCurrentEpisode(r);
+          // console.log("current episode is: ",r);
+          setAudioUrl(r.episodeUrl);
+        });
+    }
   }, [loading]);
 
   useEffect(() => {
-    setTimeout(() => {setLoading(false)}, 2500);
-  })
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  });
+
+  useEffect(() => {
+    if (!loading && currentEpisode.id > 0) {
+      fetch(
+        `http://localhost:3000/episode-rating/?user_id=${currentUser.user.id}&episode_id=${currentEpisode.id}`
+      ).then((res) => {
+        if (res.ok) {
+          res.json().then((res) => {
+            setStarRating(res[0].rating);
+            //console.log("current rating is: ",res[0].rating)
+          });
+        } else {
+          res.json().then((err) => {
+            console.log(err);
+          });
+        }
+      });
+    }
+  }, [loading, currentEpisode]);
 
   function handleStarRatingClick(e) {
     setStarRating(e);
 
     fetch(`http://localhost:3000/rating`, {
-      
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +94,7 @@ function EpisodeMainPage({ currentUser }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((rating) => {
-          console.log(rating)
+          console.log(rating);
         });
       } else {
         r.json().then((err) => {
@@ -100,14 +118,12 @@ function EpisodeMainPage({ currentUser }) {
 
     localStorage.setItem(
       `${currentEpisode.id}`,
-      JSON.stringify(
-        {
+      JSON.stringify({
         user_id: currentUser.user.id,
         episode_id: currentEpisode.id,
         progress: e.playedSeconds,
-        played: e.playedSeconds / 6000
-      }
-      )
+        played: e.playedSeconds / 6000,
+      })
     );
   }
 
@@ -155,148 +171,108 @@ function EpisodeMainPage({ currentUser }) {
 
   return (
     <div>
-      {!currentEpisode && loading ? (
+      {currentEpisode && loading === true ? (
+        <Loading loading={loading}/> 
+      ) : (
         <>
-          <Row className="episode-row"> 
-            <Col></Col>
-            <Col className="text-center loading-animation">
-              <ScaleLoader color={"#485049"} loading={loading} height={50} size={250} />{" "}
-            </Col>
-            <Col></Col>
-          </Row>
-        </>
-      ) : null}
-
-      {currentEpisode ? (
-        <>
-          <Row className="episode-row">
-            <Col></Col>
-
-            <Col className="text-center">
-              <Row>
-
-
-
-              <Button className="back-button-episode-main-page" onClick={() => navigate(-1)}>
-              <RiArrowLeftLine /> Back
-              </Button>
-
-
-
-
-                <h4 className="subheading">{currentEpisode.collectionName}</h4>
-              </Row>
-              <Row>
-                <h3>{currentEpisode.trackName}</h3>
-                <h6 style={{ color: "#c9ceca" }}>
-                  <Duration seconds={duration} />
-                </h6>
-              </Row>
-              <Row>&nbsp;</Row>
-              <Row>
-                <Col>
-                  <Duration seconds={progress} />
-                </Col>
-                <Col xs={1}></Col>
-                <Col>
-                  <Duration seconds={duration - progress} />
-                </Col>
-              </Row>
-
-              <Row>
+          {currentEpisode ? (
+            <>
+              <Row className="episode-row">
                 <Col></Col>
-                <Col xs={8}>
-                  <ProgressBar
-                    now={played}
-                    min={0}
-                    step="any"
-                    max={0.999999}
-                    // onMouseDown={handleSeekMouseDown}
-                    // onChange={handleSeekChange}
-                    // onMouseUp={handleSeekMouseUp}
+
+                <Col className="text-center">
+                  <Row>
+                    <Button
+                      className="back-button-episode-main-page"
+                      onClick={() => navigate(-1)}
+                    >
+                      <RiArrowLeftLine /> Back
+                    </Button>
+
+                    <h4 className="subheading">
+                      {currentEpisode.collectionName}
+                    </h4>
+                  </Row>
+
+                  <Row>
+                    <h3>{currentEpisode.trackName}</h3>
+                    <h6 style={{ color: "#c9ceca" }}>
+                      <Duration seconds={duration} />
+                      <br />
+                      <Rating
+                        onClick={handleStarRatingClick}
+                        ratingValue={starRating}
+                        size={18}
+                      />
+                    </h6>
+                  </Row>
+
+                  <Row>&nbsp;</Row>
+                  <Row>
+                    <Col>
+                      <Duration seconds={progress} />
+                    </Col>
+                    <Col xs={1}></Col>
+                    <Col>
+                      <Duration seconds={duration - progress} />
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col></Col>
+                    <Col xs={8}>
+                      <ProgressBar
+                        now={played}
+                        min={0}
+                        step="any"
+                        max={0.999999}
+                      />
+                    </Col>
+                    <Col></Col>
+                  </Row>
+                  <Row>&nbsp;</Row>
+                  <img
+                    src={currentEpisode.artworkUrl600}
+                    alt={currentEpisode.trackName}
+                    height="400px"
+                    className="episode-player-img-top"
+                  />
+                  <Row>
+                    <ReactPlayer
+                      ref={player}
+                      height={0}
+                      url={audioUrl}
+                      controls={false}
+                      playing={playing}
+                      muted={muted}
+                      volume={volume}
+                      onDuration={handleDuration}
+                      onProgress={onProgress}
+                      playbackRate={playbackRate}
+                      onEnded={handleEnded}
+                    />
+                  </Row>
+
+                  <PlayAndSkipControls
+                    handleBackward={handleBackward}
+                    handlePlayPause={handlePlayPause}
+                    handleForward={handleForward}
+                    playing={playing}
+                  />
+
+                  <SpeedControls
+                    handleSlower={handleSlower}
+                    playbackRate={playbackRate}
+                    handleFaster={handleFaster}
                   />
                 </Col>
+
                 <Col></Col>
               </Row>
-              <Row>&nbsp;</Row>
-              <img
-                src={currentEpisode.artworkUrl600}
-                alt={currentEpisode.trackName}
-                height="400px"
-                className="episode-player-img-top"
-              />
-              <Row>
-                <ReactPlayer
-                  ref={player}
-                  height={0}
-                  url={audioUrl}
-                  controls={false}
-                  playing={playing}
-                  muted={muted}
-                  volume={volume}
-                  onDuration={handleDuration}
-                  onProgress={onProgress}
-                  playbackRate={playbackRate}
-                  //onSeek={(e) => console.log("onSeek", e)}
-                  onEnded={handleEnded}
-                />
-              </Row>
-
-          {/* Move to new component */}
-              <Row id="play-pause-row" className="align-middle">
-                <Col></Col>
-                <Col>
-                  <br />
-                  <span style={{ fontSize: "2em", color: "#2E5B4F" }}>
-                    <RiArrowGoBackLine onClick={handleBackward} />
-                  </span>
-                </Col>
-                <Col>
-                  <span
-                    style={{ fontSize: "4em", color: "#2E5B4F" }}
-                    id="play-pause-button"
-                  >
-                    {playing ? (
-                      <RiPauseFill onClick={handlePlayPause} />
-                    ) : (
-                      <RiPlayFill onClick={handlePlayPause} />
-                    )}
-                  </span>
-                </Col>
-
-                <Col>
-                  <br />
-                  <span style={{ fontSize: "2em", color: "#2E5B4F" }}>
-                    <RiArrowGoForwardFill onClick={handleForward} />
-                  </span>
-                </Col>
-                <Col></Col>
-              </Row>
-
-              {/* Move to new component */}
-              <Row>
-                <Col></Col>
-                <Col>
-                  <span style={{ fontSize: "1em", color: "#2E5B4F" }}>
-                    <RiSubtractFill onClick={handleSlower} />
-                  </span>
-                  &nbsp;&nbsp;&nbsp;
-                  <span>{playbackRate}x</span>
-                  &nbsp;&nbsp;&nbsp;
-                  <span style={{ fontSize: "1em", color: "#2E5B4F" }}>
-                    <RiAddFill onClick={handleFaster} />
-                  </span>
-                </Col>
-                <Col></Col>
-                <Rating onClick={handleStarRatingClick} ratingValue={starRating} />
-
-              </Row>
-            </Col>
-
-            <Col></Col>
-          </Row>
+            </>
+          ) : null}
         </>
-      ) : null}
+      )}
     </div>
   );
 }

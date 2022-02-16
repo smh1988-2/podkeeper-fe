@@ -20,8 +20,6 @@
   padding-left: 70px;
   font-size: 15px;
   font-weight: 300;
-  /* text-decoration: solid underline #cecece 2px!important;
-  text-underline-offset: 7px!important; */
 }
 
 .header-link-item:hover {
@@ -33,4 +31,8 @@
 
 .nav {
   margin-top: 16px;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: #2e5b4f;
 }

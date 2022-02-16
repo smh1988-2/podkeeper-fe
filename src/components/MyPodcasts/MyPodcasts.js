@@ -61,7 +61,7 @@ function MyPodcasts({ currentUser }) {
           <Container>
             <Row
               xs={1}
-              md={4}
+              md={6}
               className="g-4"
               className="d-flex justify-content-left"
             >
@@ -95,10 +95,8 @@ function MyPodcasts({ currentUser }) {
 
       {currentUser.user ? null : <LoginButton currentUser={currentUser} />}
 
-      <Container style={{ width: "150%" }}>
+      <Container>
         <Row
-          style={{ width: "100%"
-        }}
           xs={12}
           className="d-flex justify-content-center"
         >

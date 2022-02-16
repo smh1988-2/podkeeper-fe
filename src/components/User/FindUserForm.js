@@ -14,7 +14,9 @@ function FindUserForm({
   handleUserSearchSubmit,
 }) {
   return (
-    <div>
+    <div className="following-row">
+      <h3 className="page-subheading">Find your friends</h3>
+
       <Form
         noValidate
         validated={validated}

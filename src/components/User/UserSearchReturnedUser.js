@@ -10,7 +10,7 @@ function UserSearchReturnedUser({
   returnedUser,
   currentUser,
   userIsFollowing,
-  setReturnedUser
+  setReturnedUser,
 }) {
   //checks if the currentUser is already following the returnedUser, i.e. userIsFollowing.some(checkUserId)
 
@@ -21,7 +21,7 @@ function UserSearchReturnedUser({
   function handleFollowClick() {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/follow`, {
+      fetch(`${env.API_URL}/follow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,22 +45,27 @@ function UserSearchReturnedUser({
       });
     }
     setClicked(!clicked);
-    setReturnedUser(false)
+    setReturnedUser(false);
   }
 
   return (
     <div>
       <Row>
+        <Row>
+          <div className="following-row">
+            <h3 className="page-subheading">Is this who you're looking for?</h3>
+          </div>
+        </Row>
         <Col>
           <Row className="text-center">
             <Col></Col>
             <Col>
               <Card
-                style={{ padding: "20px", border: "0px" }}
+                style={{ padding: "20px", border: "0px", width: "100%" }}
                 key={returnedUser.id}
                 className="search-profile-page-card"
               >
-                <div className="circle-follow">{returnedUser.username}</div>
+                <div class="search-returned-user">{returnedUser.username}</div>
                 <br />
                 {userIsFollowing.some(checkUserId) ? (
                   <Button

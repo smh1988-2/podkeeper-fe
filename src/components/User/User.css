@@ -1,10 +1,9 @@
 #half-page {
   background: rgb(99, 111, 101);
-  border-radius: 50% 20% / 10% 40%;
-
-  margin-left: 40px;
-  margin-top: 40px;
-  margin-bottom: 40px; 
+  /* border-radius: 50% 20% / 10% 40%; */
+  /* margin-left: 0px; */
+  /* margin-top: 40px;
+  margin-bottom: 40px;  */
 }
 
 #full-row {
@@ -51,10 +50,6 @@
 
 .tab-content {
   margin-top: -17px;
-}
-
-#form-container {
-  margin-top: 210px;
 }
 
 #login-form {
@@ -126,10 +121,10 @@
 .circle {
   margin-top: 46px;
   margin-bottom: 20px;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border-radius: 50%;
+  width: 108px;
+  height: 108px;
+  line-height: 108px;
+  border-radius: 100%;
   font-size: 20px;
   color: #fff;
   text-align: center;
@@ -139,51 +134,21 @@
 .circle-follow {
   margin-top: 10px;
   margin-bottom: 0px;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border-radius: 50%;
+  width: 108px;
+  height: 108px;
+  line-height: 108px;
+  border-radius: 100%;
   font-size: 20px;
-  color: #fff;
+  color: #2e5b4f;
   text-align: center;
-  background-color: #6f626c;
+  background-color: #cecece;
 }
 
-.circle-followers {
-  margin-top: 10px;
-  margin-bottom: 0px;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  border-radius: 50%;
-  font-size: 20px;
-  color: #fff;
-  text-align: center;
-  background-color: rgb(99, 111, 101);
-}
 
 .following-row {
-  background: rgb(99, 111, 101);
-  background: linear-gradient(
-    245deg,
-    rgba(99, 111, 101, 0.8491771708683473) 0%,
-    rgba(174, 182, 175, 1) 100%
-  );
-  padding: 50px;
+  background: #fff;
+  padding-left: 50px;
   --bs-gutter-x: 0rem !important;
-  border-radius: 5% 20% / 40% 10%;
-}
-
-.followers-row {
-  background: #6f626c;
-  background: linear-gradient(
-    245deg,
-    rgba(#6f626c, 0.8491771708683473) 0%,
-    rgba(174, 182, 175, 1) 100%
-  );
-  padding: 50px;
-  --bs-gutter-x: 0rem !important;
-  border-radius: 40% 10% / 5% 20%;
 }
 
 .profile-page-card {
@@ -199,4 +164,8 @@
 }
  .search-profile-page-card {
   text-align: center!important;
+ }
+
+ .search-returned-user {
+   font-size:30px;
  }

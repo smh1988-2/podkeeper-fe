@@ -35,7 +35,18 @@ function PodcastDetailInformation({
         />
         <br />
         <br />
+
+
+
+
+
         <Rating onClick={handleStarRatingClick} ratingValue={starRating} />
+        
+
+
+
+
+
         <br />
         <br />
         <SubscriptionButtons

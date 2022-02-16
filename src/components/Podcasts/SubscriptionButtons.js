@@ -2,7 +2,6 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import env from "react-dotenv";
 
 function SubscriptionButtons({
   currentUser,
@@ -12,6 +11,7 @@ function SubscriptionButtons({
   currentPodcast,
   setSubscribedButtonEnabled,
 }) {
+  
   function handleSubscribeClick() {
     const token = localStorage.getItem("token");
     fetch(`http://localhost:3000/user_subscriptions`, {
@@ -28,6 +28,7 @@ function SubscriptionButtons({
     })
       .then((r) => r.json())
       .then(() => {
+        console.log("subscribed")
         setSubscribedButtonEnabled(false);
       });
   }
