@@ -1,6 +1,6 @@
 import React from "react";
+import ReactGA from 'react-ga';
 import { useState } from "react";
-import env from "react-dotenv";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +35,10 @@ function Signup({ setCurrentUser, currentUser }) {
     setError("");
     console.log(data)
     setCurrentUser(data);
+    ReactGA.event({
+      category: 'User',
+      action: 'Created an Account'
+    });
     navigate("/");
         });
       } else {
