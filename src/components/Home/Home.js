@@ -31,7 +31,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          console.log("user activity data is: ", data);
+          //console.log("user activity data is: ", data);
         });
     }
   }, [loading]);

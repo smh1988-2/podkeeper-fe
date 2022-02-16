@@ -62,12 +62,13 @@ function UserActivityContainer({
                         {act.user ? act.user.username : null}
                         <br />
                           <Rating ratingValue={act.rating} readonly size={20} />
+                          <br />
                           </>
 
                          : null}
 
 
-                        <br />
+                        
                         {handleDate(act.created_at)}
                       </Card.Text>
                     </Card.Body>
