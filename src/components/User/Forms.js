@@ -1,7 +1,6 @@
 import React from "react";
 import Login from "./Login";
 import Signup from "./Signup";
-import Splash from "./Splash";
 import "./User.css";
 import Background from "./splash-background.png";
 
@@ -14,13 +13,14 @@ import Container from "react-bootstrap/Container";
 
 function Forms({ setCurrentUser, currentUser }) {
   return (
-    <div>
       <Row
-        className="g-0 align-middle"
         id="full-row"
-        style={{ height: "90.79vh" }}
+        // className="vh-100"
+        style={{ height: "calc(100vh - 56px)" }}
+         md={2}
       >
         <Col
+        sm={8}
           id="half-page"
           style={{
             backgroundImage: `url(${Background}), linear-gradient(
@@ -29,21 +29,21 @@ function Forms({ setCurrentUser, currentUser }) {
     rgba(174, 182, 175, 1) 100%
   )`,
             backgroundRepeat: "no-repeat",
+            backgroundSize: "auto",
             backgroundPosition: "center"
           }}
         >
-          <Splash />
         </Col>
 
-        <Col>
+        <Col sm={8}>
+
           <Container>
-            <Row className="g-0" id="form-container">
+            <Row className="g-0">
               <Col></Col>
-              <Col xs={7} className="text-center">
+              <Col xs={10} className="text-center" >
                 <Tabs
                   defaultActiveKey="login"
                   id="uncontrolled-tab-example"
-                  className="mb-3"
                   fill justify
                 >
                   <Tab eventKey="login" title="LOG IN">
@@ -64,9 +64,9 @@ function Forms({ setCurrentUser, currentUser }) {
               <Col></Col>
             </Row>
           </Container>
+
         </Col>
       </Row>
-    </div>
   );
 }
 

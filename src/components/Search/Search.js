@@ -3,9 +3,7 @@ import SearchResults from "./SearchResults";
 import RandomPodcasts from "./RandomPodcasts";
 import "./Search.css";
 import { AiOutlineSearch } from "react-icons/ai";
-// import env from "react-dotenv";
 
-// bootstrap
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -38,7 +36,7 @@ function Search({ currentUser }) {
     <div>
       <Row id="search-row">
         <Col></Col>
-        <Col>
+        <Col xs={10} md={6}>
           <h2 className="subheading-white">Search</h2>
           <br />
           <Form onSubmit={(e) => handleSearchFormSubmit(e)}>
@@ -71,13 +69,11 @@ function Search({ currentUser }) {
 
       <SearchResults searchResults={searchResults} currentUser={currentUser} />
 
-      {/* FIX THIS */}
-
       {searchError === "no results" ? (
         <>
           <Row style={{ paddingTop: "30px" }}>
             <Col></Col>
-            <Col className="text-center">
+            <Col xs={10} md={6} className="text-center">
               <p>Sorry, we couldn't find that 😢</p>
               <p>Try searching for another podcast.</p>
             </Col>

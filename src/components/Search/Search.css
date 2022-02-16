@@ -13,7 +13,18 @@ a:hover {
 .card:hover {
   color: #485049 !important;
   text-decoration: none !important;
-  background-color: #ffffff;
+  background-color: transparent;
+}
+
+.card {
+  background-color: transparent;
+  border: 0px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+}
+
+.card-header {
+  background-color: transparent;
 }
 
 #button-addon2 {
@@ -56,6 +67,12 @@ a:hover {
 
 .page-subheading {
   color: #2e5b4f;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.page-subheading-white {
+  color: #ffffff;
   padding-top: 40px;
   padding-bottom: 10px;
 }

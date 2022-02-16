@@ -15,7 +15,7 @@ function SearchResults({ searchResults, currentUser }) {
           className="g-4"
           className="d-flex justify-content-left"
           style={{
-            marginTop: "70px"
+            marginTop: "40px"
           }}
         >
           {searchResults.length > 0

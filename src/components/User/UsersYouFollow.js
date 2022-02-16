@@ -5,17 +5,16 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 
 function UsersYouFollow({ userIsFollowing }) {
-  // console.log(userIsFollowing);
 
   return (
     <div>
       {userIsFollowing.length > 0 ? (
         <div className="following-row">
-          <h3 className="page-subheading-follow">Following</h3>
+          <h3 className="page-subheading">Following</h3>
 
           <Container>
         <Row
-          xs={1}
+          xs={2}
           md={4}
           className="g-4"
           className="d-flex justify-content-left"

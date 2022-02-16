@@ -2,10 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+
 function ProfileUserDetail({
   currentUser,
-  userIsFollowing,
-  usersFollowingYou,
   setCurrentUser,
 }) {
   let navigate = useNavigate();
@@ -17,17 +19,21 @@ function ProfileUserDetail({
   }
 
   return (
-    <div>
+
+      <Container className="d-flex justify-content-center">
+        <Col xs={6}>
+        <Row className="justify-content-center">
       <div className="circle">{currentUser.user.username}</div>
-      <p>
-        Following: {userIsFollowing.length}
-        <br />
-        Followed by: {usersFollowingYou.length}
-      </p>
-      <Button onClick={handleLogout} className="global-button">
+      </Row>
+
+      <Row>
+      <Button onClick={handleLogout} className="logout-button">
         Logout
       </Button>
-    </div>
+      </Row>
+      </Col>
+      </Container>
+
   );
 }
 

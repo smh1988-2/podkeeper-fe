@@ -1,5 +1,7 @@
 import React from "react";
-import env from "react-dotenv";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 function EpisodeDetail({ episode }) {
 
@@ -26,7 +28,7 @@ function EpisodeDetail({ episode }) {
             trackId: episode.trackId
           }),
         }).then(r => r.json())
-        // .then(r => console.log(r));
+        .then(r => console.log(r));
       }
 
       function pad (string) {
@@ -46,20 +48,21 @@ function EpisodeDetail({ episode }) {
 
   return (
     <div>
-      <div className="container my-4">
+      <Container>
         <div className="card row flex-row" id="episode-detail-card">
           <img
-            className="col-2 card-img-start p-0 episode-detail-image"
-            src={episode.artworkUrl160}
-            height="80%"
+            className="col-lg-2 xs-12 card-img-start p-0 episode-detail-image"
+            style={{height:"100%"}}
+            src={episode.artworkUrl600}
             onClick={handleSearchResultCardClick}
           />
+      
           <div className="col-lg-8 card-body" id="podcast-detail-episode-card" onClick={handleSearchResultCardClick}>
             <h4 className="card-title podcast-detail-episode-title">{episode.trackName} <span className="episode-time">{format(episode.trackTimeMillis/1000)}</span></h4> 
             <p className="card-text">{episode.description.substr(0, 300) + " " + "\u2026"}</p>
           </div>
         </div>
-      </div>
+        </Container>
     </div>
   );
 }

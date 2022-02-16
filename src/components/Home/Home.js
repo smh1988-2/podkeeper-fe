@@ -4,6 +4,13 @@ import HomePageWelcomeMessage from "./HomePageWelcomeMessage";
 import HomeNoActivityMessage from "./HomeNoActivityMessage";
 import UserActivityContainer from "./UserActivityContainer";
 import Loading from "./Loading";
+import UserActivityContainerTwoCol from "./UserActivityContainerTwoCol";
+import AllUserAndFriendActivity from "./AllUserAndFriendActivity";
+import Accordion from "react-bootstrap/Accordion";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
+import Container from "react-bootstrap/Container";
 
 function Home({ currentUser }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -22,7 +29,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          //console.log("user activity data is: ", data);
+          console.log("user activity data is: ", data);
         });
     }
   }, [loading]);
@@ -38,7 +45,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserFriendActivity(data);
-          console.log("friend data is: ", data);
+          //console.log("friend data is: ", data);
         });
     }
   }, [loading]);
@@ -72,74 +79,78 @@ function Home({ currentUser }) {
   activityArray.sort(function (a, b) {
     return a.id - b.id;
   });
-  console.log(activityArray);
 
   return (
     <div>
-      {/* take the useEffect with it? */}
-      {/* <FriendActivity
-        userFriendActivity={userFriendActivity}
-        handleDate={handleDate}
-      /> */}
-
       {!loading && userActivity.length > 0 ? (
         <>
-        {/* Current user's activity */}
-          <UserActivityContainer
-            userActivity={userActivity}
-            handleDate={handleDate}
-            type={"subscription"}
-            headerText={"subscriptions"}
-          />
+          {/* Current user's activity */}
+
           <UserActivityContainer
             userActivity={userActivity}
             handleDate={handleDate}
             type={"listened"}
-            headerText={"episodes"}
+            headerText={"My recent episodes"}
+            numOfItems={8}
           />
-          <UserActivityContainer
+          <UserActivityContainerTwoCol
             userActivity={userActivity}
             handleDate={handleDate}
             type={"episode-rating"}
-            headerText={"episode ratings"}
+            headerText={"My episode ratings"}
+            numOfItems={10}
           />
-          <UserActivityContainer
-            userActivity={userActivity}
-            handleDate={handleDate}
-            type={"podcast-rating"}
-            headerText={"podcast ratings"}
-          />
-
 
           {/* Friend's activity */}
 
           <UserActivityContainer
             userActivity={activityArray}
             handleDate={handleDate}
-            type={"subscription"}
-            headerText={"friend's subscriptions"}
-          />
-
-          <UserActivityContainer
-            userActivity={activityArray}
-            handleDate={handleDate}
             type={"listened"}
-            headerText={"friend's episodes"}
+            headerText={"Episodes my friends are listening to"}
+            numOfItems={8}
           />
 
-          <UserActivityContainer
+          <UserActivityContainerTwoCol
             userActivity={activityArray}
             handleDate={handleDate}
             type={"episode-rating"}
-            headerText={"friend's episode ratings"}
+            headerText={"Friend's episode ratings"}
+            numOfItems={10}
           />
 
           <UserActivityContainer
             userActivity={activityArray}
             handleDate={handleDate}
             type={"podcast-rating"}
-            headerText={"friend's podcast ratings"}
+            headerText={"Friend's podcast ratings"}
+            numOfItems={4}
           />
+
+          <Container>
+            <Row>
+              <Col></Col>
+              <Col xs={12}>
+
+
+                <Accordion flush>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header><h3>All my activity</h3></Accordion.Header>
+                    <Accordion.Body>
+                      <AllUserAndFriendActivity
+                        userActivity={userActivity}
+                        handleDate={handleDate}
+                        headerText={"All my activity"}
+                      />
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+
+
+              </Col>
+              <Col></Col>
+            </Row>
+          </Container>
         </>
       ) : null}
 

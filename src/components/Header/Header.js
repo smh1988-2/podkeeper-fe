@@ -1,25 +1,25 @@
 import React from "react";
 import "./Header.css";
-import logo from "./podkeeper-wordmark.png"
+import logo from "./podkeeper-wordmark.png";
 import Nav from "react-bootstrap/Nav";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+
 
 function Header({ currentUser }) {
   return (
     <div>
-      <Row id="header-row">
-        <Col></Col>
-        <Col>
-          <Link to="/home">
-            <img src={logo} height="50%" />
-          </Link>
-        </Col>
-
-
-        <Col xs={6} className="text-right">
-          <Nav>
+      <Navbar collapseOnSelect expand="lg">
+        <Container>
+            <Link to="/home">
+              <img src={logo} width="200px"/>
+            </Link>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Col></Col>
+            <Nav >
             <Nav.Item>
               <Link
                 to="/home"
@@ -58,7 +58,7 @@ function Header({ currentUser }) {
                     id="header-nav-link"
                     className="header-link-item"
                   >
-                    Profile
+                  {currentUser.user.username}
                   </Link>
                 </Nav.Item>
               </>
@@ -76,9 +76,11 @@ function Header({ currentUser }) {
               </>
             )}
           </Nav>
-        </Col>
-        <Col></Col>
-      </Row>
+             
+            
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
   );
 }

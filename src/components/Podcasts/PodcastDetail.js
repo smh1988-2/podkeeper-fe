@@ -2,8 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import env from "react-dotenv";
 import "./Podcasts.css";
 import EpisodeDetail from "./EpisodeDetail";
 import PodcastDetailInformation from "./PodcastDetailInformation";
@@ -16,10 +14,9 @@ function PodcastDetail({ currentUser }) {
   const [loading, setLoading] = useState(true);
   const [subscribeButtonEnabled, setSubscribedButtonEnabled] = useState(true); //move to sub button component?
   const [subscribedToThisPodcast, setSubscribedToThisPodcast] = useState(false); //move to sub button component?
-  const [starRating, setStarRating] = useState();
+  const [starRating, setStarRating] = useState(0);
 
   const { id } = useParams();
-  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -49,9 +46,10 @@ function PodcastDetail({ currentUser }) {
       });
   });
 
-  const arr = [];
+  // checks if the current podcast matches any of the users podcasts
+  const myPodcastIds = [];
   useEffect(() => {
-    if (currentPodcast.user) {
+    if (currentPodcast.id) {
       fetch(`http://localhost:3000/my-podcasts/${currentUser.user.id}`, {
         headers: {
           "Content-Type": "application/json",
@@ -61,9 +59,10 @@ function PodcastDetail({ currentUser }) {
         if (r.ok) {
           r.json().then((podcasts) => {
             podcasts.map((p) => {
-              arr.push(p.podcast_id);
+              myPodcastIds.push(p.podcast_id);
             });
-            const found = arr.includes(currentPodcast.id);
+            // console.log(myPodcastIds)
+            const found = myPodcastIds.includes(currentPodcast.id);
             setSubscribedToThisPodcast(found);
           });
         } else {
@@ -73,17 +72,19 @@ function PodcastDetail({ currentUser }) {
         }
       });
     }
+    //console.log("myPodcastIds is: ", myPodcastIds)
   }, [currentPodcast, loading]);
 
   // Getting the users rating of this podcast (if a rating exists). merge with useEffect above??
   useEffect(() => {
-    if (!loading && currentPodcast.length > 0) {
+    if (!loading && currentPodcast.id > 0) {
       fetch(
         `http://localhost:3000/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
       ).then((res) => {
         if (res.ok) {
           res.json().then((res) => {
             setStarRating(res[0].rating);
+            //console.log("current rating is: ",res[0].rating)
           });
         } else {
           res.json().then((err) => {
@@ -91,12 +92,12 @@ function PodcastDetail({ currentUser }) {
           });
         }
       });
-    }
-  }, [currentPodcast, loading]);
+     }
+  }, [loading, currentPodcast]);
 
   function handleStarRatingClick(e) {
     setStarRating(e);
-
+    console.log(e)
     fetch(`http://localhost:3000/rating`, {
       method: "POST",
       headers: {
@@ -112,7 +113,7 @@ function PodcastDetail({ currentUser }) {
     }).then((r) => {
       if (r.ok) {
         r.json().then((rating) => {
-          console.log(rating);
+          //console.log(rating);
         });
       } else {
         r.json().then((err) => {
@@ -126,8 +127,8 @@ function PodcastDetail({ currentUser }) {
     <div>
       {currentPodcast ? (
         <Row id="podcast-detail-top-row" >
-          <Col xs={1}></Col>
-        <Col xs={3}>
+          <Col lg={1}></Col>
+        <Col xs={12} lg={2}>
           <PodcastDetailInformation
             currentUser={currentUser}
             subscribeButtonEnabled={subscribeButtonEnabled}
@@ -137,10 +138,14 @@ function PodcastDetail({ currentUser }) {
             handleStarRatingClick={handleStarRatingClick}
             starRating={starRating}
           />
+          <br />
+          <br />
           </Col>
           
       <Col xs={1}></Col>
-          <Col xs={7} id="podcast-main-episode-list">
+
+
+          <Col xs={10} lg={7} id="podcast-main-episode-list">
             {podcastEpisodes.results
               ? podcastEpisodes.results.slice(1).map((episode) => {
                   return (

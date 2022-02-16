@@ -26,9 +26,9 @@
   padding-bottom: 30px !important;
 }
 
-#podcast-main-episode-list {
+/* #podcast-main-episode-list {
   padding-right: 200px !important;
-}
+} */
 
 .card-body-podcasts {
   padding-top: 0px !important;
@@ -104,4 +104,12 @@
   /* background-color:red!important; */
   font-size: 20px!important;
   color: #2e5b4f!important;
+}
+
+.minus-button {
+  text-align:right!important;
+}
+
+.plus-button {
+  text-align:left!important;
 }

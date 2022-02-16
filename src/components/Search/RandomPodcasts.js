@@ -22,7 +22,7 @@ function RandomPodcasts() {
   return (
     <div>
       <Container>
-        <Row xs={10} className="d-flex justify-content-center">
+        <Row xs={10}>
           <h3 className="page-subheading">
             Or check out these popular podcasts
           </h3>
@@ -31,10 +31,8 @@ function RandomPodcasts() {
 
       <Container>
         <Row
-          xs={1}
-          md={4}
-          className="g-4"
-          className="d-flex justify-content-center"
+          xs={12}
+          md={6}
         >
           {randomPodcasts
             ? randomPodcasts.map((result) => {

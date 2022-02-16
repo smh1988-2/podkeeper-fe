@@ -1,5 +1,4 @@
 import React from "react";
-import env from "react-dotenv";
 import Card from "react-bootstrap/Card";
 
 function SearchResultCard({ result, stars }) {
@@ -26,18 +25,13 @@ function SearchResultCard({ result, stars }) {
     //.then(r => console.log(r));
   }
 
-  function handleStarRatingClick(e) {
-    console.log(e)
-    // post fetch method to send rating to backend. move this to MyPodcasts?
-  }
-
   return (
     <div>
       <Card
         className="result-card-search-page"
         data-podcast-id={result.collectionId}
         style={{
-          width: "15rem",
+          // width: "15rem",
           border: "0",
         }}
         onClick={handleSearchResultCardClick}
@@ -50,14 +44,14 @@ function SearchResultCard({ result, stars }) {
           {result.collectionName}
           
           {/* move to new component outside the card */}
-          {stars ? (
+          {/* {stars ? (
         <>
         <br /><br />
         <span style={{ fontSize: "20px", color: "#FFBA01" }}>
-          {/* rating */}
+          rating
           </span>
         </>
-      ) : null}
+      ) : null} */}
 
         </Card.Title>
       </Card>

@@ -16,7 +16,7 @@
 
 .global-button:hover {
   border-color: #2e5b4f !important;
-  color: #2e5b4f!important;
+  color: #2e5b4f !important;
   border-radius: 24px !important;
   background-color: #fff !important;
   font-weight: 600 !important;
@@ -24,6 +24,25 @@
   padding-bottom: 10px !important;
   padding-left: 40px !important;
   padding-right: 40px !important;
+}
+
+.logout-button {
+  border-color: #2e5b4f !important;
+  border-radius: 24px !important;
+  background-color: #37584d !important;
+  font-weight: 600 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.logout-button:hover {
+  border-color: #2e5b4f !important;
+  color: #2e5b4f !important;
+  border-radius: 24px !important;
+  background-color: #fff !important;
+  font-weight: 600 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
 
 .global-button:focus {
@@ -45,7 +64,6 @@
   padding-bottom: 80px;
   --bs-gutter-x: 0rem !important;
   height: 91.5vh;
-  
 }
 
 .home-card-body {
@@ -59,9 +77,64 @@
 }
 
 .card-img-top {
-  border-radius: 20px!important;
+  border-radius: 20px !important;
 }
 
 .home-welcome-message-logo {
   margin: 50px;
 }
+
+.two-col-text-area {
+  color: #ffffff;
+  padding-left: 10px;
+}
+
+.two-col-date {
+  font-size: 14px;
+}
+
+.two-col-title {
+  margin: 0px;
+}
+
+.row {
+  --bs-gutter-x: 0 !important;
+}
+
+#all-activity-card-text {
+  padding-left: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cecece;
+}
+
+#all-activity-card-image {
+  border-bottom: 1px solid #cecece !important;
+}
+
+.accordion-button {
+  background-color: #ffffff !important;
+  border: 0px !important;
+  color: #2e5b4f!important;
+  font-size: 30px !important;
+}
+
+.accordion-button:focus {
+  background-color: #ffffff !important;
+  border: 0px !important;
+  color: #2e5b4f;
+  font-size: 30px !important;
+  box-shadow: none !important;
+}
+
+
+.accordion-item {
+  border: 0px !important;
+  color: #2e5b4f;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #2e5b4f !important;
+  background-color: #ffffff;
+  box-shadow: none !important;
+  border:0px!important;
+} 
