@@ -6,10 +6,10 @@ import UserActivityContainer from "./UserActivityContainer";
 import Loading from "./Loading";
 import UserActivityContainerTwoCol from "./UserActivityContainerTwoCol";
 import AllUserAndFriendActivity from "./AllUserAndFriendActivity";
+import ReactGA from 'react-ga';
 import Accordion from "react-bootstrap/Accordion";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-
 import Container from "react-bootstrap/Container";
 
 function Home({ currentUser }) {
@@ -17,6 +17,8 @@ function Home({ currentUser }) {
   const [userFriendActivity, setUserFriendActivity] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
+
+  ReactGA.pageview(window.location.pathname + window.location.search);
 
   // get the activity for the current user
   useEffect(() => {

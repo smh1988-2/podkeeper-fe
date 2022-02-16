@@ -8,12 +8,19 @@ import MyPodcasts from "./components/MyPodcasts/MyPodcasts";
 import PodcastDetail from "./components/Podcasts/PodcastDetail";
 import Search from "./components/Search/Search";
 import Profile from "./components/User/Profile";
+import RouteChangeTracker from "./RouteChangeTracker";
+
+import ReactGA from 'react-ga';
+
 
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+
+  const TRACKING_ID = "UA-220526160-1";
+ReactGA.initialize(TRACKING_ID);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -69,6 +76,8 @@ function App() {
           element={<EpisodeMainPage currentUser={currentUser} />}
         />
       </Routes>
+
+      {/* <RouteChangeTracker /> */}
     </div>
   );
 }
