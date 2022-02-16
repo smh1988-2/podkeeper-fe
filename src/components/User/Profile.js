@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import env from "react-dotenv";
 
 import ProfileUserDetail from "./ProfileUserDetail";
 import FindUserForm from "./FindUserForm";
 import UserSearchReturnedUser from "./UserSearchReturnedUser";
 import UsersYouFollow from "./UsersYouFollow";
 import UserFollowers from "./UserFollowers";
+import UserAnalytics from "./UserAnalytics";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -19,6 +19,23 @@ function Profile({ currentUser, setCurrentUser }) {
   const [error, setError] = useState("");
   const [userIsFollowing, setUserIsFollowing] = useState([]); //rename to usersYouFollow
   const [usersFollowingYou, setUsersFollowingYou] = useState([]);
+  const [userActivity, setUserActivity] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token && currentUser.user) {
+      fetch(`http://localhost:3000/my-activity/${currentUser.user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setUserActivity(data);
+          //console.log("user activity data is: ", data);
+        });
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (currentUser.user) {
@@ -26,7 +43,7 @@ function Profile({ currentUser, setCurrentUser }) {
         .then((res) => res.json())
         .then((res) => {
           setUserIsFollowing(res);
-          console.log("user is following: ", res);
+          //console.log("user is following: ", res);
         });
     }
   }, [returnedUser, currentUser]);
@@ -85,13 +102,19 @@ function Profile({ currentUser, setCurrentUser }) {
               <Col xs={12} lg={2} flex>
                 <ProfileUserDetail
                   currentUser={currentUser}
-                  userIsFollowing={userIsFollowing}
-                  usersFollowingYou={usersFollowingYou}
                   setCurrentUser={setCurrentUser}
+                  userActivity={userActivity}
                 />
               </Col>
 
               <Col xs={8}>
+                <UserAnalytics
+                  userActivity={userActivity}
+                  userIsFollowing={userIsFollowing}
+                  usersFollowingYou={usersFollowingYou}
+                  currentUser={currentUser}
+                />
+
                 <UsersYouFollow userIsFollowing={userIsFollowing} />
                 <Row>&nbsp;</Row>
                 <UserFollowers usersFollowingYou={usersFollowingYou} />

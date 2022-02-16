@@ -8,8 +8,6 @@ import Col from "react-bootstrap/Col";
 
 function ProfileUserDetail({
   currentUser,
-  userIsFollowing,
-  usersFollowingYou,
   setCurrentUser,
 }) {
   let navigate = useNavigate();
@@ -27,14 +25,6 @@ function ProfileUserDetail({
         <Row className="justify-content-center">
       <div className="circle">{currentUser.user.username}</div>
       </Row>
-
-      {/* <Row>
-      <p>
-        Following: {userIsFollowing.length}
-        <br />
-        Followed by: {usersFollowingYou.length}
-      </p>
-      </Row> */}
 
       <Row>
       <Button onClick={handleLogout} className="logout-button">

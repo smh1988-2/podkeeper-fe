@@ -15,7 +15,7 @@ function PodcastDetailInformation({
   currentPodcast,
   setSubscribedButtonEnabled,
   handleStarRatingClick,
-  starRating
+  starRating,
 }) {
   const navigate = useNavigate();
   return (
@@ -24,7 +24,7 @@ function PodcastDetailInformation({
         <Button className="back-button" onClick={() => navigate(-1)}>
           <RiArrowLeftLine /> Back
         </Button>
-        
+
         <br />
 
         <img
@@ -36,16 +36,7 @@ function PodcastDetailInformation({
         <br />
         <br />
 
-
-
-
-
         <Rating onClick={handleStarRatingClick} ratingValue={starRating} />
-        
-
-
-
-
 
         <br />
         <br />
