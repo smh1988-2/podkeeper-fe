@@ -14,7 +14,7 @@ function SubscriptionButtons({
   
   function handleSubscribeClick() {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/user_subscriptions`, {
+    fetch(`${process.env.REACT_APP_API_URL}/user_subscriptions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

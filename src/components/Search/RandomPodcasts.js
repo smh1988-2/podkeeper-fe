@@ -11,7 +11,7 @@ function RandomPodcasts() {
   const [randomPodcasts, setRandomPodcasts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/random`)
+    fetch(`${process.env.REACT_APP_API_URL}/random`)
       .then((r) => r.json())
       .then((r) => {
         //console.log("the podcasts are: ",r)

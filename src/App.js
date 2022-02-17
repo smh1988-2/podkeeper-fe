@@ -25,7 +25,7 @@ ReactGA.initialize(TRACKING_ID);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/auto_login`, {
+      fetch(`${process.env.REACT_APP_API_URL}/auto_login`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

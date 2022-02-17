@@ -24,7 +24,7 @@ function Profile({ currentUser, setCurrentUser }) {
 
   useEffect(() => {
     if (token && currentUser.user) {
-      fetch(`http://localhost:3000/my-activity/${currentUser.user.id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/my-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ function Profile({ currentUser, setCurrentUser }) {
 
   useEffect(() => {
     if (currentUser.user) {
-      fetch(`http://localhost:3000/following/${currentUser.user.id}`)
+      fetch(`${process.env.REACT_APP_API_URL}/following/${currentUser.user.id}`)
         .then((res) => res.json())
         .then((res) => {
           setUserIsFollowing(res);
@@ -50,7 +50,7 @@ function Profile({ currentUser, setCurrentUser }) {
 
   useEffect(() => {
     if (currentUser.user) {
-      fetch(`http://localhost:3000/followers/${currentUser.user.id}`)
+      fetch(`${process.env.REACT_APP_API_URL}/followers/${currentUser.user.id}`)
         .then((res) => res.json())
         .then((res) => {
           setUsersFollowingYou(res);
@@ -70,7 +70,7 @@ function Profile({ currentUser, setCurrentUser }) {
     setValidated(true);
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/user-search/${searchTerm}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/user-search/${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -40,7 +40,7 @@ function EpisodeMainPage({ currentUser }) {
 
   useEffect(() => {
     if (!loading) {
-      fetch(`http://localhost:3000/episodes/${id}`)
+      fetch(`${process.env.REACT_APP_API_URL}/episodes/${id}`)
         .then((r) => r.json())
         .then((r) => {
           setCurrentEpisode(r);

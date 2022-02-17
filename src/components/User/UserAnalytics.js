@@ -17,7 +17,7 @@ function UserAnalytics({
   useEffect(() => {
     if (token && currentUser.user) {
       fetch(
-        `http://localhost:3000/total-time-listened/${currentUser.user.id}`,
+        `${process.env.REACT_APP_API_URL}/total-time-listened/${currentUser.user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

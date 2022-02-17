@@ -24,7 +24,7 @@ function MyPodcasts({ currentUser }) {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/my-podcasts/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/my-podcasts/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

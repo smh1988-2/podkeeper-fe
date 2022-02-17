@@ -9,7 +9,7 @@ function EpisodeDetail({ episode }) {
 
     function handleSearchResultCardClick(e) {
         // create the episode in the backend
-        fetch(`http://localhost:3000/episodes`, {
+        fetch(`${process.env.REACT_APP_API_URL}/episodes`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -34,6 +34,7 @@ function UserActivityContainer({
             .slice(0, numOfItems)
             .map((act) => {
               return (
+                <div key={act.id}>
                 <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
                     key={act.id}
@@ -74,6 +75,7 @@ function UserActivityContainer({
                     </Card.Body>
                   </Card>
                 </a>
+                </div>
               );
             })}
         </Row>
