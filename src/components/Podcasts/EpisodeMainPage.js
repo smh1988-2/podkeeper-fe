@@ -9,7 +9,6 @@ import PlayAndSkipControls from "./PlayAndSkipControls";
 import Loading from "../Home/Loading";
 
 import ReactPlayer from "react-player";
-import ScaleLoader from "react-spinners/ScaleLoader";
 import { Rating } from "react-simple-star-rating";
 import { RiArrowLeftLine } from "react-icons/ri";
 
@@ -59,7 +58,7 @@ function EpisodeMainPage({ currentUser }) {
   useEffect(() => {
     if (!loading && currentEpisode.id > 0) {
       fetch(
-        `http://localhost:3000/episode-rating/?user_id=${currentUser.user.id}&episode_id=${currentEpisode.id}`
+        `${process.env.REACT_APP_API_URL}/episode-rating/?user_id=${currentUser.user.id}&episode_id=${currentEpisode.id}`
       ).then((res) => {
         if (res.ok) {
           res.json().then((res) => {
@@ -78,7 +77,7 @@ function EpisodeMainPage({ currentUser }) {
   function handleStarRatingClick(e) {
     setStarRating(e);
 
-    fetch(`http://localhost:3000/rating`, {
+    fetch(`${process.env.REACT_APP_API_URL}/rating`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
