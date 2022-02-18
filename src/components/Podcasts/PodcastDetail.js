@@ -27,7 +27,7 @@ function PodcastDetail({ currentUser }) {
 
   useEffect(() => {
     if (!loading) {
-      fetch(`http://localhost:3000/podcasts/${id}`)
+      fetch(`${process.env.REACT_APP_API_URL}/podcasts/${id}`)
         .then((r) => r.json())
         .then((podcast) => {
           setCurrentPodcast(podcast);
@@ -50,7 +50,7 @@ function PodcastDetail({ currentUser }) {
   const myPodcastIds = [];
   useEffect(() => {
     if (currentPodcast.id) {
-      fetch(`http://localhost:3000/my-podcasts/${currentUser.user.id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/my-podcasts/${currentUser.user.id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ function PodcastDetail({ currentUser }) {
   useEffect(() => {
     if (!loading && currentPodcast.id > 0) {
       fetch(
-        `http://localhost:3000/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
+        `${process.env.REACT_APP_API_URL}/podcast-rating/?user_id=${currentUser.user.id}&podcast_id=${currentPodcast.id}`
       ).then((res) => {
         if (res.ok) {
           res.json().then((res) => {
@@ -98,7 +98,7 @@ function PodcastDetail({ currentUser }) {
   function handleStarRatingClick(e) {
     setStarRating(e);
     console.log(e)
-    fetch(`http://localhost:3000/rating`, {
+    fetch(`${process.env.REACT_APP_API_URL}/rating`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

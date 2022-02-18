@@ -21,7 +21,7 @@ function UserSearchReturnedUser({
   function handleFollowClick() {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`${env.API_URL}/follow`, {
+      fetch(`${process.env.REACT_APP_API_URL}/follow`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

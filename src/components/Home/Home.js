@@ -23,7 +23,7 @@ function Home({ currentUser }) {
   // get the activity for the current user
   useEffect(() => {
     if (token && currentUser.user) {
-      fetch(`http://localhost:3000/my-activity/${currentUser.user.id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/my-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -31,7 +31,7 @@ function Home({ currentUser }) {
         .then((resp) => resp.json())
         .then((data) => {
           setUserActivity(data);
-          console.log("user activity data is: ", data);
+          //console.log("user activity data is: ", data);
         });
     }
   }, [loading]);
@@ -39,7 +39,7 @@ function Home({ currentUser }) {
   // get the activity for the current user's friends. combine with above?
   useEffect(() => {
     if (token && currentUser.user) {
-      fetch(`http://localhost:3000/friend-activity/${currentUser.user.id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/friend-activity/${currentUser.user.id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

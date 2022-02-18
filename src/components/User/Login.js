@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import env from "react-dotenv";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -30,7 +29,7 @@ function Login({ setCurrentUser, currentUser }) {
     setValidated(true);
 
     e.preventDefault();
-    fetch(`http://localhost:3000/login`, {
+    fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

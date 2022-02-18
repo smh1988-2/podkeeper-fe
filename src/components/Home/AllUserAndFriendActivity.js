@@ -20,7 +20,7 @@ function AllUserAndFriendActivity({ userActivity, handleDate, headerText }) {
         <Row xs={1} md={2}>
           {userActivity.map((act) => {
             return (
-              <div className="card flex-row">
+              <div className="card flex-row" key={act.id}>
                 <Col md="auto" id="all-activity-card-image">
                   <img
                     className="card-img-top"

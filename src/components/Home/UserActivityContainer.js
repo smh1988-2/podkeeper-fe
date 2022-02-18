@@ -34,6 +34,7 @@ function UserActivityContainer({
             .slice(0, numOfItems)
             .map((act) => {
               return (
+                <div key={act.id}>
                 <a href={`/podcasts/${act.podcast.collectionId}`}>
                   <Card
                     key={act.id}
@@ -62,17 +63,19 @@ function UserActivityContainer({
                         {act.user ? act.user.username : null}
                         <br />
                           <Rating ratingValue={act.rating} readonly size={20} />
+                          <br />
                           </>
 
                          : null}
 
 
-                        <br />
+                        
                         {handleDate(act.created_at)}
                       </Card.Text>
                     </Card.Body>
                   </Card>
                 </a>
+                </div>
               );
             })}
         </Row>

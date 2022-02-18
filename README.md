@@ -4,34 +4,27 @@ The social podcast app - listen, review, and share the podcasts you're listening
 
 The backend repo is [here](https://github.com/smh1988-2/podkeeper-be).
 
+The frontent is built in React. With a RESTful API backend written in Ruby on Rails. The app is deployed on Heroku: [Podkeeper](http://www.podkeeper.live).
+
 ## User Stories
 
-As a user,
-* I want to be able to create an account, so I can log in and use the app.
-* I want to be able to search for podcasts and subscribe to them.
-* I want to be able to listen to an episode of a podcast, with the expected features of a podcast player (play/pause, mute , skip).
-* I want to be able to give a x/5 star rating to each episode and leave a review.
-* I want to see a timeline of all the podcast episodes I've listened to or reviewed.
-* I want to search for other users and see their timelines.
+As a user, I can...
+* create an account, so I can log in and use the app.
+* search for podcasts and subscribe to them.
+* listen to an episode of a podcast, with the expected features of a podcast player (play/pause, mute , skip).
+* give a x/5 star rating to each episode.
+* see a timeline of all the podcast episodes I've listened to or reviewed.
+* search for other users and see their activity.
 
 ## Models and Relationships
 
 ![My Data Relationships](public/podkeep-db-diagram.png)
 
 ### User
-
 A user has many subscriptions.
 A user has many episodes.
-A user has many relationships.
+A user has many relationships (following/followers).
 A user has many activities.
-
-### Podcasts
-
-A podcast has many episodes.
-An episode belongs to a podcast.
-A podcast and an episode belong to a user_activity.
-A podcast and an episode belong to a user_subscription.
-A podcast and an episode belong to a user_episode.
 
 
 ## API
@@ -78,6 +71,14 @@ activity_type: "review" }
 A user can only create new activites and see existing activites. They can't DELETE activities.
 
 Aside from my API, I am using iTunes Search to find podcasts and episodes. 
+
+## Resources/Attribution
+* [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html#//apple_ref/doc/uid/TP40017632-CH3-SW1)
+* [react-spinners](https://www.npmjs.com/package/react-spinners)
+* [Bootstrap React](https://react-bootstrap.github.io/)
+* [react-player](https://www.npmjs.com/package/react-player)
+* [react-icons](https://react-icons.github.io/react-icons/)
+* [HTMLemail](https://github.com/leemunroe/responsive-html-email-template)
 
 
 ## Wireframe / Mockup

@@ -17,7 +17,7 @@ function UserAnalytics({
   useEffect(() => {
     if (token && currentUser.user) {
       fetch(
-        `http://localhost:3000/total-time-listened/${currentUser.user.id}`,
+        `${process.env.REACT_APP_API_URL}/total-time-listened/${currentUser.user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ function UserAnalytics({
         .then((resp) => resp.json())
         .then((data) => {
           setTotalTimeListened(data);
-          console.log("total time listened: ", data);
+          //console.log("total time listened: ", data);
         });
     }
   }, []);
@@ -58,7 +58,7 @@ function UserAnalytics({
             </span>
             <br />
             <span className="element" id="element-2">
-              Hours listened
+              Time listened
             </span>
           </Col>
         ) : null}

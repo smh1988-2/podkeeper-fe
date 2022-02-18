@@ -15,7 +15,7 @@ function Signup({ setCurrentUser, currentUser }) {
 
   function handleSignupSubmit(e) {
     e.preventDefault();
-    fetch(`http://localhost:3000/users`, {
+    fetch(`${process.env.REACT_APP_API_URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
