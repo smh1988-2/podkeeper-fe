@@ -4,7 +4,7 @@ The social podcast app - listen, review, and share the podcasts you're listening
 
 The backend repo is [here](https://github.com/smh1988-2/podkeeper-be).
 
-The frontent is built in React. With a RESTful API backend written in Ruby on Rails. The app is deployed on Heroku: [Podkeeper](http://www.podkeeper.live).
+The frontend is built in React. With a RESTful API backend written in Ruby on Rails. The app is deployed on Heroku: [Podkeeper](http://www.podkeeper.live).
 
 ## User Stories
 
@@ -69,8 +69,6 @@ review: "my review is...",
 activity_type: "review" }
 ```
 A user can only create new activites and see existing activites. They can't DELETE activities.
-
-Aside from my API, I am using iTunes Search to find podcasts and episodes. 
 
 ## Resources/Attribution
 * [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html#//apple_ref/doc/uid/TP40017632-CH3-SW1)
